@@ -22,5 +22,10 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "css-loader": "^6.7.1",
+        "style-loader": "^3.3.1",
+        "swiper": "^8.2.6"
     }
 }
