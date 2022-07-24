@@ -5,47 +5,48 @@
 
 @section('content')
 <div class="col-md-offset-2 mb-4 edit-profile-wrapper">
-  <div class="row">
-    <div class="col-md-8 mx-auto">
-      <div class="profile-form-wrap">
-        <form class="edit_user" enctype="multipart/form-data" action="/users/update" accept-charset="UTF-8" method="post">
-          <input name="utf8" type="hidden" value="&#x2713;" />
-          <input type="hidden" name="id" value="{{ $user->id }}" />
-          {{csrf_field()}} 
-          <div class="form-group">
-            <label for="profile_picture">プロフィール写真</label><br>
-                @if ($user->profile_photo)
-                    <p>
-                        <img src="{{ asset('storage/images/' . $user->profile_picture) }}" alt="profile_picture" />
-                    </p>
-                @endif
-            <input type="file" name="profile_picture"  value="{{ old('profile_picture',$user->id) }}" accept="image/jpeg,image/gif,image/png" />
-          </div>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="d-flex align-items-start">
+                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">
+                    プロフィール
+                    </button>
+                    <button class="nav-link" id="v-pills-password-reset-tab" data-bs-toggle="pill" data-bs-target="#v-pills-password-reset" type="button" role="tab" aria-controls="v-pills-password-reset" aria-selected="false">
+                    パスワードを変更
+                    </button>
+                    <button class="nav-link" id="v-pills-notice-tab" data-bs-toggle="pill" data-bs-target="#v-pills-notice" type="button" role="tab" aria-controls="v-pills-notice" aria-selected="false">
+                    お知らせ
+                    </button>
+                    <button class="nav-link" id="v-pills-ticket-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ticket" type="button" role="tab" aria-controls="v-pills-ticket" aria-selected="false">
+                    ガチャチケット
+                    </button>
+                    <button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">
+                    ヘルプ
+                    </button>
+                </div>
 
-          <div class="form-group">
-            <label for="user_name">名前</label>
-            <input autofocus="autofocus" class="form-control" type="text" value="{{ old('user_name',$user->name) }}" name="user_name" />
-          </div>
+                <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+                        @include('users.profile')
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-password-reset" role="tabpanel" aria-labelledby="v-pills-password-reset-tab">
+                    
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-notice" role="tabpanel" aria-labelledby="v-pills-notice-tab">
+                        @include('users.notice')
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-ticket" role="tabpanel" aria-labelledby="v-pills-ticket-tab">
+                        @include('users.ticket')
+                    </div>
+                    <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">
+                        @include('users.help')
+                    </div>
+                    
+                </div>
+            </div>
 
-          <div class="form-group">
-            <label for="user_email">メールアドレス</label>
-            <input autofocus="autofocus" class="form-control" type="email" value="{{ old('user_email',$user->email) }}" name="user_email" />
-          </div>
-
-          <div class="form-group">
-            <label for="user_password">パスワード</label>
-            <input autofocus="autofocus" class="form-control" type="password" value="" name="user_password" />
-          </div>
-
-          <div class="form-group">
-            <label for="user_password_confirmation">パスワードの確認</label>
-            <input autofocus="autofocus" class="form-control" type="password" name="user_password_confirmation" />
-          </div>
-
-          <input type="submit" name="commit" value="変更する" class="btn btn-primary" data-disable-with="変更する" />
         </div>
-      </form>
     </div>
-  </div>
 </div>
 @endsection
