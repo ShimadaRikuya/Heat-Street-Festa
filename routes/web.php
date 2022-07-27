@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +20,16 @@ Route::get('/', function () {
 });
 
 Auth::routes();
+
+Route::group(['prefix' => 'users'], function() {
+    // ユーザ詳細画面
+    Route::get('{user_id}/show', [App\Http\Controllers\UsersController::class, 'show'])->name('user.show');
+    //ユーザ編集画面
+    Route::get('{user_id}/edit', [App\Http\Controllers\UsersController::class, 'edit'])->name('user.edit');
+    //ユーザ更新画面
+    Route::post('{user_id}/update', [App\Http\Controllers\UsersController::class, 'update'])->name('user.update');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
