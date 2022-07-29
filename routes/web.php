@@ -34,3 +34,7 @@ Route::group(['prefix' => 'users'], function() {
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('event/all', 'App\Http\Controllers\EventController@index')->name('event_all');
+// 投稿新規画面
+Route::get('event/new', 'App\Http\Controllers\EventController@new')->name('event_new');
+// 投稿新規処理
+Route::post('/events','App\Http\Controllers\EventController@@store');
