@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Models\User;
+use App\Http\Controllers\GatyaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::get('event/all', 'App\Http\Controllers\EventController@index')->name('eve
 // 投稿新規画面
 Route::get('event/new', 'App\Http\Controllers\EventController@new')->name('event_new');
 // 投稿新規処理
-Route::post('/events','App\Http\Controllers\EventController@@store');
-// 投稿確認画面
-Route::get('/form/confirm', "SampleFormController@confirm")->name("form.confirm");
+Route::post('/events', 'App\Http\Controllers\EventController@store');
+
+Route::get('gatyas/index', 'App\Http\Controllers\GatyaController@index')->name('gatya_index');
+Route::post('gatyas/complate', 'App\Http\Controllers\GatyaController@complate');
