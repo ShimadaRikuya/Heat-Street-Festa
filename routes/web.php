@@ -38,3 +38,5 @@ Route::get('event/all', 'App\Http\Controllers\EventController@index')->name('eve
 Route::get('event/new', 'App\Http\Controllers\EventController@new')->name('event_new');
 // 投稿新規処理
 Route::post('/events','App\Http\Controllers\EventController@@store');
+// 投稿確認画面
+Route::get('/form/confirm', "SampleFormController@confirm")->name("form.confirm");
