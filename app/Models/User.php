@@ -50,4 +50,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\event');
     }
+
+    public function gatyas()
+    {
+        return $this->hasMany('App\gatya');
+    }
 }
