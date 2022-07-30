@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class event extends Model
 {
     use HasFactory;
+    
+    Public function user()
+  {
+    return $this->belongsTo('App\User');
+  }
 }

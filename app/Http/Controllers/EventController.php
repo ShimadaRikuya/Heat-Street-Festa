@@ -22,9 +22,10 @@ class EventController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function new()
     {
         //
+        return view('event/new');
     }
 
     /**
