@@ -10,7 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -32,10 +32,10 @@
         @yield('footer')
     </div>
 
-    {{-- JavaScript 
-        swiper.js
-    --}}
+    <!-- swiper.js -->
     <script src="{{ mix('js/swiper.js') }}"></script>
+    <!-- new_member.js -->
+    <script src="{{ mix('js/new_member.js') }}"></script>
 
 </body>
 </html>

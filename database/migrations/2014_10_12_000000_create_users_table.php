@@ -21,7 +21,8 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('profile_picture')->default('user-shape.jpg');
             $table->tinyInteger('gender')->unsigned()->nullable()->comment('性別 : 1 : 男性 2 : 女性');
-            $table->string('phone', 20)->nullable()->comment('電話番号');;
+            $table->string('phone', 20)->nullable()->comment('電話番号');
+            $table->tinyInteger('role')->default(0)->index('index_role')->comment('ロール');
             $table->rememberToken();
             $table->timestamps();
         });
