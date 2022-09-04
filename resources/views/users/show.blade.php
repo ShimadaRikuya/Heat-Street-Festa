@@ -35,7 +35,7 @@
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('event_new') }}" role="button">＋新規作成</a></div>
+                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('events.create') }}" role="button">＋新規作成</a></div>
                             <div class="ms-auto ps-1 bd-highlight dropdown">
                                 <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                   並び順
