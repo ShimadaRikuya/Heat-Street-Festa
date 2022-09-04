@@ -16,4 +16,6 @@ mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/new_member.js', 'public/js')
     .js('resources/js/preview.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .version()
+    .sourceMaps();

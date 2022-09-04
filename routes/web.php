@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Mail;
 
 use App\Models\User;
 use App\Http\Controllers\EventController;
-use App\Mail\InviteMail;
+use App\Mail\SendTestMail;
 use App\Http\Controllers\MailController;
 use App\Http\Controllers\GatyaController;
 
