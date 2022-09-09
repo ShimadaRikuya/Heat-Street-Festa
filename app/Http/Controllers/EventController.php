@@ -19,8 +19,9 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
-        return view('events.index');
+        // 公開設定データ・新しい順に表示
+        $events = Event::publicList();
+        return view('events.index', compact('events'));
     }
 
     /**
@@ -52,12 +53,12 @@ class EventController extends Controller
 
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader');
-        // ddd($request->all());
-        // $categories = Category::find($request->category_id);
+
+        // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
         // ddd($categories);
 
-        // 定義
+        // 画像
         $image = $request->file('image_uploader');
         if($request->hasFile('image_uploader') && $image->isValid()) {
             // アップロードされたファイル名を取得
@@ -84,25 +85,6 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-        // 保存
-        // $event = new Event;
-        // $event->user_id = Auth::user()->id;
-        // $event->category_id = $request->category_id;
-        // $event->title = $request->title;
-        // $event->discription = $request->discription;
-        // $event->image_uploader = $request->image_uploader;
-        // $event->event_start = $request->event_start;
-        // $event->event_end = $request->event_end;
-        // $event->event_time_discription = $request->event_time_discription;
-        // $event->fee = $request->fee;
-        // $event->official_url = $request->official_url;
-        // $event->venue = $request->venue;
-        // $event->zip1 = $request->zip1;
-        // $event->zip2 = $request->zip2;
-        // $event->address1 = $request->address1;
-        // $event->address2 = $request->address2;
-        // $event->form_public = $request->form_public;
-        // $event->save();
         try {
             // トランザクション開始
             DB::beginTransaction();
@@ -111,6 +93,9 @@ class EventController extends Controller
             $event->fill($request->all())->save();
             // 処理に成功したらコミット
             DB::commit();
+            return redirect()
+                    ->route('events.index')
+                    ->withSuccess('データを登録しました。');
         } catch (\Throwable $e) {
             // 処理に失敗したらロールバック
             DB::rollback();
@@ -118,16 +103,6 @@ class EventController extends Controller
             \Log::error($e);
             // 登録処理失敗時にリダイレクト
             return redirect()->route('events.create')->with('error', '登録に失敗しました。');
-        }
-
-        if ($event) {
-            return redirect()
-                    ->route('events.index')
-                    ->withSuccess('データを登録しました。');
-        } else {
-            return redirect()
-                    ->route('events.create')
-                    ->withSuccess('データの登録に失敗しました。');
         }
     }
 
@@ -140,6 +115,9 @@ class EventController extends Controller
     public function show($id)
     {
         //
+        $events = Event::publicFindById($id);
+        // ddd($events);
+        return view('events.show', compact('events'));
     }
 
     /**
@@ -151,6 +129,8 @@ class EventController extends Controller
     public function edit($id)
     {
         //
+        $event = Event::find($id);
+        return view('events.edit', compact('event'));
     }
 
     /**

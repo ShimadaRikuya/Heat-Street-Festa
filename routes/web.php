@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Http\Controllers\EventController;
 use App\Mail\SendTestMail;
 use App\Http\Controllers\MailController;
-use App\Http\Controllers\GatyaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,5 +78,5 @@ Route::post('/events/confirm', [EventController::class, 'confirm'])->name('event
 //     Route::post('/', [EventController::class, 'store'])->name('events.store');
 // });
 
-Route::get('gatyas/index', [GatyaController::class, 'index'])->name('gatya_index');
-Route::post('gatyas/complate', [GatyaController::class,'complate']);
+// Route::get('gatyas/index', [GatyaController::class, 'index'])->name('gatya_index');
+// Route::post('gatyas/complate', [GatyaController::class,'complate']);
