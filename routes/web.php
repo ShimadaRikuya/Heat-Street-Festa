@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Mail\SendTestMail;
 use App\Http\Controllers\MailController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
