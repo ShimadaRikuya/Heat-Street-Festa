@@ -10,8 +10,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="https://ajaxzip3.github.io/ajaxzip3.js" charset="UTF-8"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -26,13 +25,6 @@
     <div id="app">
         @yield('navbar')
 
-        <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="flash_message">
-                {{ session('flash_message') }}
-            </div>
-        @endif
-
         <main class="py-4">
             @yield('content')
         </main>
@@ -40,12 +32,10 @@
         @yield('footer')
     </div>
 
-    <!-- swiper.js -->
+    {{-- JavaScript 
+        swiper.js
+    --}}
     <script src="{{ mix('js/swiper.js') }}"></script>
-    <!-- new_member.js -->
-    <script src="{{ mix('js/new_member.js') }}"></script>
-    <!-- preview.js -->
-    <script src="{{ mix('js/preview.js') }}"></script>
 
 </body>
 </html>
