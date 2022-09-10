@@ -15,24 +15,26 @@ class CreateEventsTable extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('title');
             $table->longText('discription');
             $table->string('image_uploader');
             $table->date('event_start');
             $table->date('event_end');
-            $table->text('event_time_discription');
+            $table->text('event_time_discription')->nullable();
             $table->string('fee');
-            $table->string('official_url');
-            $table->string('venue');
-            $table->integer('venue_address');
-            $table->integer('city');
+            $table->string('official_url')->nullable();
+            $table->string('venue')->nullable();
+            $table->integer('zip1');
+            $table->integer('zip2');
             $table->string('address1');
-            $table->boolean('form_public');
+            $table->string('address2');
+            $table->boolean('form_public')->default(false)->comment('公開・非公開');
 
             //外部キー設定
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザID');
-            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->comment('主催者チームID');
             $table->foreignId('category_id')->constrained('categories')->comment('カテゴリーID');
+            
+            // $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->comment('主催者チームID');
 
             $table->timestamps();
         });

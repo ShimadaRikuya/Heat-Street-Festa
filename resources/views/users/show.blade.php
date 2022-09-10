@@ -35,7 +35,7 @@
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('event_new') }}" role="button">＋新規作成</a></div>
+                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('events.create') }}" role="button">＋新規作成</a></div>
                             <div class="ms-auto ps-1 bd-highlight dropdown">
                                 <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                   並び順
@@ -63,28 +63,39 @@
 
                     </div>
                     <div id="tab2" class="tab-pane">
+                        
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="#" role="button">メンバー追加</a></div>
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="#" role="button">招待の再送</a></div>
-                            <div class="ms-auto ps-1 bd-highlight dropdown">
-                                <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  並び順
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                </ul>
+                            <div class="p-1 bd-highlight">一覧</div>
+                            <!-- クリックしたらモーダルを表示するボタン -->
+                            <div class="ms-auto ps-1 bd-highlight">
+                                <button class="modal-toggle btn btn-light" href="#" role="button" data-modal="modalOne">メンバーの招待</button>
+
+                                <!-- モーダルウィンドウ -->
+                                <div id="modalOne" class="modal">
+                                    <div class="modal-content">
+                                        <div class="modal-top">
+                                            <span class="modal-close">x</span>
+                                        </div>
+
+                                        <div class="modal-container">
+                                            @include('teams.invitationform')
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ps-1 bd-highlight dropdown">
+                                <div class="ms-auto ps-1 bd-highlight dropdown">
+                                    <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                      並び順
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="#">Action</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight">
-                                <img src="{{ asset('img/user-shape.png') }}" class="rounded-circle">
-                            </div>
-                            <div class="ps-5 flex-fill membar_body">
-                                <h5 class="card-title">Member name</h5>
-                                <p class="card-text">test@example.com</p>
-                            </div>
-                            <div class="ms-auto ps-1 block_member btn btn-light">ブロック</div>
-                            <div class="ms-auto ps-1 delete_member btn btn-light">削除</div>
+                            @include('teams.index')
                         </div>
                     </div>
                 </div>
