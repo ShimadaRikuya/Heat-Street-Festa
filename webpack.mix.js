@@ -13,9 +13,5 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .js('resources/js/swiper.js', 'public/js')
-    .js('resources/js/new_member.js', 'public/js')
-    .js('resources/js/preview.js', 'public/js')
     .vue()
-    .sass('resources/sass/app.scss', 'public/css')
-    .version()
-    .sourceMaps();
+    .sass('resources/sass/app.scss', 'public/css');

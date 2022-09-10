@@ -15,7 +15,7 @@
                         <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">イベントを探す</a>
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <li><a class="dropdown-item" href="{{ route('events.index') }}">全て</a></li>
+                            <li><a class="dropdown-item" href="{{ url('event/all') }}">全て</a></li>
                             <li><a class="dropdown-item" href="">パーティー</a></li>
                             <li><a class="dropdown-item" href="">ミュージック</a></li>
                             <li><a class="dropdown-item" href="">グルメ</a></li>
@@ -49,7 +49,7 @@
                             </li>
                         @endif
                     @else
-                        <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('events.create') }}" role="button">イベントを作成</a></div>
+                        <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('event_new') }}" role="button">イベントを作成</a></div>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}
