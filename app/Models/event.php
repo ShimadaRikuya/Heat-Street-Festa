@@ -84,5 +84,6 @@ class Event extends Model
             $event->user_id = \Auth::id();
         });
     }
+    
 
 }

@@ -3,15 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Event;
+use App\Models\User;
 
 class UsersController extends Controller
 {
-    public function show($user_id)
+    public function show(Request $request, $id)
     {
+        // user_id取得
+        $user = Auth::user();
+
+        // $userによる投稿を取得
+        $events = Event::where('user_id', $user->id)
+            ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
+            ->paginate(5);
          // テンプレート「user/show.blade.php」を表示
-        return view('users/show', compact('user_id'));
+        return view('users/show', compact('user', 'events'));
     }
 
     public function edit()

@@ -85,24 +85,17 @@ class EventController extends Controller
     public function store(Request $request)
     {
 
-        try {
-            // トランザクション開始
-            DB::beginTransaction();
-            // 保存処理
-            $event = new Event;
-            $event->fill($request->all())->save();
-            // 処理に成功したらコミット
-            DB::commit();
+        $event = new Event;
+        $event->fill($request->all())->save();
+
+        if ($event) {
             return redirect()
-                    ->route('events.index')
-                    ->withSuccess('データを登録しました。');
-        } catch (\Throwable $e) {
-            // 処理に失敗したらロールバック
-            DB::rollback();
-            // エラーログ
-            \Log::error($e);
-            // 登録処理失敗時にリダイレクト
-            return redirect()->route('events.create')->with('error', '登録に失敗しました。');
+                ->route('events.show', $event)
+                ->withSuccess('データを登録しました。');
+        } else {
+            return redirect()
+                ->route('events.create')
+                ->withError('データの登録に失敗しました。');
         }
     }
 
@@ -115,7 +108,7 @@ class EventController extends Controller
     public function show($id)
     {
         //
-        $events = Event::publicFindById($id);
+        $events = Event::find($id);
         // ddd($events);
         return view('events.show', compact('events'));
     }
@@ -126,11 +119,10 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Event $event)
     {
         //
-        $event = Event::find($id);
-        return view('events.edit', compact('event'));
+        return view('users.show', compact('$event'));
     }
 
     /**
