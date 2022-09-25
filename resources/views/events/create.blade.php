@@ -132,9 +132,10 @@
         </div>
 
         <div class="mb-3">
-            <label for="form_public" class="flexCheckChecked">公開設定</label>
+            <label for="checkbox1">公開設定</label>
             <input type="hidden" name="form_public" value="0">
-            <input type="checkbox" name="form_public" class="form-check-input" value="1">
+            <input type="checkbox" id="checkbox1" name="form_public" value="1">
+            <span id="output"></span>
         </div>
 
         <div class="mb-3">

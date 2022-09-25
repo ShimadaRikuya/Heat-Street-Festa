@@ -56,8 +56,17 @@
                                         <p class="card-text">2022/01/01</p>
                                     </div>
                                     <div class="col-md-2 d-flex">
-                                        <input type="button" onclick="location.href='{{ route('events.edit', $event->id) }}'" class="edit_event btn btn-light" value="編集"/>
-                                        <div class="delete_event btn btn-light">削除</div>
+                                        <input
+                                            type="button" 
+                                            onclick="location.href='{{ route('events.edit', $event->id) }}'" 
+                                            class="edit_event btn btn-light" 
+                                            value="編集"
+                                        />
+                                        <form class="delete_event" method="post" action="{{ route('events.destroy', $event) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="submit" class="btn btn-light" value="削除">
+                                          </form>
                                     </div>
                                 @endforeach
                             </div>

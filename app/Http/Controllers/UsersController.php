@@ -20,6 +20,8 @@ class UsersController extends Controller
         $events = Event::where('user_id', $user->id)
             ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
+
+        // ddd($events);
          // テンプレート「user/show.blade.php」を表示
         return view('users/show', compact('user', 'events'));
     }

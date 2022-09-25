@@ -50,7 +50,6 @@ class EventController extends Controller
      */
     public function confirm(Request $request)
     {
-
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader');
 
@@ -119,10 +118,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Event $event)
+    public function edit(Request $request, $id)
     {
-        //
-        return view('users.show', compact('$event'));
+        $categories = Category::all();
+        
+        $event = Event::find($id);
+        // ddd($event);
+        return view('events.edit', compact('categories', 'event'));
     }
 
     /**
@@ -134,7 +136,20 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //データ更新処理
+        // updateは更新する情報がなくても更新が走る（updated_atが更新される）
+        $event = Event::find($id)->update($request->all());
+
+        if ($event) {
+            return redirect()
+                ->route('events.show', $event)
+                ->with('flash_message', 'イベント記事の更新に成功しました。');
+        } else {
+            // 登録処理失敗時にリダイレクト
+            return redirect()
+                ->route('events.index')
+                ->with('flash_message', 'イベント記事の更新に失敗しました。');
+        }
     }
 
     /**
@@ -145,6 +160,12 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($id)
+        {
+            Event::where('id', $id)->delete();
+            return redirect()
+                ->route('events.index')
+                ->with('flash_message', '削除に成功しました。');
+        }
     }
 }
