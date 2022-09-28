@@ -13,6 +13,16 @@ use App\Models\Category;
 class EventController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -83,18 +93,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-
-        $event = new Event;
-        $event->fill($request->all())->save();
+        $event = Event::create($request->all());
 
         if ($event) {
             return redirect()
                 ->route('events.show', $event)
-                ->withSuccess('データを登録しました。');
+                ->with('flash_message', 'データを登録しました。');
         } else {
             return redirect()
                 ->route('events.create')
-                ->withError('データの登録に失敗しました。');
+                ->with('flash_message', 'データの登録に失敗しました。');
         }
     }
 
@@ -136,9 +144,28 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $event = Event::find($id);
+        $form = $request->all();
+
+        if (isset($form['image_uploader'])) {
+            // 画像ファイルインスタンス取得
+            $filedel = $event->image_uploader;
+            // 現在の画像ファイルの削除
+            Storage::disk('public')->delete($filedel);
+            
+            if ($form['image_uploader']) {
+                $image = $request->file('image_uploader');
+                // アップロードされたファイル名を取得
+                $filename = $image->getClientOriginalName();
+                $form['image_uploader'] = 'storage/event_images/'. $filename;
+                // 取得したファイル名で保存
+                $request->image_uploader->storeAs('public/event_images', $filename);
+            }
+        }
+
         //データ更新処理
         // updateは更新する情報がなくても更新が走る（updated_atが更新される）
-        $event = Event::find($id)->update($request->all());
+        $event->update($form);
 
         if ($event) {
             return redirect()
