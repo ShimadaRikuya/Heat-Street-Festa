@@ -47,17 +47,30 @@
                         </div>
                         <div class="card mx-auto">
                             <div class="row gy-1 align-items-center">
-                                <div class="col-md-4">
-                                    <img class="img-thumbnail" src="{{ asset('img/image1.jpg') }}" alt="Card image cap">
-                                </div>
-                                <div class="col-md-6 card-body">
-                                    <h5 class="card-title">Card title</h5>
-                                    <p class="card-text">2022/01/01</p>
-                                </div>
-                                <div class="col-md-2 d-flex">
-                                    <div class="edit_event btn btn-light">編集</div>
-                                    <div class="delete_event btn btn-light">削除</div>
-                                </div>
+                                @foreach($events as $event)
+                                    <div class="col-md-4">
+                                        <a href="{{ route('events.show', $event->id) }}">
+                                            <img class="img-thumbnail" src="{{ asset($event->image_uploader) }}" alt="Card image cap">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-6 card-body">
+                                        <h5 class="card-title">{{ $event->title }}</h5>
+                                        <p class="card-text">2022/01/01</p>
+                                    </div>
+                                    <div class="col-md-2 d-flex">
+                                        <input
+                                            type="button" 
+                                            onclick="location.href='{{ route('events.edit', $event->id) }}'" 
+                                            class="edit_event btn btn-light" 
+                                            value="編集"
+                                        />
+                                        <form class="delete_event" method="post" action="{{ route('events.destroy', $event) }}">
+                                            @csrf
+                                            @method('delete')
+                                            <input type="submit" class="btn btn-light" value="削除">
+                                          </form>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
 

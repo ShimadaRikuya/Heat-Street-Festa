@@ -46,6 +46,8 @@
     <script src="{{ mix('js/new_member.js') }}"></script>
     <!-- preview.js -->
     <script src="{{ mix('js/preview.js') }}"></script>
+    <!-- check.js -->
+    <script src="{{ mix('js/check.js') }}"></script>
 
 </body>
 </html>

@@ -23,7 +23,7 @@
         <div class="image">
             <p>画像</p>
             <input type="hidden" class="form-control" value="{{ $img_path }}" name="image_uploader" multiple>
-            <img src="{{ asset('storage/'. $img_path) }}" alt="画像">
+            <img src="{{ asset($img_path) }}" alt="画像">
         </div>
 
         <div class="mb-3">

@@ -24,8 +24,8 @@ class CreateEventsTable extends Migration
             $table->string('fee');
             $table->string('official_url')->nullable();
             $table->string('venue')->nullable();
-            $table->integer('zip1');
-            $table->integer('zip2');
+            $table->string('zip1', 3);
+            $table->string('zip2', 4);
             $table->string('address1');
             $table->string('address2');
             $table->boolean('form_public')->default(false)->comment('公開・非公開');

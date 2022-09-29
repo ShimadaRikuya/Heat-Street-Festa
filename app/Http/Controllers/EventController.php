@@ -13,6 +13,16 @@ use App\Models\Category;
 class EventController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -50,7 +60,6 @@ class EventController extends Controller
      */
     public function confirm(Request $request)
     {
-
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader');
 
@@ -84,25 +93,16 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        $event = Event::create($request->all());
 
-        try {
-            // トランザクション開始
-            DB::beginTransaction();
-            // 保存処理
-            $event = new Event;
-            $event->fill($request->all())->save();
-            // 処理に成功したらコミット
-            DB::commit();
+        if ($event) {
             return redirect()
-                    ->route('events.index')
-                    ->withSuccess('データを登録しました。');
-        } catch (\Throwable $e) {
-            // 処理に失敗したらロールバック
-            DB::rollback();
-            // エラーログ
-            \Log::error($e);
-            // 登録処理失敗時にリダイレクト
-            return redirect()->route('events.create')->with('error', '登録に失敗しました。');
+                ->route('events.show', $event)
+                ->with('flash_message', 'イベントを作成しました。');
+        } else {
+            return redirect()
+                ->route('events.create')
+                ->with('flash_message', 'イベントの作成に失敗しました。');
         }
     }
 
@@ -115,7 +115,7 @@ class EventController extends Controller
     public function show($id)
     {
         //
-        $events = Event::publicFindById($id);
+        $events = Event::find($id);
         // ddd($events);
         return view('events.show', compact('events'));
     }
@@ -126,11 +126,13 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
-        //
+        $categories = Category::all();
+        
         $event = Event::find($id);
-        return view('events.edit', compact('event'));
+        // ddd($event);
+        return view('events.edit', compact('categories', 'event'));
     }
 
     /**
@@ -142,7 +144,39 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $event = Event::find($id);
+        $form = $request->all();
+
+        if (isset($form['image_uploader'])) {
+            // 画像ファイルインスタンス取得
+            $filedel = $event->image_uploader;
+            // 現在の画像ファイルの削除
+            Storage::disk('public')->delete($filedel);
+            
+            if ($form['image_uploader']) {
+                $image = $request->file('image_uploader');
+                // アップロードされたファイル名を取得
+                $filename = $image->getClientOriginalName();
+                $form['image_uploader'] = 'storage/event_images/'. $filename;
+                // 取得したファイル名で保存
+                $request->image_uploader->storeAs('public/event_images', $filename);
+            }
+        }
+
+        //データ更新処理
+        // updateは更新する情報がなくても更新が走る（updated_atが更新される）
+        $event->update($form);
+
+        if ($event) {
+            return redirect()
+                ->route('events.show', $event)
+                ->with('flash_message', 'イベント記事の更新に成功しました。');
+        } else {
+            // 登録処理失敗時にリダイレクト
+            return redirect()
+                ->route('events.index')
+                ->with('flash_message', 'イベント記事の更新に失敗しました。');
+        }
     }
 
     /**
@@ -153,6 +187,12 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if($id)
+        {
+            Event::where('id', $id)->delete();
+            return redirect()
+                ->route('events.index')
+                ->with('flash_message', '削除に成功しました。');
+        }
     }
 }
