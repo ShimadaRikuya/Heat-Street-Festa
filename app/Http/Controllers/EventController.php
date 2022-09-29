@@ -98,11 +98,11 @@ class EventController extends Controller
         if ($event) {
             return redirect()
                 ->route('events.show', $event)
-                ->with('flash_message', 'データを登録しました。');
+                ->with('flash_message', 'イベントを作成しました。');
         } else {
             return redirect()
                 ->route('events.create')
-                ->with('flash_message', 'データの登録に失敗しました。');
+                ->with('flash_message', 'イベントの作成に失敗しました。');
         }
     }
 
