@@ -47,13 +47,13 @@ class User extends Authenticatable
     ];
 
     //hasMany設定
-    public function events()
+    public function teams()
     {
-        return $this->hasMany('App\event');
+        return $this->hasMany(Team::class);
     }
 
     public function gatyas()
     {
-        return $this->hasMany('App\gatya');
+        return $this->hasMany(Gatya::class);
     }
 }

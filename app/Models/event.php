@@ -18,7 +18,7 @@ class Event extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
-      'user_id',
+      'team_id',
       'category_id',
       'title', 
       'discription', 
@@ -40,10 +40,10 @@ class Event extends Model
       'form_public' => 'bool',
     ];
 
-    //1対多のリレーション追加
-    public function user()
+    //1対1のリレーション追加
+    public function Team()
     {
-    return $this->belongsTo('App\User');
+    return $this->hasOne(Team::class);
     }
 
     /**

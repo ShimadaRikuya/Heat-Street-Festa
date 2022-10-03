@@ -20,7 +20,7 @@ class CreateTeamsTable extends Migration
             $table->string('phone')->nullable()->comment('問い合わせ連絡先');
             
             // 外部キー設定
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザID');
+            $table->foreignId('owner_id')->nullable()->constrained('users')->onDelete('cascade')->comment('ユーザID');
 
             $table->timestamps();
         });
