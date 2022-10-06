@@ -17,18 +17,33 @@ class Team extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
-        'owner_id',
         'name',
         'email',
-        'phone'
+        'phone',
+        'owner_id',
+        'user_id'
     ];
 
-    /**
-    * user_idをowner_idカラムに指定
-    * １対 多 の１側なので単数形
-    */
-    public function user()
+     // Userテーブルとのリレーション （従テーブル側）
+     public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    // Userテーブルとの多対多リレーション
+    public function members() 
     {
-        return $this->belongsTo(User::class, 'owner_id');
+        return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * 従テーブルから主テーブルを引っ張ってくる
+     * 1対1のリレーション追加
+     * 外部キーがある側は従テーブル
+     *
+     * @return void
+     */
+    public function Event()
+    {
+        return $this->belongsTo(Event::class);
     }
 }

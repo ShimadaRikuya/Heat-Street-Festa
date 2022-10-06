@@ -29,7 +29,7 @@
                         <a href="#tab1" class="nav-link active" data-bs-toggle="tab">イベント</a>
                     </li>
                     <li class="nav-item">
-                        <a href="#tab2" class="nav-link" data-bs-toggle="tab">メンバー管理</a>
+                        <a href="#tab2" class="nav-link" data-bs-toggle="tab">主催者チーム管理</a>
                     </li>
                 </ul>
                 <div class="tab-content">

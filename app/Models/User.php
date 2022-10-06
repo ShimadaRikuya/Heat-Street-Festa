@@ -46,10 +46,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //hasMany設定
-    public function teams()
-    {
+    // Teamsテーブルとのリレーション （主テーブル側）
+    public function o_teams() {
         return $this->hasMany(Team::class);
+    }
+
+    // Teamsテーブルとの多対多リレーション
+    public function my_teams() 
+    {
+        return $this->belongsToMany(Team::class);
     }
 
     public function gatyas()

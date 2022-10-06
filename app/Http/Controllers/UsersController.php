@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
+use App\Models\Team;
 use App\Models\User;
 
 class UsersController extends Controller
@@ -16,14 +17,16 @@ class UsersController extends Controller
         // user_id取得
         $user = Auth::user();
 
-        // $userによる投稿を取得
-        $events = Event::where('user_id', $user->id)
+        // teamが投稿したイベントを表示
+        $events = Event::where('team_id', '=', 1)
             ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
 
-        // ddd($events);
+        //チーム 全件取得
+        $teams = Team::get();
+
          // テンプレート「user/show.blade.php」を表示
-        return view('users/show', compact('user', 'events'));
+        return view('users/show', compact('user', 'events', 'teams'));
     }
 
     public function edit()

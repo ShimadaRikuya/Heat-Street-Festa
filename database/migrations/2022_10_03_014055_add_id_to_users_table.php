@@ -15,8 +15,7 @@ class AddIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //外部キー設定
-            $table->foreignId('team_id')->nullable()->after('role')->constrained('teams')->onDelete('cascade')->comment('チームID');
-            $table->foreignId('gatya_id')->nullable()->after('team_id')->constrained('gatyas')->onDelete('cascade')->comment('ガチャID');
+            $table->foreignId('gatya_id')->nullable()->after('role')->constrained('gatyas')->onDelete('cascade')->comment('ガチャID');
         });
     }
 
@@ -28,7 +27,6 @@ class AddIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign(['team_id']);  //カラムの削除
             $table->dropForeign(['gatya_id']);  //カラムの削除
         });
     }

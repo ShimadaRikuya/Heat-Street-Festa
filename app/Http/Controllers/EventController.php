@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
+use App\Models\Team;
 use App\Models\Category;
 
 class EventController extends Controller
@@ -93,7 +94,7 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $event = Event::create($request->all());
+        $event = $this->event->InsertEvent($request);
 
         if ($event) {
             return redirect()
