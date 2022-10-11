@@ -30,7 +30,7 @@ class Team extends Model
     }
 
     // Userテーブルとの多対多リレーション
-    public function members() 
+    public function users() 
     {
         return $this->belongsToMany(User::class);
     }
@@ -42,8 +42,19 @@ class Team extends Model
      *
      * @return void
      */
-    public function Event()
+    public function event()
     {
         return $this->belongsTo(Event::class);
+    }
+
+    public function InsertTeam($request)
+    {
+        // リクエストデータを基に管理マスターユーザーに登録する
+        return $this->create([
+            'name'               => $request->team_name,
+            'email'           => $request->team_email,
+            'phone'                 => $request->team_phone,
+            'owner_id'           => $request->owner_id,
+        ]);
     }
 }

@@ -82,6 +82,32 @@
                 <div class="">{{ $categories->name }}</div>
         </div>
 
+        <!-- チーム情報 --->
+        <div class="mb-3">
+            <input type="hidden" name="team_id" value="{{ $teams->id }}">
+            <!-- チーム名 -->
+            <div class="form-group">
+                チーム名
+                <div class="col-sm-6">
+                    {{ $teams->name }}
+                </div>
+            </div>
+            <!-- 問い合わせメールアドレス -->
+            <div class="form-group">
+                問い合わせメールアドレス
+                <div class="col-sm-6">
+                    {{ $teams->email }}
+                </div>
+            </div>
+            <!-- 問い合わせ連絡先 -->
+            <div class="form-group">
+                問い合わせ連絡先
+                <div class="col-sm-6">
+                    {{ $teams->phone }}
+                </div>
+            </div>
+        </div>
+
         <input type="button" value="修正" onClick="history.back()">
         <button type="submit" class="btn btn-primary btn-block">登録</button>
 

@@ -14,7 +14,7 @@
         <!-- 投稿フォーム -->
         @if( Auth::check() )
         <form action="{{ url('teams') }}" method="POST" class="form-horizontal">
-            {{ csrf_field() }}
+            @csrf
             <!-- チーム名 -->
             <div class="form-group">
                 チーム名

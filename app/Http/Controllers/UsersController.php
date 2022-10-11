@@ -22,8 +22,8 @@ class UsersController extends Controller
             ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
 
-        //チーム 全件取得
-        $teams = Team::get();
+        //参加チーム 取得
+        $teams = User::find($user->id)->teams;
 
          // テンプレート「user/show.blade.php」を表示
         return view('users/show', compact('user', 'events', 'teams'));

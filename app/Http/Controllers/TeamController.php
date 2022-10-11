@@ -17,6 +17,7 @@ class TeamController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::id();
         // //バリデーション 
         // $validator = Validator::make($request->all(), [
         //     'team_name' => 'required|max:255'
@@ -37,6 +38,9 @@ class TeamController extends Controller
         $teams->owner_id = Auth::id();//ここでログインしているユーザidを登録しています
         $teams->user_id = Auth::id();//ここでログインしているユーザidを登録しています
         $teams->save();
+
+        //多対多のリレーションもここで登録
+        $teams->users()->attach( $user );
         
         return redirect()->route('user.show', $user)->with('flash_message', 'チームを作成しました。');
         
@@ -46,7 +50,7 @@ class TeamController extends Controller
     public function show(Team $team)
     {
         return view('teams/detail',[
-            'team'=> $team,
+            'team' => $team,
             ]);
     }
 
@@ -97,21 +101,21 @@ class TeamController extends Controller
         $team = Team::find($team_id);
         
         //リレーションの登録
-        $team->members()->attach($user);
+        $team->users()->attach($user);
         
-        return redirect('/');
+        return redirect()->route('user.show', $user)->with('flash_message', 'チームに参加しました。');
         
     }
 
-    public function select(Request $request, $id)
+    public function select(Request $request)
     {
         //ログイン中のユーザーを取得
-        $user = Auth::user();
+        $user_id = Auth::id();
 
-        $teams = Team::all();
-        
+        // ユーザーは1つのチームに所属。
+        $teams = User::find($user_id)->team;
+
         return view('teams.select',[
-            'id' => $id,
             'teams' => $teams,
             ]);
     }

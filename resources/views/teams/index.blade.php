@@ -21,11 +21,11 @@
                             </td>
                              <!-- チームオーナー -->
                             <td class="table-text">
-                                <div></div>
+                                <div>{{ $team->user->name }}</div>
                             </td>
                             <!-- 所属人数 -->
                             <td class="table-text">
-                                <div>{{ $team->members()->count() }}人参加中</div>
+                                <div>{{ $team->users()->count() }}人参加中</div>
                             </td>
                             <!-- 詳細ボタン -->
                             <td class="table-text">
@@ -34,8 +34,8 @@
 			                 <!-- チーム参加ボタン -->
                             <td class="table-text">
                                 @if(Auth::check())
-                                    @if(Auth::id() != $team->user_id && $team->members()->where('user_id',Auth::id())->exists() !== true)
-                                        <form action="{{ url('teams/'.$team->id) }}" method="GET">
+                                    @if(Auth::id() != $team->user_id && $team->users()->where('user_id', Auth::id())->exists() !== true)
+                                        <form action="{{ url('teams/join/'. $team->id) }}" method="GET">
                                             {{ csrf_field() }}
                                             <button type="submit" class="btn btn-danger">
                                             参加

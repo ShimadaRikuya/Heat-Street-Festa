@@ -16,10 +16,11 @@ class SendTestMail extends Mailable
      *
      * @return void
      */
-    public function __construct($request)
+    public function __construct($name, $email, $team)
     {
-        $this->request = $request;
-        // $this->teamName = $teamName;
+        $this->name = $name;
+        $this->email = $email;
+        $this->team = $team;
     }
 
     /**
@@ -31,6 +32,11 @@ class SendTestMail extends Mailable
     {
         return $this->from('Promo@info.com')
                     ->view('emails.test')
-                    ->subject('招待メール');
+                    ->subject('招待メール')
+                    ->with([
+                        'name' => $this->name,
+                        'email' => $this->email,
+                        'team' => $this->team,
+                    ]);
     }
 }

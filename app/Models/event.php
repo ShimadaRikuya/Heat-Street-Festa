@@ -46,7 +46,7 @@ class Event extends Model
      *
      * @return void
      */
-    public function Team()
+    public function team()
     {
         return $this->hasOne(Team::class);
     }
@@ -79,39 +79,5 @@ class Event extends Model
     {
        return $query->public()->findOrFail($id);
     }
-
-    public function InsertEvent($request)
-    {
-        // リクエストデータを基に管理マスターユーザーに登録する
-        return $this->create([
-            'team_id'               => $request->team_id,
-            'category_id'           => $request->category,
-            'title'                 => $request->title,
-            'discription'           => $request->discription,
-            'image_uploader'        => $request->image_uploader, 
-            'event_start'           => $request->event_start, 
-            'event_end'             => $request->event_end, 
-            'event_time_discription'=> $request->event_time_discription,
-            'fee'                   => $request->fee,
-            'official_url'          => $request->official_url,
-            'venue'                 => $request->venue,
-            'zip1'                  => $request->zip1,
-            'zip2'                  => $request->zip2,
-            'address1'              => $request->address1,
-            'address2'              => $request->address2,
-            'form_public'           => $request->form_public,
-        ]);
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        // 保存時user_idをログインユーザーに設定
-        self::saving(function($event) {
-            $event->user_id = \Auth::id();
-        });
-    }
-    
 
 }

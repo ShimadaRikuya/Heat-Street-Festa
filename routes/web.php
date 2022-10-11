@@ -40,11 +40,7 @@ Route::group(['prefix' => 'users'], function() {
 
 // メール送信
 Route::post('/mail', [MailController::class, 'send']);
-
-    Route::group(['middleware' => 'signed'], function() {
-        // 参加リンクをクリック
-        Route::get('/mail/join', [MailController::class, 'join'])->name('mail.join');
-    });
+Route::post('/mail/invite', [MailController::class, 'invite'])->name('mail.invite');
 
 
 /**
@@ -76,12 +72,9 @@ Route::post('/mail', [MailController::class, 'send']);
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::resource('/events', 'EventController');
-Route::post('/events/confirm', [EventController::class, 'confirm'])->name('events.confirm');
-
 Route::group(['prefix' => 'teams'], function() {
-    // チーム作成登録処理
-    Route::get('/select/{team_id}', [TeamController::class, 'select'])->name('teams.select');
+    // チーム選択処理
+    Route::get('/select', [TeamController::class, 'select'])->name('teams.select');
     // 主催者の新規登録
     Route::get('/create', [TeamController::class, 'create'])->name('teams.create');
     // チーム作成登録処理
@@ -93,18 +86,27 @@ Route::group(['prefix' => 'teams'], function() {
     //チーム更新処理
     Route::post('/update',  [TeamController::class, 'update']);
     // チームに参加処理
-    Route::get('/{team_id}', [TeamController::class, 'join']);
+    Route::get('/join/{team_id}', [TeamController::class, 'join']);
 });
 
-// Route::group(['prefix' => 'events'], function () {
-//     // 一覧
-//     Route::get('/index', [EventController::class, 'index'])->name('events.index');
-//     // 投稿新規画面
-//     Route::get('/create', [EventController::class, 'create'])->name('events.create');
-//     // 投稿新規確認画面
-//     Route::post('/confirm', [EventController::class, 'confirm'])->name('events.confirm');
-//     Route::post('/', [EventController::class, 'store'])->name('events.store');
-// });
+Route::group(['prefix' => 'events'], function () {
+    // 一覧
+    Route::get('/', [EventController::class, 'index'])->name('events.index');
+    // 投稿新規画面
+    Route::post('/create', [EventController::class, 'create'])->name('events.create');
+    // 投稿新規確認画面
+    Route::post('/confirm', [EventController::class, 'confirm'])->name('events.confirm');
+    // 登録処理
+    Route::post('/', [EventController::class, 'store'])->name('events.store');
+    // 詳細
+    Route::get('/{event}', [EventController::class, 'show'])->name('events.show');
+    // 編集処理
+    Route::get('/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+    // 更新処理
+    Route::put('/{event}', [EventController::class, 'update'])->name('events.update');
+    // 削除処理
+    Route::delete('/{event}', [EventController::class, 'destroy'])->name('events.destroy');
+});
 
 // Route::get('gatyas/index', [GatyaController::class, 'index'])->name('gatya_index');
 // Route::post('gatyas/complate', [GatyaController::class,'complate']);

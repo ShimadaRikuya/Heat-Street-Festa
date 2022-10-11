@@ -52,9 +52,15 @@ class User extends Authenticatable
     }
 
     // Teamsテーブルとの多対多リレーション
-    public function my_teams() 
+    public function teams() 
     {
         return $this->belongsToMany(Team::class);
+    }
+
+    // Teamsテーブルとの1対多リレーション
+    public function team() 
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function gatyas()
