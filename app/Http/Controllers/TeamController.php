@@ -123,4 +123,20 @@ class TeamController extends Controller
             'teams' => $teams,
             ]);
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Team $team)
+    {
+        $user = Auth::user();
+        $team->delete();
+        
+        return redirect()
+            ->route('user.show', $user)
+            ->with('flash_message', '削除に成功しました。');
+    }
 }

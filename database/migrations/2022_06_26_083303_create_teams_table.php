@@ -20,7 +20,6 @@ class CreateTeamsTable extends Migration
             $table->string('phone')->nullable()->comment('問い合わせ連絡先');
             $table->integer('owner_id')->comment('オーナーID');
             $table->integer('user_id')->comment('メンバーID');
-
             $table->timestamps();
         });
     }

@@ -57,4 +57,12 @@ class Team extends Model
             'owner_id'           => $request->owner_id,
         ]);
     }
+
+    /**
+     * 削除処理
+     */
+    public function deleteTeamById($id)
+    {
+        return $this->destroy($id);
+    }
 }

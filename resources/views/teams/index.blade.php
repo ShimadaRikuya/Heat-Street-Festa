@@ -10,6 +10,7 @@
                     <th>詳細</th>
                     <th>参加</th>
                     <th>編集</th>
+                    <th>削除</th>
                 </thead>
                 <!-- テーブル本体 -->
                 <tbody>
@@ -53,6 +54,16 @@
                                         編集
                                         </button>
                                     </form>	
+                                @endif
+                            </td>
+                            <!-- チーム削除ボタン -->
+                            <td>
+                                @if(Auth::user()->id === $team->user_id)
+                                    <form onsubmit="return confirm('本当に削除しますか？')" action="{{ route('teams.destroy', $team) }}" method="POST">
+                                        @method('delete')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">削除</button>
+                                    </form>
                                 @endif
                             </td>
                         </tr>

@@ -85,6 +85,8 @@ Route::group(['prefix' => 'teams'], function() {
     Route::get('/edit/{team}', [TeamController::class, 'edit']); 
     //チーム更新処理
     Route::post('/update',  [TeamController::class, 'update']);
+    // 削除処理
+    Route::delete('/delete/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
     // チームに参加処理
     Route::get('/join/{team_id}', [TeamController::class, 'join']);
 });
