@@ -17,13 +17,13 @@ class UsersController extends Controller
         // user_id取得
         $user = Auth::user();
 
+        //参加チーム 取得
+        $teams = User::find($user->id)->teams;
+
         // teamが投稿したイベントを表示
         $events = Event::where('team_id', '=', 1)
             ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
-
-        //参加チーム 取得
-        $teams = User::find($user->id)->teams;
 
          // テンプレート「user/show.blade.php」を表示
         return view('users/show', compact('user', 'events', 'teams'));

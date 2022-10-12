@@ -49,8 +49,12 @@ class TeamController extends Controller
     //詳細表示
     public function show(Team $team)
     {
+        $events = Team::find($team->id)
+            ->event;
+
         return view('teams/detail',[
             'team' => $team,
+            'events' => $events,
             ]);
     }
 

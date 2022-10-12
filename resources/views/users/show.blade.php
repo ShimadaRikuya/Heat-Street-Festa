@@ -79,24 +79,7 @@
                         
                         <div class="d-flex bd-highlight mb-3">
                             <div class="p-1 bd-highlight">一覧</div>
-                            <!-- クリックしたらモーダルを表示するボタン -->
-                            <div class="ms-auto ps-1 bd-highlight">
-                                <button class="modal-toggle btn btn-light" href="#" role="button" data-modal="modalOne">メンバーの招待</button>
-
-                                <!-- モーダルウィンドウ -->
-                                <div id="modalOne" class="modal">
-                                    <div class="modal-content">
-                                        <div class="modal-top">
-                                            <span class="modal-close">x</span>
-                                        </div>
-
-                                        <div class="modal-container">
-                                            @include('teams.invitationform')
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="ps-1 bd-highlight dropdown">
+                            <div class="ms-auto ps-1 bd-highlight dropdown">
                                 <div class="ms-auto ps-1 bd-highlight dropdown">
                                     <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                       並び順

@@ -48,7 +48,7 @@ class Event extends Model
      */
     public function team()
     {
-        return $this->hasOne(Team::class);
+        return $this->belongsTo(Team::class);
     }
 
     /**

@@ -37,14 +37,14 @@ class Team extends Model
 
     /**
      * 従テーブルから主テーブルを引っ張ってくる
-     * 1対1のリレーション追加
+     * 1対多のリレーション追加
      * 外部キーがある側は従テーブル
      *
      * @return void
      */
     public function event()
     {
-        return $this->belongsTo(Event::class);
+        return $this->hasMany(Event::class);
     }
 
     public function InsertTeam($request)
