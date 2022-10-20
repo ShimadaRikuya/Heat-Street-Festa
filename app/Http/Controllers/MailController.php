@@ -5,17 +5,38 @@ namespace App\Http\Controllers;
 use App\Mail\SendTestMail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Team;
+use App\Models\User;
 
 class MailController extends Controller
 {
-    //
     public function send(Request $request)
     {
-        $to = $request->email;
-        Mail::to($to)->send(new SendTestMail());
+        // user_id取得
+        $user = Auth::user();
+
+        $email = $request->email;
+        $team_id = $request->team_id;
+        $token = $request->invite_code;
+        $invite_url = "http://localhost:8573/team/join/$team_id"."/".$request->invite_code;
+
+        $team = Team::find($team_id)->first();
+
+        $mail = new SendTestMail($email, $team, $invite_url, $token);
+
+        Mail::to($email)->send($mail);
 
         session()->flash('flash_message', '招待が完了しました');
 
-        return redirect()->route('user.show', $request->id);
+        return redirect()->route('team.show', $team);
     }
+
+    public function invite(Request $request)
+    {
+        return view('home');
+    }
+
 }

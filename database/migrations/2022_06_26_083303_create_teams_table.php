@@ -18,10 +18,8 @@ class CreateTeamsTable extends Migration
             $table->string('name')->comment('チーム名称');
             $table->string('email')->nullable()->comment('問い合わせメールアドレス');
             $table->string('phone')->nullable()->comment('問い合わせ連絡先');
-            
-            // 外部キー設定
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザID');
-
+            $table->integer('user_id')->comment('オーナーID');
+            $table->string('invite_code')->nullable()->comment('招待コード');
             $table->timestamps();
         });
     }

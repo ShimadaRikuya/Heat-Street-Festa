@@ -7,23 +7,35 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
+use App\Models\Team;
 use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //ユーザーとしてログイン済みかどうか
+    }
+
     public function show(Request $request, $id)
     {
+        // // 招待チームid 取得
+        // $invite_team = $request->invite_id;
+
+        // $invite_teams = Team::find($invite_team);
         // user_id取得
         $user = Auth::user();
 
-        // $userによる投稿を取得
-        $events = Event::where('user_id', $user->id)
+        //参加チーム 取得
+        $teams = User::find($user->id)->teams;
+
+        // teamが投稿したイベントを表示
+        $events = Event::where('team_id', '=', 1)
             ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
 
-        // ddd($events);
          // テンプレート「user/show.blade.php」を表示
-        return view('users/show', compact('user', 'events'));
+        return view('users/show', compact('user', 'events', 'teams'));
     }
 
     public function edit()

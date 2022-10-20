@@ -8,20 +8,11 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\Event;
+use App\Models\Team;
 use App\Models\Category;
 
 class EventController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -42,12 +33,14 @@ class EventController extends Controller
      * 新規登録（入力）
      * 
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        //チーム情報の取得
+        $teams = Team::where('id', $request->team_id)->first();
         $categories = Category::all();
+
         // ddd($categories);
-        return view('events.create', compact('categories'));
+        return view('events.create', compact('categories', 'teams'));
     }
 
     /**
@@ -61,7 +54,8 @@ class EventController extends Controller
     public function confirm(Request $request)
     {
         // 入力内容の取得(画像以外)
-        $event = $request->except('image_uploader');
+        $event = $request->except('image_uploader', 'team_name', 'team_email', 'team_phone');
+        $teams = Team::where('id', $request->team_id)->first();
 
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
@@ -79,7 +73,7 @@ class EventController extends Controller
         }
         $img_path = 'storage/event_images/'.$filename;
 
-        return view('events.confirm', compact('img_path', 'categories'))->with($event);
+        return view('events.confirm', compact('img_path', 'categories', 'teams'))->with($event);
     }
 
     /**
@@ -93,17 +87,27 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        $event = Event::create($request->all());
-
-        if ($event) {
-            return redirect()
-                ->route('events.show', $event)
-                ->with('flash_message', 'イベントを作成しました。');
-        } else {
+        try {
+            // トランザクション開始
+            DB::beginTransaction();
+            // 登録対象のレコードの登録処理を実行
+            $event = Event::create($request->all());
+            // 処理に成功したらコミット
+            DB::commit();
+        } catch (\Throwable $e) {
+            // 処理に失敗したらロールバック
+            DB::rollback();
+            // エラーログ
+            \Log::error($e);
+            // 登録処理失敗時にリダイレクト
             return redirect()
                 ->route('events.create')
                 ->with('flash_message', 'イベントの作成に失敗しました。');
+
         }
+            return redirect()
+                ->route('events.show', $event)
+                ->with('flash_message', 'イベントを作成しました。');
     }
 
     /**

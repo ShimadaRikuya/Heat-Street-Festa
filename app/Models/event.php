@@ -18,7 +18,7 @@ class Event extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
-      'user_id',
+      'team_id',
       'category_id',
       'title', 
       'discription', 
@@ -40,50 +40,43 @@ class Event extends Model
       'form_public' => 'bool',
     ];
 
-    //1対多のリレーション追加
-    public function user()
+    /**
+     * リレーション先(従テーブル)
+     *
+     * @return void
+     */
+    public function team()
     {
-    return $this->belongsTo('App\User');
+        return $this->belongsTo(Team::class);
     }
 
     /**
      * カテゴリーリレーション
      */
     public function Category(){
-    // 一つの記事は一つのカテゴリに属している
-    return $this->belongsTo(Category::class, 'category_id', 'category_id');
+        // 一つの記事は一つのカテゴリに属している
+        return $this->belongsTo(Category::class, 'category_id', 'category_id');
     }
 
-     // 公開のみ表示
-     public function scopePublic(Builder $query)
-     {
-         return $query->where('form_public', true);
-     }
-  
-     // 公開記事一覧取得
-     public function scopePublicList(Builder $query)
-     {
-         return $query
-             ->public()
-             ->latest('event_start')
-             ->paginate(10);
-     }
-  
-     // 公開記事をIDで取得
-     public function scopePublicFindById(Builder $query, int $id)
-     {
-         return $query->public()->findOrFail($id);
-     }
-
-    protected static function boot()
+    // 公開のみ表示
+    public function scopePublic(Builder $query)
     {
-        parent::boot();
-
-        // 保存時user_idをログインユーザーに設定
-        self::saving(function($event) {
-            $event->user_id = \Auth::id();
-        });
+       return $query->where('form_public', true);
     }
-    
+  
+    // 公開記事一覧取得
+    public function scopePublicList(Builder $query)
+    {
+       return $query
+            ->public()
+            ->latest('event_start')
+            ->paginate(10);
+    }
+  
+    // 公開記事をIDで取得
+    public function scopePublicFindById(Builder $query, int $id)
+    {
+       return $query->public()->findOrFail($id);
+    }
 
 }

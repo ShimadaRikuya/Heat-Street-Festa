@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'profile_picture',
         'gender',
-        'phone'
+        'phone',
+        'role'
     ];
 
     /**
@@ -45,14 +46,25 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    //hasMany設定
-    public function events()
+    // Teamsテーブルとのリレーション （主テーブル側）
+    public function o_teams() {
+        return $this->hasMany(Team::class);
+    }
+
+    // Teamsテーブルとの多対多リレーション
+    public function teams() 
     {
-        return $this->hasMany('App\event');
+        return $this->belongsToMany(Team::class);
+    }
+
+    // Teamsテーブルとの1対多リレーション
+    public function team() 
+    {
+        return $this->belongsTo(Team::class);
     }
 
     public function gatyas()
     {
-        return $this->hasMany('App\gatya');
+        return $this->hasMany(Gatya::class);
     }
 }
