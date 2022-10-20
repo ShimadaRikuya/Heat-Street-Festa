@@ -34,7 +34,7 @@
     </div>
     <div class="card mx-auto">
         <div class="row gy-1 align-items-center">
-            @foreach($events as $event)
+            @foreach($team->events as $event)
                 <div class="col-md-4">
                     <a href="{{ route('events.show', $event->id) }}">
                         <img class="img-thumbnail" src="{{ asset($event->image_uploader) }}" alt="Card image cap">

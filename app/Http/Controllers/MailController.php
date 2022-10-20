@@ -18,22 +18,25 @@ class MailController extends Controller
         // user_id取得
         $user = Auth::user();
 
-        $name = $request->name;
         $email = $request->email;
-        $team = $request->team;
+        $team_id = $request->team_id;
+        $token = $request->invite_code;
+        $invite_url = "http://localhost:8573/team/join/$team_id"."/".$request->invite_code;
 
-        $mail = new SendTestMail($name, $email, $team);
+        $team = Team::find($team_id)->first();
+
+        $mail = new SendTestMail($email, $team, $invite_url, $token);
 
         Mail::to($email)->send($mail);
 
         session()->flash('flash_message', '招待が完了しました');
 
-        return redirect()->route('user.show', $user);
+        return redirect()->route('team.show', $team);
     }
 
     public function invite(Request $request)
     {
-        return view('emails.invite');
+        return view('home');
     }
 
 }

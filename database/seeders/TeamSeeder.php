@@ -22,7 +22,6 @@ class TeamSeeder extends Seeder
                 'name' => 'チーム1',
                 'email' => 'test@gmail.com',
                 'phone' => '05012345678',
-                'owner_id' => '1',
                 'user_id' => '1',
             ]
         ]);

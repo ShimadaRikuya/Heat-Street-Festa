@@ -20,12 +20,12 @@ class Team extends Model
         'name',
         'email',
         'phone',
-        'owner_id',
         'user_id'
     ];
 
-     // Userテーブルとのリレーション （従テーブル側）
-     public function user() {
+    // Userテーブルとのリレーション （従テーブル側）
+    public function user() 
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -36,13 +36,11 @@ class Team extends Model
     }
 
     /**
-     * 従テーブルから主テーブルを引っ張ってくる
-     * 1対多のリレーション追加
-     * 外部キーがある側は従テーブル
+     * リレーション元(主テーブル)
      *
      * @return void
      */
-    public function event()
+    public function events()
     {
         return $this->hasMany(Event::class);
     }

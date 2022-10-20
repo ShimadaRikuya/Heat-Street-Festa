@@ -12,8 +12,17 @@ use App\Models\User;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth'); //ユーザーとしてログイン済みかどうか
+    }
+
     public function show(Request $request, $id)
     {
+        // // 招待チームid 取得
+        // $invite_team = $request->invite_id;
+
+        // $invite_teams = Team::find($invite_team);
         // user_id取得
         $user = Auth::user();
 

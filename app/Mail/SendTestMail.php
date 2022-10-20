@@ -7,6 +7,8 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
+use App\Models\Team;
+
 class SendTestMail extends Mailable
 {
     use Queueable, SerializesModels;
@@ -16,11 +18,12 @@ class SendTestMail extends Mailable
      *
      * @return void
      */
-    public function __construct($name, $email, $team)
+    public function __construct($email, $team, $invite_url, $token)
     {
-        $this->name = $name;
         $this->email = $email;
         $this->team = $team;
+        $this->token = $token;
+        $this->invite_url = $invite_url;
     }
 
     /**
@@ -34,9 +37,10 @@ class SendTestMail extends Mailable
                     ->view('emails.test')
                     ->subject('招待メール')
                     ->with([
-                        'name' => $this->name,
                         'email' => $this->email,
                         'team' => $this->team,
+                        'token' => $this->token,
+                        'invite_url' => $this->invite_url,
                     ]);
     }
 }
