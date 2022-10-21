@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\User;
+use App\Models\Event;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,9 +15,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
-        $this->call([CategorySeeder::class]);
-        $this->call([TeamSeeder::class]);
-        $this->call([EventSeeder::class]);
+        User::factory(10)->create();
+        $this->call([
+            CategorySeeder::class,
+            TeamSeeder::class,
+            EventSeeder::class,
+            GatyaSeeder::class
+        ]);
     }
 }

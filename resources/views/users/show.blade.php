@@ -71,6 +71,9 @@
                                           </form>
                                     </div>
                                 @endforeach
+
+                                {{ $events->links() }}
+                                
                             </div>
                         </div>
 

@@ -6,9 +6,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Team;
-use App\Models\User;
+use App\Models\Gatya;
 
 class UsersController extends Controller
 {
@@ -19,10 +20,6 @@ class UsersController extends Controller
 
     public function show(Request $request, $id)
     {
-        // // 招待チームid 取得
-        // $invite_team = $request->invite_id;
-
-        // $invite_teams = Team::find($invite_team);
         // user_id取得
         $user = Auth::user();
 
@@ -30,8 +27,9 @@ class UsersController extends Controller
         $teams = User::find($user->id)->teams;
 
         // teamが投稿したイベントを表示
-        $events = Event::where('team_id', '=', 1)
-            ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
+        $events = Event::whereHas('team', function ($q) {
+            $q->where('user_id', Auth::id());
+        })->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
 
          // テンプレート「user/show.blade.php」を表示
@@ -41,9 +39,11 @@ class UsersController extends Controller
     public function edit()
     {
         $user = Auth::user();
-            
+
+        $tiket = Gatya::find($user->gatya_id)->first();
+
          // テンプレート「user/edit.blade.php」を表示
-        return view('users/edit', compact('user'));
+        return view('users/edit', compact('user', 'tiket'));
     }
 
     public function update($id, UserRequest $request) {

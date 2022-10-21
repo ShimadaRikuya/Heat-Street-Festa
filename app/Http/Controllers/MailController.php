@@ -21,7 +21,7 @@ class MailController extends Controller
         $email = $request->email;
         $team_id = $request->team_id;
         $token = $request->invite_code;
-        $invite_url = "http://localhost:8573/team/join/$team_id"."/".$request->invite_code;
+        $invite_url = "http://localhost:8573/teams/email_join/$team_id"."/".$request->invite_code;
 
         $team = Team::find($team_id)->first();
 

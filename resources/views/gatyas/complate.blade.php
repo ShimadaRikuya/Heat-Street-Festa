@@ -4,7 +4,7 @@
 
 @section('content')
     <h1>おめでとうございます！</h1>
-    <p>このチケットがあたりました</p>
+    <p>{{ $dates->name }}を受け取りました！</p>
 
-    <a href="{{ url('/') }}">戻る</a>
+    <a href="{{ url('/') }}">TOPへ</a>
 @endsection

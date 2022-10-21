@@ -19,7 +19,7 @@
                     お知らせ
                     </button>
                     <button class="nav-link" id="v-pills-ticket-tab" data-bs-toggle="pill" data-bs-target="#v-pills-ticket" type="button" role="tab" aria-controls="v-pills-ticket" aria-selected="false">
-                    ガチャチケット
+                    チケット一覧
                     </button>
                     <button class="nav-link" id="v-pills-help-tab" data-bs-toggle="pill" data-bs-target="#v-pills-help" type="button" role="tab" aria-controls="v-pills-help" aria-selected="false">
                     ヘルプ

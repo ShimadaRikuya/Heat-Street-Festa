@@ -12,14 +12,12 @@
 
             @foreach($events as $event)
                 <div class="col-4"> 
-                    <a href="{{ route('events.show', $event->id) }}" class="thumbnail">
-                        <img src="{{ $event->image_uploader }}" class="img-rounded" width="200" height="200"/>
+                    <a href="{{ route('events.show', $event->id) }}" class="thumbnail"><img src="{{ $event->image_uploader }}" class="img-rounded" width="200" height="200"/></a>
                         <div class="card__txt">
                             <p class="card__title">{{ $event->title }}</p>
                             <p class="card__sub">{{ $event->venue }}</p>
                             <p class="card__uploaddate"></p>
                         </div>
-                    </a>
                 </div>
             @endforeach
 

@@ -70,4 +70,10 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+
+    // ログイン後のリダイレクト先を記述
+    public function redirectPath()
+    {
+        return 'gatyas/get';
+    }
 }
