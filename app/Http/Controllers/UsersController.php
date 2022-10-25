@@ -40,7 +40,7 @@ class UsersController extends Controller
     {
         $user = Auth::user();
 
-        $tiket = Gatya::find($user->gatya_id)->first();
+        $tiket = Gatya::find($user->gatya_id);
 
          // テンプレート「user/edit.blade.php」を表示
         return view('users/edit', compact('user', 'tiket'));
