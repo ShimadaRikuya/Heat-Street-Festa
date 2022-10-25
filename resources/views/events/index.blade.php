@@ -8,19 +8,17 @@
     <div class="row">
         <h1 class="section_title">全て</h1>
 
-        <div class="m-lg-5">
-
+        <div class="d-flex align-content-stretch flex-wrap">
             @foreach($events as $event)
-                <div class="col-4"> 
-                    <a href="{{ route('events.show', $event->id) }}" class="thumbnail"><img src="{{ $event->image_uploader }}" class="img-rounded" width="200" height="200"/></a>
-                        <div class="card__txt">
-                            <p class="card__title">{{ $event->title }}</p>
-                            <p class="card__sub">{{ $event->venue }}</p>
-                            <p class="card__uploaddate"></p>
-                        </div>
+                <div class="card">
+                    <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ $event->image_uploader }}" alt="{{ $event->image_uploader }}"></a>
+                    <div class="card-body">
+                      <h5 class="card-title">{{ $event->title }}</h5>
+                      <p class="card-text">{{ $event->venue }}</p>
+                      <p class="card-text"><small class="text-muted">{{ $event->created_at }}</small></p>
+                    </div>
                 </div>
             @endforeach
-
         </div>
 
         {{ $events->links() }}

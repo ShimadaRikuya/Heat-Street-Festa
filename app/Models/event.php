@@ -70,7 +70,7 @@ class Event extends Model
        return $query
             ->public()
             ->latest('event_start')
-            ->paginate(10);
+            ->paginate(24);
     }
   
     // 公開記事をIDで取得
