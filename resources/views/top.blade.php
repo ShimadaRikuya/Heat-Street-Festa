@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    @include('layouts.navbar')
+    @include('layouts.slider')
 
     <!-- NEW ARRIVALS -->
     <h2 class="section_title">NEW ARRIVALS</h2>
