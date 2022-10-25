@@ -24,7 +24,8 @@ class User extends Authenticatable
         'profile_picture',
         'gender',
         'phone',
-        'role'
+        'role',
+        'gatya_id'
     ];
 
     /**

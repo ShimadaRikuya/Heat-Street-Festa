@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Mail;
 
 use App\Models\User;
+use App\Models\Event;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\GatyaController;
 use App\Mail\SendTestMail;
 use App\Http\Controllers\MailController;
 
@@ -23,11 +25,12 @@ use App\Http\Controllers\MailController;
 |
 */
 
-Route::get('/', function () {
-    return view('top');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
+Route::group(['prefix' => 'gatyas'], function() {
+    Route::get('/get', [GatyaController::class, 'store']);
+});
 
 Route::group(['prefix' => 'users'], function() {
     // ユーザ詳細画面
@@ -67,8 +70,6 @@ Route::post('mail', [MailController::class, 'send'])->middleware(['auth']);
  * 
  * });
  */
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 Route::group(['prefix' => 'teams'], function() {
     // チーム選択処理
@@ -111,6 +112,3 @@ Route::group(['prefix' => 'events'], function () {
     // 削除処理
     Route::delete('/{event}', [EventController::class, 'destroy'])->middleware(['auth'])->name('events.destroy');
 });
-
-// Route::get('gatyas/index', [GatyaController::class, 'index'])->name('gatya_index');
-// Route::post('gatyas/complate', [GatyaController::class,'complate']);

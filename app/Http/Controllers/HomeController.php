@@ -6,26 +6,19 @@ use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;//この行を上に追加
 use App\Models\Team;
+use App\Models\Event;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index()
     {
-        return view('top');
+        // 公開設定データ・新しい順に6件表示
+        $events = Event::publicList()->take(6);
+        return view('top', compact('events'));
     }
 }

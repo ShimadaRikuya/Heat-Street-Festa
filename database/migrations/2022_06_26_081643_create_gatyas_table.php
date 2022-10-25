@@ -17,10 +17,6 @@ class CreateGatyasTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->comment('ガチャ名称');
             $table->text('discription')->nullable()->comment('説明');
-
-            //外部キー設定
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->comment('ユーザID');
-
             $table->timestamps();
         });
     }

@@ -175,8 +175,9 @@ class TeamController extends Controller
             if( $team->invite_code == $token){
 
                 $team->users()->attach(Auth::user());
+                User::find(Auth::id())->update([ 'role' => '50' ]);
 
-                return redirect()->to(route('team.show', $team))->with('flash_message', "参加しました。");
+                return redirect()->to(route('team.show', $team))->with('flash_message', "メンバーとして参加しました。");
 
             }else{
                 //tokenが腐っているか、偽物ならば、弾いておく。

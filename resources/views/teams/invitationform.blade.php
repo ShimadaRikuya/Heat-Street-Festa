@@ -5,7 +5,7 @@
         <p>{{ $team->invite_code }}</p>
 
     <p>招待URL</p>
-        <p>http://localhost:8573/team/join/{{$team->id}}/{{ $team->invite_code }}</p>
+        <p>http://localhost:8573/teams/email_join/{{$team->id}}/{{ $team->invite_code }}</p>
 @else
     <p>招待コードを生成するには作成ボタンを押下してください。</p>
 
