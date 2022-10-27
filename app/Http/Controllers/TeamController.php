@@ -43,7 +43,6 @@ class TeamController extends Controller
         $teams->name = $request->name;
         $teams->email = $request->email;
         $teams->phone = $request->phone;
-        $teams->owner_id = Auth::id();//ここでログインしているユーザidを登録しています
         $teams->user_id = Auth::id();//ここでログインしているユーザidを登録しています
         $teams->save();
 

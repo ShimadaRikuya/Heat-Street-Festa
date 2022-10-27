@@ -11,6 +11,8 @@ use App\Models\Event;
 use App\Models\Team;
 use App\Models\Category;
 
+use Intervention\Image\Facades\Image; // Imageファサードを使う
+
 class EventController extends Controller
 {
     /**
@@ -92,6 +94,10 @@ class EventController extends Controller
             DB::beginTransaction();
             // 登録対象のレコードの登録処理を実行
             $event = Event::create($request->all());
+            // 加工する画像のパスを取得
+            $image_uploader = Image::make($request->image_uploader);
+            // 指定する画像をリサイズする
+            $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {
