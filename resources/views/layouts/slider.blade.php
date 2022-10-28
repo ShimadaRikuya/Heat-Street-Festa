@@ -1,10 +1,34 @@
-<div class="swiper">
-    <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="{{ asset('img/image1.jpg') }}" class="img-rounded" width="200" height="200"/></div>
-        <div class="swiper-slide"><img src="{{ asset('img/image2.jpg') }}" class="img-rounded" width="200" height="200"/></div>
-        <div class="swiper-slide"><img src="{{ asset('img/image3.jpg') }}" class="img-rounded" width="200" height="200"/></div>
+<div class="card01 l-section">
+    <div class="l-inner">
+
+        <div class="swiper-area">
+            <div class="swiper">
+                <div class="swiper-wrapper">
+                    
+                    <div class="swiper-slide">
+                        <article class="slide">
+                            <div class="slide-media img-cover"><img src="{{ asset('img/image3.jpg') }}"/></div>
+                        </article>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <article class="slide">
+                            <div class="slide-media img-cover"><img src="{{ asset('img/image3.jpg') }}"/></div>
+                        </article>
+                    </div>
+
+                    <div class="swiper-slide">
+                        <article class="slide">
+                            <div class="slide-media img-cover"><img src="{{ asset('img/image3.jpg') }}"/></div>
+                        </article>
+                    </div>
+
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </div>
+
     </div>
-    <div class="swiper-pagination"></div>
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
 </div>

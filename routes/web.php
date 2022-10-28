@@ -44,33 +44,7 @@ Route::group(['prefix' => 'users'], function() {
 // メール送信
 Route::post('mail', [MailController::class, 'send'])->middleware(['auth']);
 
-/**
- * // 全ユーザ
- * Route::group(['middleware' => ['auth', 'can:user-higher']], function () {
- *     // ユーザ一覧
- *     Route::get('/account', 'AccountController@index')->name('account.index');
- * });
- * 
- * // 管理者以上
- * Route::group(['middleware' => ['auth', 'can:admin-higher']], function () {
- *   // ユーザ登録
- *   Route::get('/account/regist', 'AccountController@regist')->name('account.regist');
- *   Route::post('/account/regist', 'AccountController@createData')->name('account.regist');
- * 
- *   // ユーザ編集
- *   Route::get('/account/edit/{user_id}', 'AccountController@edit')->name('account.edit');
- *   Route::post('/account/edit/{user_id}', 'AccountController@updateData')->name('account.edit');
- * 
- *   // ユーザ削除
- *   Route::post('/account/delete/{user_id}', 'AccountController@deleteData');
- * });
- * 
- * // システム管理者のみ
- * Route::group(['middleware' => ['auth', 'can:system-only']], function () {
- * 
- * });
- */
-
+// チーム
 Route::group(['prefix' => 'teams'], function() {
     // チーム選択処理
     Route::get('/select', [TeamController::class, 'select'])->name('teams.select');
@@ -94,9 +68,12 @@ Route::group(['prefix' => 'teams'], function() {
     Route::get('/email_join/{team_id}/{token}', [TeamController::class, 'email_join'])->name('team.invite');
 });
 
+// イベント
 Route::group(['prefix' => 'events'], function () {
     // 一覧
     Route::get('/', [EventController::class, 'index'])->name('events.index');
+    // カテゴリ別
+    Route::get('/{category_id}/{category}', [EventController::class, 'search'])->where('category', '(パーティー|ミュージック|グルメ|ゲーム|スポーツ|ビジネス)');
     // 投稿新規画面
     Route::post('/create', [EventController::class, 'create'])->middleware(['auth'])->name('events.create');
     // 投稿新規確認画面
@@ -104,7 +81,7 @@ Route::group(['prefix' => 'events'], function () {
     // 登録処理
     Route::post('/', [EventController::class, 'store'])->middleware(['auth'])->name('events.store');
     // 詳細
-    Route::get('/{event}', [EventController::class, 'show'])->name('events.show');
+    Route::get('/{event}/show', [EventController::class, 'show'])->name('events.show');
     // 編集処理
     Route::get('/{event}/edit', [EventController::class, 'edit'])->middleware(['auth'])->name('events.edit');
     // 更新処理

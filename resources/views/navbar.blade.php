@@ -16,12 +16,12 @@
 
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <li><a class="dropdown-item" href="{{ route('events.index') }}">全て</a></li>
-                            <li><a class="dropdown-item" href="">パーティー</a></li>
-                            <li><a class="dropdown-item" href="">ミュージック</a></li>
-                            <li><a class="dropdown-item" href="">グルメ</a></li>
-                            <li><a class="dropdown-item" href="">ゲーム</a></li>
-                            <li><a class="dropdown-item" href="">スポーツ</a></li>
-                            <li><a class="dropdown-item" href="">ビジネス</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 1, '$category' => 'パーティー']) }}">パーティー</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 2, '$category' => 'ミュージック']) }}">ミュージック</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 3, '$category' => 'グルメ']) }}">グルメ</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 4, '$category' => 'ゲーム']) }}">ゲーム</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 5, '$category' => 'スポーツ']) }}">スポーツ</a></li>
+                            <li><a class="dropdown-item" href="{{ url('events', ['category_id' => 6, '$category' => 'ビジネス']) }}">ビジネス</a></li>
                         </ul>
                     </li>
 
