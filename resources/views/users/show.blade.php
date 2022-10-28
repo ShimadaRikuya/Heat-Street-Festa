@@ -9,7 +9,11 @@
             {{-- プロフィール --}}
             <div class="col-12 col-md-3">
                 <div class="profile" id="">
-                    <img src="{{ asset('img/user-shape.png') }}" class="rounded-circle">
+                    @if ($user->profile_picture)
+                        <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
+                    @else
+                        <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
+                    @endif
                     <div class="username">{{ Auth::user()->name }}</div>
                 </div>
                 <ul class="list-group list-group-horizontal list-group-flush">

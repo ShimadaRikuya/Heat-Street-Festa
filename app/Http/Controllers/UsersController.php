@@ -4,12 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\User;
 use App\Models\Event;
 use App\Models\Team;
 use App\Models\Gatya;
+
+use Intervention\Image\Facades\Image; // Imageファサードを使う
 
 class UsersController extends Controller
 {
@@ -46,7 +49,7 @@ class UsersController extends Controller
         return view('users/edit', compact('user', 'tiket'));
     }
 
-    public function update($id, UserRequest $request) {
+    public function update(Request $request, $id) {
         $user = Auth::user();
         $form = $request->all();
 
@@ -58,7 +61,7 @@ class UsersController extends Controller
         unset($form['_token']);
         unset($form['_method']);
         $user->fill($form)->save();
-        return redirect('/home');
+        return redirect()->route('user.show', $user->id)->with('flash_message', 'ユーザー情報を更新しました');
     }
 
     private function saveProfilePicture($image, $id) {
