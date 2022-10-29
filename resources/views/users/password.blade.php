@@ -1,4 +1,4 @@
-<form class="edit_user" enctype="multipart/form-data" action="/users/update" accept-charset="UTF-8" method="post">
+<form class="edit_user" enctype="multipart/form-data" action="{{ route('user.update', Auth::user()->id) }}" accept-charset="UTF-8" method="post">
     <input name="utf8" type="hidden" value="&#x2713;" />
     <input type="hidden" name="id" value="{{ $user->id }}" />
     {{csrf_field()}} 

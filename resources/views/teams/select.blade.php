@@ -5,7 +5,13 @@
 @section('content')
 <div class="row">
     <div class="col-md-12">
-        @if (isset($teams))
+        @if (!isset($teams[0]))
+
+            <h1>主催者の新規作成</h1>
+                <p>イベントを作成するためには、「主催者」に関する情報の登録が必要です。一度登録していただくと、次回イベント作成時には登録不要となります。</p>
+            <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('teams.create') }}" role="button">主催者を登録する</a></div>
+
+        @else
 
             <form action="{{ route('events.create') }}" method="post" class="form-horizontal">
                 @csrf
@@ -25,12 +31,6 @@
                 </div>
                 <!--/ Save ボタン/Back ボタン -->
             </form>
-
-        @else
-
-            <h1>主催者の新規作成</h1>
-            <p>イベントを作成するためには、「主催者」に関する情報の登録が必要です。一度登録していただくと、次回イベント作成時には登録不要となります。</p>
-            <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('teams.create') }}" role="button">主催者を登録する</a></div>
         
         @endif
     </div>

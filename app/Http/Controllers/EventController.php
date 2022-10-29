@@ -11,6 +11,8 @@ use App\Models\Event;
 use App\Models\Team;
 use App\Models\Category;
 
+use Intervention\Image\Facades\Image; // Imageファサードを使う
+
 class EventController extends Controller
 {
     /**
@@ -21,7 +23,13 @@ class EventController extends Controller
     public function index()
     {
         // 公開設定データ・新しい順に表示
-        $events = Event::publicList();
+        $events = Event::PublicNew();
+        return view('events.index', compact('events'));
+    }
+
+    public function search(Event $event, $category_id, $category)
+    {
+        $events = Event::where('category_id', $category_id)->paginate(24);
         return view('events.index', compact('events'));
     }
 
@@ -87,11 +95,20 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        //ログイン中のユーザーを取得
+        $user = Auth::user();
+        // チーム取得
+        $team = Team::find($request->team_id);
+
         try {
             // トランザクション開始
             DB::beginTransaction();
             // 登録対象のレコードの登録処理を実行
             $event = Event::create($request->all());
+            // 加工する画像のパスを取得
+            $image_uploader = Image::make($request->image_uploader);
+            // 指定する画像をリサイズする
+            $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {
@@ -101,7 +118,7 @@ class EventController extends Controller
             \Log::error($e);
             // 登録処理失敗時にリダイレクト
             return redirect()
-                ->route('events.create')
+                ->route('teams.select')
                 ->with('flash_message', 'イベントの作成に失敗しました。');
 
         }
@@ -120,7 +137,7 @@ class EventController extends Controller
     {
         //
         $events = Event::find($id);
-        // ddd($events);
+        // ddd();
         return view('events.show', compact('events'));
     }
 

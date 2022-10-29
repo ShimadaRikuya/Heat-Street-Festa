@@ -18,7 +18,7 @@ class HomeController extends Controller
     public function index()
     {
         // 公開設定データ・新しい順に6件表示
-        $events = Event::publicList()->take(6);
+        $events = Event::PublicNew()->take(6);
         return view('top', compact('events'));
     }
 }

@@ -160,7 +160,10 @@ return [
         Illuminate\Session\SessionServiceProvider::class,
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
+        // 追加
         Illuminate\View\ViewServiceProvider::class,
+        // Add Intervention Image.
+        Intervention\Image\ImageServiceProvider::class,
 
         
         /*
@@ -232,7 +235,8 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        // Add Intervention Image.
+        'Image' => Intervention\Image\Facades\Image::class,
     ],
 
 ];
