@@ -7,7 +7,7 @@
 
     <div class="row">
         <h1 class="section_title">検索結果</h1>
-        <p>{{ $events->count() }}</p>
+        <p>{{ $events->count() }}件が見つかりました。</p>
 
         <div class="row">
             @forelse($events as $event)

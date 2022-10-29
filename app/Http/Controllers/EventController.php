@@ -24,7 +24,11 @@ class EventController extends Controller
     {
         // 公開設定データ・新しい順に表示
         $events = Event::PublicNew();
-        return view('events.index', compact('events'));
+
+        $category = new Category;
+        $categories = $category->getLists()->prepend('カテゴリー▼', '');
+
+        return view('events.index', compact('events', 'categories'));
     }
 
     /**
@@ -36,10 +40,12 @@ class EventController extends Controller
      */
     public function keyword(Request $request)
     {
-        // 検索フォームで入力された値を取得する
-        $search = $request->input('search');
         // クエリビルダ
         $query = Event::query();
+
+        //$request->input()で検索時に入力した項目を取得します。
+        $search = $request->input('search');
+
         // もし検索フォームにキーワードが入力されたら
         if ($search) {
             // 全角スペースを半角に変換
@@ -53,10 +59,13 @@ class EventController extends Controller
             foreach($wordArraySearched as $value) {
                 $query->where('title', 'like', '%'.$value.'%');
             }
-            $events = $query->paginate(24);
-            return view('events.keyword', compact('events', 'search'));
+        } else {
+            return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
         }
-        return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
+
+        $events = $query->paginate(24);
+
+        return view('events.keyword', compact('events', 'search'));
     }
 
 

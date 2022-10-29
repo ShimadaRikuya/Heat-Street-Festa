@@ -12,6 +12,11 @@
             <h1 class="section_title">全て</h1>
         @endif
 
+        <form class="d-flex form-inline" role="search" method="GET" action="{{ route('events.keyword') }}">
+            <input type="search" name="search"  value="{{request('search')}}" class="form-control me-2" placeholder="キーワードを入力" aria-label="検索...">
+            <button type="submit" class="btn btn-outline-success flex-shrink-0">検索</button>
+        </form>
+
         <div class="row">
             @foreach($events as $event)
                 <div class="col-sm-4 mb-3">
