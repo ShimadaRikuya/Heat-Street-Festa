@@ -72,6 +72,8 @@ Route::group(['prefix' => 'teams'], function() {
 Route::group(['prefix' => 'events'], function () {
     // 一覧
     Route::get('/', [EventController::class, 'index'])->name('events.index');
+    // 検索機能
+    Route::get('/search', [EventController::class, 'keyword'])->name('events.keyword');
     // カテゴリ別
     Route::get('/{category_id}/{category}', [EventController::class, 'search'])->where('category', '(パーティー|ミュージック|グルメ|ゲーム|スポーツ|ビジネス)');
     // 投稿新規画面

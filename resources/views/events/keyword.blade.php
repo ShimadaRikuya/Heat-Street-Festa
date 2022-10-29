@@ -6,19 +6,11 @@
 <div class="container">
 
     <div class="row">
-        @if (!empty($category))
-            <h1 class="section_title">{{ $category }}</h1>
-        @else
-            <h1 class="section_title">全て</h1>
-        @endif
-
-        <form class="d-flex form-inline" role="search" method="GET" action="{{ route('events.keyword') }}">
-            <input type="search" name="search"  value="{{request('search')}}" class="form-control me-2" placeholder="キーワードを入力" aria-label="検索...">
-            <button type="submit" class="btn btn-outline-success flex-shrink-0">検索</button>
-        </form>
+        <h1 class="section_title">検索結果</h1>
+        <p>{{ $events->count() }}件が見つかりました。</p>
 
         <div class="row">
-            @foreach($events as $event)
+            @forelse($events as $event)
                 <div class="col-sm-4 mb-3">
                     <div class="card mx-auto" style="width: 20rem;">
                         <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 200px; object-fit:cover;"></a>
@@ -29,7 +21,9 @@
                         </div>
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <td>該当するイベントは存在しません。</td>
+            @endforelse
         </div>
 
         {{ $events->links() }}

@@ -24,13 +24,63 @@ class EventController extends Controller
     {
         // 公開設定データ・新しい順に表示
         $events = Event::PublicNew();
-        return view('events.index', compact('events'));
+
+        $category = new Category;
+        $categories = $category->getLists()->prepend('カテゴリー▼', '');
+
+        return view('events.index', compact('events', 'categories'));
     }
 
+    /**
+     * Display a listing of the search.
+     * 
+     * 検索機能
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function keyword(Request $request)
+    {
+        // クエリビルダ
+        $query = Event::query();
+
+        //$request->input()で検索時に入力した項目を取得します。
+        $search = $request->input('search');
+
+        // もし検索フォームにキーワードが入力されたら
+        if ($search) {
+            // 全角スペースを半角に変換
+            $spaceConversion = mb_convert_kana($search, 's');
+
+            // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+
+            // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
+            foreach($wordArraySearched as $value) {
+                $query->where('title', 'like', '%'.$value.'%');
+            }
+        } else {
+            return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
+        }
+
+        $events = $query->paginate(24);
+
+        return view('events.keyword', compact('events', 'search'));
+    }
+
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * カテゴリー別イベント
+     * 
+     */
     public function search(Event $event, $category_id, $category)
     {
         $events = Event::where('category_id', $category_id)->paginate(24);
-        return view('events.index', compact('events'));
+        return view('events.index', compact('events', 'category'));
     }
 
     /**

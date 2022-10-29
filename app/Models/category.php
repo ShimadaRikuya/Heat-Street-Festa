@@ -17,4 +17,14 @@ class Category extends Model
     {
         return $this->hasOne(Event::class);
     }
+
+    /**
+     * カテゴリーの一覧を取得
+     */
+    public function getLists()
+    {
+        $categories = Category::orderBy('id','asc')->pluck('name', 'id');
+    
+        return $categories;
+    }
 }
