@@ -71,7 +71,7 @@ class EventController extends Controller
     public function search(Event $event, $category_id, $category)
     {
         $events = Event::where('category_id', $category_id)->paginate(24);
-        return view('events.index', compact('events'));
+        return view('events.index', compact('events', 'category'));
     }
 
     /**

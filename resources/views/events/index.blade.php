@@ -6,7 +6,11 @@
 <div class="container">
 
     <div class="row">
-        <h1 class="section_title">全て</h1>
+        @if (!empty($category))
+            <h1 class="section_title">{{ $category }}</h1>
+        @else
+            <h1 class="section_title">全て</h1>
+        @endif
 
         <div class="row">
             @foreach($events as $event)
