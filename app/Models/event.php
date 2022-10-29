@@ -55,7 +55,7 @@ class Event extends Model
      */
     public function Category(){
         // 一つの記事は一つのカテゴリに属している
-        return $this->belongsTo(Category::class, 'category_id', 'category_id');
+        return $this->belongsTo(Category::class);
     }
 
     // 公開のみ表示
@@ -64,12 +64,21 @@ class Event extends Model
        return $query->where('form_public', true);
     }
   
-    // 公開記事一覧取得
+    // 公開記事一覧取得(イベント間近)
     public function scopePublicList(Builder $query)
     {
        return $query
             ->public()
             ->latest('event_start')
+            ->paginate(24);
+    }
+
+    // 公開記事一覧取得(イベント最新版)
+    public function scopePublicNew(Builder $query)
+    {
+       return $query
+            ->public()
+            ->latest('created_at')
             ->paginate(24);
     }
   

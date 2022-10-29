@@ -1,4 +1,6 @@
 @extends('layouts.app')
+@include('navbar')
+@include('footer')
 
 @section('content')
 <div class="container">
@@ -69,5 +71,17 @@
             </div>
         </div>
     </div>
+    <section class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="text-center">
+                <h2>初めての方</h2>
+                <p>ユーザー登録をすると、あなたが主催するイベントページをPromoで公開できる「イベント投稿機能」がお使いいただけるようになります。
+                    ぜひユーザー登録をして、あなたのイベントの告知にPromoをお役立てください。</p>
+                
+                <a class="btn" href="{{ route('register') }}">新規ユーザー登録</a>
+            </div>
+        </div>
+
+    </section>
 </div>
 @endsection

@@ -23,7 +23,7 @@ class EventController extends Controller
     public function index()
     {
         // 公開設定データ・新しい順に表示
-        $events = Event::publicList();
+        $events = Event::PublicNew();
         return view('events.index', compact('events'));
     }
 
@@ -95,6 +95,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        //ログイン中のユーザーを取得
+        $user = Auth::user();
+        // チーム取得
+        $team = Team::find($request->team_id);
+
         try {
             // トランザクション開始
             DB::beginTransaction();
@@ -113,7 +118,7 @@ class EventController extends Controller
             \Log::error($e);
             // 登録処理失敗時にリダイレクト
             return redirect()
-                ->route('events.create')
+                ->route('teams.select')
                 ->with('flash_message', 'イベントの作成に失敗しました。');
 
         }
@@ -132,7 +137,7 @@ class EventController extends Controller
     {
         //
         $events = Event::find($id);
-        // ddd($events);
+        // ddd();
         return view('events.show', compact('events'));
     }
 

@@ -54,12 +54,14 @@
                                 @foreach($events as $event)
                                     <div class="col-md-4">
                                         <a href="{{ route('events.show', $event->id) }}">
-                                            <img class="img-thumbnail" src="{{ asset($event->image_uploader) }}" alt="Card image cap">
+                                            <img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;">
                                         </a>
                                     </div>
-                                    <div class="col-md-6 card-body">
-                                        <h5 class="card-title">{{ $event->title }}</h5>
-                                        <p class="card-text">2022/01/01</p>
+                                    <div class="col-md-6">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $event->title }}</h5>
+                                            <p class="card-text">2022/01/01</p>
+                                        </div>
                                     </div>
                                     <div class="col-md-2 d-flex">
                                         <input
@@ -72,7 +74,7 @@
                                             @csrf
                                             @method('delete')
                                             <input type="submit" class="btn btn-light" value="削除">
-                                          </form>
+                                        </form>
                                     </div>
                                 @endforeach
 

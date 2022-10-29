@@ -51,11 +51,14 @@
                         class="edit_event btn btn-light" 
                         value="編集"
                     />
-                    <form class="delete_event" method="post" action="{{ route('events.destroy', $event) }}">
-                        @csrf
-                        @method('delete')
-                        <input type="submit" class="btn btn-light" value="削除">
-                      </form>
+                    @if(Auth::user()->id === $team->user_id)
+                        <form class="delete_event" method="post" action="{{ route('events.destroy', $event) }}">
+                            @csrf
+                            @method('delete')
+                            <input type="submit" class="btn btn-light" value="削除">
+                        </form>
+                    @endif
+                    <button type="submit" class="btn btn-light" disabled>削除</button>
                 </div>
             @endforeach
         </div>

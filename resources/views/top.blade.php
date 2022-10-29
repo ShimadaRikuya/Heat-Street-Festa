@@ -11,18 +11,17 @@
 
     <div class="row">
         @foreach($events as $event)
-            <div class="col-sm-4">
-                <div class="card" style="width: 20rem;">
-                    <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ $event->image_uploader }}" alt="{{ $event->image_uploader }}"></a>
+            <div class="col-sm-4 mb-3">
+                <div class="card mx-auto" style="width: 20rem;">
+                    <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 200px; object-fit:cover;"></a>
                     <div class="card-body">
                       <h5 class="card-title">{{ $event->title }}</h5>
-                      <p class="card-text">{{ $event->venue }}</p>
-                      <p class="card-text"><small class="text-muted">{{ $event->created_at->diffForHumans() }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{ $event->category->name }}</small></p>
+                      <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
                     </div>
                 </div>
             </div>
         @endforeach
-
     </div>
 
     <div class="d-grid gap-2 col text-center-6 mx-auto">

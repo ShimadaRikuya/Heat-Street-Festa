@@ -52,9 +52,9 @@ class TeamController extends Controller
                     ]);
 
         //多対多のリレーションもここで登録
-        $teams->users()->attach( $user );
+        $teams->users()->attach( $user_id );
         
-        return redirect()->route('user.show', $user)->with('flash_message', 'チームを作成しました。');
+        return redirect()->route('user.show', $user_id)->with('flash_message', 'チームを作成しました。');
         
     }
 

@@ -14,6 +14,7 @@
         <div class="section title_area">
             <h1>{{ $events->title }}</h1>
             <p class="sub">{{ $events->venue }}</p>
+            <p>{{ $events->category->name }}</p>
         </div>
         <div class="section date_area">
             <h4>開催日時</h4>

@@ -8,12 +8,12 @@
         @csrf
         <div class="mb-3">
         <label for="event_title" class="form-label">タイトル名</label>
-        <input type="name" name="title" class="form-control" id="inputTitle" aria-describedby="">
+        <input type="name" name="title" value="{{ old('title') }}" class="form-control" id="inputTitle" aria-describedby="">
         </div>
 
         <div class="mb-3">
         <label for="event_discription" class="form-label">イベント概要</label>
-        <input type="text" name="discription" value="" class="form-control" id="textarea" aria-describedby="">
+        <input type="text" name="discription" value="{{ old('discription') }}" class="form-control" id="textarea" aria-describedby="">
         </div>
 
         <div class="mb-3">
