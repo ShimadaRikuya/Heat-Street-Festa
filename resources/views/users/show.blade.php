@@ -40,14 +40,6 @@
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mb-3">
                             <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('events.create') }}" role="button">＋新規作成</a></div>
-                            <div class="ms-auto ps-1 bd-highlight dropdown">
-                                <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                  並び順
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                </ul>
-                            </div>
                         </div>
                         <div class="card mx-auto">
                             <div class="row gy-1 align-items-center">
@@ -60,7 +52,8 @@
                                     <div class="col-md-6">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $event->title }}</h5>
-                                            <p class="card-text">2022/01/01</p>
+                                            <p class="card-text"><small class="text-muted">{{ $event->category->name }}</small></p>
+                                            <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($event->created_at)) }}</small></p>
                                         </div>
                                     </div>
                                     <div class="col-md-2 d-flex">
@@ -88,16 +81,6 @@
                         
                         <div class="d-flex bd-highlight mb-3">
                             <div class="p-1 bd-highlight">一覧</div>
-                            <div class="ms-auto ps-1 bd-highlight dropdown">
-                                <div class="ms-auto ps-1 bd-highlight dropdown">
-                                    <button class="btn btn-secondary btn-sm btn-light dropdown-toggle" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      並び順
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                        <li><a class="dropdown-item" href="#">Action</a></li>
-                                    </ul>
-                                </div>
-                            </div>
                         </div>
                         <div class="d-flex bd-highlight mb-3">
                             @include('teams.index')
