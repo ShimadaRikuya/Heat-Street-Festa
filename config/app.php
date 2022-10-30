@@ -164,6 +164,8 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         // Add Intervention Image.
         Intervention\Image\ImageServiceProvider::class,
+        // Add Sort
+        Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
 
         
         /*
