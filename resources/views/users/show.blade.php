@@ -52,7 +52,8 @@
                                     <div class="col-md-6">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $event->title }}</h5>
-                                            <p class="card-text">2022/01/01</p>
+                                            <p class="card-text"><small class="text-muted">{{ $event->category->name }}</small></p>
+                                            <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($event->created_at)) }}</small></p>
                                         </div>
                                     </div>
                                     <div class="col-md-2 d-flex">
