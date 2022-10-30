@@ -35,7 +35,7 @@
                         @if(Auth::check())
                             @if(Auth::id() != $team->user_id && $team->users()->where('user_id', Auth::id())->exists() !== true)
                                 <form action="{{ url('teams/join/'. $team->id) }}" method="GET">
-                                    {{ csrf_field() }}
+                                    @csrf
                                     <button type="submit" class="btn btn-danger">
                                     参加
                                     </button>
@@ -47,7 +47,7 @@
                     <td class="table-text">
                         @if(Auth::check()&& Auth::id() == $team->user_id )
                             <form action="{{ url('teams/edit/'.$team->id) }}" method="GET">
-                                {{ csrf_field() }}
+                                @csrf
                                 <button type="submit" class="btn btn-danger">
                                 編集
                                 </button>

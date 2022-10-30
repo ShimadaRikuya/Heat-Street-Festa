@@ -24,11 +24,7 @@ class EventController extends Controller
     {
         // 公開設定データ・新しい順に表示
         $events = Event::PublicNew();
-
-        $category = new Category;
-        $categories = $category->getLists()->prepend('カテゴリー▼', '');
-
-        return view('events.index', compact('events', 'categories'));
+        return view('events.index', compact('events'));
     }
 
     /**

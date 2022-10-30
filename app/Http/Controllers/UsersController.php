@@ -16,9 +16,22 @@ use Intervention\Image\Facades\Image; // Imageファサードを使う
 
 class UsersController extends Controller
 {
-    public function __construct()
+
+    public function index(Request $request, $user_name)
     {
-        $this->middleware('auth'); //ユーザーとしてログイン済みかどうか
+        // user_id取得
+        $user = User::where('name', '=', $user_name)->first();
+
+        // teamが投稿したイベントを表示
+        $events = Event::with(['team.user'])
+            ->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
+            ->paginate(5);
+
+        $user_flg = $request->path();
+        $user_flg = preg_replace('/[^0-10000]/', '', $user_flg);
+
+         // テンプレート「user/index.blade.php」を表示
+        return view('users/index', compact('user', 'events', 'user_flg'));
     }
 
     public function show(Request $request, $id)
@@ -30,13 +43,16 @@ class UsersController extends Controller
         $teams = User::find($user->id)->teams;
 
         // teamが投稿したイベントを表示
-        $events = Event::whereHas('team', function ($q) {
-            $q->where('user_id', Auth::id());
-        })->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
+        $events = Event::where('team_id', function ($q) {
+                $q->where('user_id', Auth::id());
+            })->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
 
+        $user_flg = $request->path();
+        $user_flg = preg_replace('/[^0-10000]/', '', $user_flg);
+
          // テンプレート「user/show.blade.php」を表示
-        return view('users/show', compact('user', 'events', 'teams'));
+        return view('users/show', compact('user', 'events', 'teams', 'user_flg'));
     }
 
     public function edit()
@@ -77,5 +93,31 @@ class UsersController extends Controller
         Storage::put($save_path, (string) $img->encode());
         // return file name
         return $file_name;
+    }
+
+    // フォロー
+    public function follow(User $user)
+    {
+       $follower = auth()->user();
+       // フォローしているか
+       $is_following = $follower->isFollowing($user->id);
+       if(!$is_following) {
+           // フォローしていなければフォローする
+           $follower->follow($user->id);
+           return back();
+       }
+    }
+ 
+    // フォロー解除
+    public function unfollow(User $user)
+    {
+       $follower = auth()->user();
+       // フォローしているか
+       $is_following = $follower->isFollowing($user->id);
+       if($is_following) {
+           // フォローしていればフォローを解除する
+           $follower->unfollow($user->id);
+           return back();
+       }
     }
 }

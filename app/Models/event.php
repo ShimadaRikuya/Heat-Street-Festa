@@ -18,6 +18,7 @@ class Event extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
+      'user_id',
       'team_id',
       'category_id',
       'title', 

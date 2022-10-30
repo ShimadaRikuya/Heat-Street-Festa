@@ -14,7 +14,7 @@
                     @else
                         <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
                     @endif
-                    <div class="username">{{ Auth::user()->name }}</div>
+                    <div class="username">{{ $user->name }}</div>
                 </div>
                 <ul class="list-group list-group-horizontal list-group-flush">
                     <li class="list-group-item flex-fill">投稿</li>
@@ -25,23 +25,20 @@
                     @if(Auth::id() != $user_flg)
                         @if (Auth::user()->isFollowing($user->id))
                             <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
-                                {{ csrf_field() }}
-                                {{ method_field('DELETE') }}
+                                @csrf
+                                @method('delete')
                             
                                 <button type="submit" class="btn btn-danger">フォロー解除</button>
                             </form>
                         @else
                             <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
-                                {{ csrf_field() }}
+                                @csrf
                             
                                 <button type="submit" class="btn btn-primary">フォローする</button>
                             </form>
                         @endif
                     @endif
                 </div>
-                @if (Auth::check())
-                    <a class="btn btn-outline-dark common-btn edit-profile-btn" href="{{ route('user.edit', Auth::user()->id ) }}">プロフィールを編集する</a>
-                @endif
             </div>
                 
 
@@ -51,9 +48,6 @@
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a href="#tab1" class="nav-link active" data-bs-toggle="tab">イベント</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#tab2" class="nav-link" data-bs-toggle="tab">主催者チーム管理</a>
                     </li>
                 </ul>
                 <div class="tab-content">
@@ -76,19 +70,6 @@
                                             <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($event->created_at)) }}</small></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 d-flex">
-                                        <input
-                                            type="button" 
-                                            onclick="location.href='{{ route('events.edit', $event->id) }}'" 
-                                            class="edit_event btn btn-light" 
-                                            value="編集"
-                                        />
-                                        <form class="delete_event" method="post" action="{{ route('events.destroy', $event) }}">
-                                            @csrf
-                                            @method('delete')
-                                            <input type="submit" class="btn btn-light" value="削除">
-                                        </form>
-                                    </div>
                                 @endforeach
 
                                 {{ $events->links() }}
@@ -96,15 +77,6 @@
                             </div>
                         </div>
 
-                    </div>
-                    <div id="tab2" class="tab-pane">
-                        
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="p-1 bd-highlight">一覧</div>
-                        </div>
-                        <div class="d-flex bd-highlight mb-3">
-                            @include('teams.index')
-                        </div>
                     </div>
                 </div>
             </div>
