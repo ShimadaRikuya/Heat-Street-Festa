@@ -195,10 +195,10 @@ class EventController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $categories = Category::all();
-        
         $event = Event::find($id);
-        // ddd($event);
+
+        // カテゴリー一覧を取得
+        $categories = Category::all();
         return view('events.edit', compact('categories', 'event'));
     }
 

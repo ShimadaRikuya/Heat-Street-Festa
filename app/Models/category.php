@@ -23,8 +23,6 @@ class Category extends Model
      */
     public function getLists()
     {
-        $categories = Category::orderBy('id','asc')->pluck('name', 'id');
-    
-        return $categories;
+        return $this->get();
     }
 }

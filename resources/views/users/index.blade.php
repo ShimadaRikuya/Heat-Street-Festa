@@ -17,23 +17,26 @@
                     <div class="username">{{ $user->name }}</div>
                 </div>
                 <ul class="list-group list-group-horizontal list-group-flush">
-                    <li class="list-group-item flex-fill">投稿</li>
-                    <li class="list-group-item flex-fill">フォロー</li>
-                    <li class="list-group-item flex-fill">フォロワー</li>
+                    <li class="list-group-item flex-fill">投稿
+                        <div class="count">{{ $events->count() ?? '' }}</div>
+                    </li>
+                    <li class="list-group-item flex-fill">フォロー
+                        <div class="count">{{ $follow_count }}</div>
+                    </li>
+                    <li class="list-group-item flex-fill">フォロワー
+                        <div class="count">{{ $follower_count }}</div>
+                    </li>
                 </ul>
                 <div class="d-flex justify-content-end flex-grow-1">
                     @if(Auth::id() != $user_flg)
                         @if (Auth::user()->isFollowing($user->id))
                             <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
-                                @csrf
-                                @method('delete')
-                            
+                                @csrf 
                                 <button type="submit" class="btn btn-danger">フォロー解除</button>
                             </form>
                         @else
                             <form action="{{ route('follow', ['user' => $user->id]) }}" method="POST">
                                 @csrf
-                            
                                 <button type="submit" class="btn btn-primary">フォローする</button>
                             </form>
                         @endif

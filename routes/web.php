@@ -42,9 +42,9 @@ Route::group(['prefix' => 'users'], function() {
     //ユーザ更新画面
     Route::post('{user_id}/update', [UsersController::class, 'update'])->name('user.update');
     // フォロー
-    Route::post('users/{user}/follow', [UsersController::class, 'follow'])->name('follow');
+    Route::post('{user}/follow', [UsersController::class, 'follow'])->name('follow');
     // フォロー解除
-    Route::delete('users/{user}/unfollow',[UsersController::class, 'unfollow'])->name('unfollow');
+    Route::post('{user}/unfollow', [UsersController::class, 'unfollow'])->name('unfollow');
 });
 
 // メール送信

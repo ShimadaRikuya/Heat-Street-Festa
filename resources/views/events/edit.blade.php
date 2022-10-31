@@ -131,12 +131,25 @@
     
             <div class="mb-3">
                 <label for="category_id" class="form-label">イベントカテゴリー</label>
-                <select type="hidden" name="category_id" value="{{ old('category_id')?: $event->category_id }}" class="form-select" aria-label="Default select example">
-                    @foreach($categories as $category)
-                        <option value="">{{ old('name')?: $category->name }}</option>
-                        <option name="category_ids[]" value="{{ $category->id }}">{{ $category->name }}</option>
+                <select class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category-id" name="category_id">
+                    @foreach ($categories as $category)
+                      @if (!is_null(old('category_id')))
+                        {{-- バリデーション時の挙動 --}}
+                        @if (old('category_id') == $category->category_id)
+                          <option value="{{ $category->category_id }}" selected>{{ $category->name }}</option>
+                        @else
+                          <option value="{{ $category->category_id }}">{{ $category->name }}</option>
+                        @endif
+                      @else
+                        {{-- 初期表示 --}}
+                        @if ($event->category_id == $category->category_id)
+                          <option value="{{ $category->category_id }}" selected>{{ $category->name }}</option>
+                        @else
+                          <option value="{{ $category->category_id }}">{{ $category->name }}</option>
+                        @endif
+                      @endif
                     @endforeach
-                </select>
+                  </select>
             </div>
     
             <div class="mb-3">
