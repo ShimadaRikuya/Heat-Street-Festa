@@ -33,12 +33,18 @@ Route::group(['prefix' => 'gatyas'], function() {
 });
 
 Route::group(['prefix' => 'users'], function() {
+    // マイページ
+    Route::get('{user_name}', [UsersController::class, 'index'])->name('user.index');
     // ユーザ詳細画面
     Route::get('{user_id}/show', [UsersController::class, 'show'])->name('user.show');
     //ユーザ編集画面
     Route::get('{user_id}/edit', [UsersController::class, 'edit'])->name('user.edit');
     //ユーザ更新画面
     Route::post('{user_id}/update', [UsersController::class, 'update'])->name('user.update');
+    // フォロー
+    Route::post('{user}/follow', [UsersController::class, 'follow'])->name('follow');
+    // フォロー解除
+    Route::post('{user}/unfollow', [UsersController::class, 'unfollow'])->name('unfollow');
 });
 
 // メール送信
