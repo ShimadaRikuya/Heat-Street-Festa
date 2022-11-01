@@ -7,7 +7,7 @@
         <div class="row">
 
             {{-- プロフィール --}}
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-lg-3">
                 <div class="profile" id="">
                     @if ($user->profile_picture)
                         <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
@@ -18,7 +18,7 @@
                 </div>
                 <ul class="list-group list-group-horizontal list-group-flush">
                     <li class="list-group-item flex-fill">投稿
-                        <div class="count">{{ $events->count() ?? '' }}</div>
+                        <div class="count">{{ $events->total() }}</div>
                     </li>
                     <li class="list-group-item flex-fill">フォロー
                         <div class="count">{{ $follow_count }}</div>
@@ -27,7 +27,7 @@
                         <div class="count">{{ $follower_count }}</div>
                     </li>
                 </ul>
-                <div class="d-flex justify-content-end flex-grow-1">
+                <div class="d-flex justify-content-center flex-grow-1">
                     @if(Auth::id() != $user_flg)
                         @if (Auth::user()->isFollowing($user->id))
                             <form action="{{ route('unfollow', ['user' => $user->id]) }}" method="POST">
@@ -47,7 +47,7 @@
 
 
             {{-- イベント記事 --}}
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-lg-9">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a href="#tab1" class="nav-link active" data-bs-toggle="tab">イベント</a>

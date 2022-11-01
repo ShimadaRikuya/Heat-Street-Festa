@@ -7,7 +7,7 @@
         <div class="row">
 
             {{-- プロフィール --}}
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-lg-3">
                 <div class="profile" id="">
                     @if ($user->profile_picture)
                         <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
@@ -35,7 +35,7 @@
 
 
             {{-- イベント記事 --}}
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-lg-9">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
                         <a href="#tab1" class="nav-link active" data-bs-toggle="tab">イベント</a>
