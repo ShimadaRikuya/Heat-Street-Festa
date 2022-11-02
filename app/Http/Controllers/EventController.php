@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth; //Auth::id()でログイン中のユーザIDを取得するのに必要
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -105,7 +106,7 @@ class EventController extends Controller
      * 新規登録（確認）
      * 
      */
-    public function confirm(Request $request)
+    public function confirm(EventRequest $request)
     {
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader', 'team_name', 'team_email', 'team_phone');
@@ -113,7 +114,6 @@ class EventController extends Controller
 
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
-        // ddd($categories);
 
         // 画像
         $image = $request->file('image_uploader');
@@ -127,7 +127,12 @@ class EventController extends Controller
         }
         $img_path = 'storage/event_images/'.$filename;
 
-        return view('events.confirm', compact('img_path', 'categories', 'teams'))->with($event);
+        return view('events.confirm', ['img_path' => $img_path, 'categories' => $categories, 'teams' => $teams])->with($event);
+    }
+
+    public function getConfirm() 
+    {
+        return view('events.confirm');
     }
 
     /**

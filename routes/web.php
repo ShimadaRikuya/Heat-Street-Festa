@@ -82,9 +82,11 @@ Route::group(['prefix' => 'events'], function () {
     Route::get('/search', [EventController::class, 'keyword'])->name('events.keyword');
     // カテゴリ別
     Route::get('/{category_id}/{category}', [EventController::class, 'search'])->where('category', '(パーティー|ミュージック|グルメ|ゲーム|スポーツ|ビジネス)');
-    // 投稿新規画面
-    Route::post('/create', [EventController::class, 'create'])->middleware(['auth'])->name('events.create');
-    // 投稿新規確認画面
+    // 新規投稿画面
+    Route::get('/create', [EventController::class, 'create'])->middleware(['auth'])->name('events.create');
+    // 確認画面
+    Route::get('/confirm', [EventController::class, 'getConfirm'])->middleware(['auth'])->name('events.confirm');
+    // 確認画面
     Route::post('/confirm', [EventController::class, 'confirm'])->middleware(['auth'])->name('events.confirm');
     // 登録処理
     Route::post('/', [EventController::class, 'store'])->middleware(['auth'])->name('events.store');

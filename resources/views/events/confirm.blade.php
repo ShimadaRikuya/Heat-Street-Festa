@@ -63,10 +63,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="zip1_zip2" class="form-label">郵便番号</label>
-            <input type="hidden" name="zip1" value="{{ $zip1 }}">
-            <input type="hidden" name="zip2" value="{{ $zip2 }}">
-            <div class="">{{ $zip1 }} - {{ $zip2 }}</div>
+            <label for="zip" class="form-label">郵便番号</label>
+            <input type="hidden" name="zip" value="{{ $zip }}">
+            <div class="">{{ $zip }}</div>
         </div>
 
         <div class="mb-3">

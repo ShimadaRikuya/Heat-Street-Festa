@@ -13,8 +13,7 @@
 
         @else
 
-            <form action="{{ route('events.create') }}" method="post" class="form-horizontal">
-                @csrf
+            <form action="{{ route('events.create') }}" method="get" class="form-horizontal">
                 <h1>主催者</h1>
                 <select name="team_id">
                     @foreach ($teams as $team)
