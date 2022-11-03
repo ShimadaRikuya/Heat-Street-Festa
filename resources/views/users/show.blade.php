@@ -47,7 +47,7 @@
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('events.create') }}" role="button">＋新規作成</a></div>
+                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('team.select') }}" role="button">＋新規作成</a></div>
                         </div>
                         <div class="card mx-auto">
                             <div class="row gy-1 align-items-center">

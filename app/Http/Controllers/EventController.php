@@ -29,58 +29,6 @@ class EventController extends Controller
     }
 
     /**
-     * Display a listing of the search.
-     * 
-     * 検索機能
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function keyword(Request $request)
-    {
-        // クエリビルダ
-        $query = Event::query();
-
-        //$request->input()で検索時に入力した項目を取得します。
-        $search = $request->input('search');
-
-        // もし検索フォームにキーワードが入力されたら
-        if ($search) {
-            // 全角スペースを半角に変換
-            $spaceConversion = mb_convert_kana($search, 's');
-
-            // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
-            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
-
-
-            // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
-            foreach($wordArraySearched as $value) {
-                $query->where('title', 'like', '%'.$value.'%');
-            }
-        } else {
-            return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
-        }
-
-        $events = $query->paginate(24);
-
-        return view('events.keyword', compact('events', 'search'));
-    }
-
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     * 
-     * カテゴリー別イベント
-     * 
-     */
-    public function search(Event $event, $category_id, $category)
-    {
-        $events = Event::where('category_id', $category_id)->paginate(24);
-        return view('events.index', compact('events', 'category'));
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -88,14 +36,14 @@ class EventController extends Controller
      * 新規登録（入力）
      * 
      */
-    public function create(Request $request)
+    public function create($team)
     {
         //チーム情報の取得
-        $teams = Team::where('id', $request->team_id)->first();
+        $team = Team::where('id', $team)->first();
         $categories = Category::all();
 
         // ddd($categories);
-        return view('events.create', compact('categories', 'teams'));
+        return view('events.create', compact('categories', 'team'));
     }
 
     /**
@@ -127,7 +75,13 @@ class EventController extends Controller
         }
         $img_path = 'storage/event_images/'.$filename;
 
-        return view('events.confirm', ['img_path' => $img_path, 'categories' => $categories, 'teams' => $teams])->with($event);
+        return view('events.confirm', 
+        [
+        'img_path' => $img_path,
+        'categories' => $categories,
+        'teams' => $teams
+        ])
+        ->with($event);
     }
 
     public function getConfirm() 
@@ -266,5 +220,57 @@ class EventController extends Controller
                 ->route('events.index')
                 ->with('flash_message', '削除に成功しました。');
         }
+    }
+
+    /**
+     * Display a listing of the search.
+     * 
+     * 検索機能
+     *
+     * @return \Illuminate\Http\Response
+    */
+    public function keyword(Request $request)
+    {
+        // クエリビルダ
+        $query = Event::query();
+
+        //$request->input()で検索時に入力した項目を取得します。
+        $search = $request->input('search');
+
+        // もし検索フォームにキーワードが入力されたら
+        if ($search) {
+            // 全角スペースを半角に変換
+            $spaceConversion = mb_convert_kana($search, 's');
+
+            // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
+            $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+
+
+            // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
+            foreach($wordArraySearched as $value) {
+                $query->where('title', 'like', '%'.$value.'%');
+            }
+        } else {
+            return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
+        }
+
+        $events = $query->paginate(24);
+
+        return view('events.keyword', compact('events', 'search'));
+    }
+
+
+    /**
+     * Display a listing of the search.
+     *
+     * @return \Illuminate\Http\Response
+     * 
+     * カテゴリー別イベント
+     * 
+     */
+    public function search(Event $event, $category_id, $category)
+    {
+        $events = Event::where('category_id', $category_id)->paginate(24);
+        return view('events.index', compact('events', 'category'));
     }
 }

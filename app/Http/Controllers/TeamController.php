@@ -19,8 +19,7 @@ class TeamController extends Controller
 
     public function create()
     {
-        //
-        return view('teams.create');
+        return view('team.create');
     }
 
     public function store(Request $request)
@@ -69,9 +68,7 @@ class TeamController extends Controller
     //チーム編集画面表示
     public function edit (Team $team) 
     {
-            
         return view('teams/edit', ['team' => $team]);
-             
     }
     
     //更新処理
@@ -116,7 +113,6 @@ class TeamController extends Controller
         $team->users()->attach($user);
         
         return redirect()->route('user.show', $user)->with('flash_message', 'チームに参加しました。');
-        
     }
 
     /**
@@ -135,7 +131,9 @@ class TeamController extends Controller
             ->with('flash_message', '削除に成功しました。');
     }
 
-    public function select(Request $request)
+
+
+    public function getSelect()
     {
         //ログイン中のユーザーを取得
         $user_id = Auth::id();
