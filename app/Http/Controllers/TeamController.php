@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Http\Requests\TeamRequest;
 use Illuminate\Support\Str; // 指定した長さのランダムな文字列を生成
 use App\Models\Team;
 use App\Models\Event;
@@ -22,20 +22,9 @@ class TeamController extends Controller
         return view('teams.create');
     }
 
-    public function store(Request $request)
+    public function store(TeamRequest $request)
     {
         $user_id = Auth::id();
-        // //バリデーション 
-        // $validator = Validator::make($request->all(), [
-        //     'team_name' => 'required|max:255'
-        // ]);
-        
-        // //バリデーション:エラー
-        // if ($validator->fails()) {
-        //     return redirect('/')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
         
         //以下に登録処理を記述（Eloquentモデル）
         $teams = new Team;
@@ -72,23 +61,10 @@ class TeamController extends Controller
     }
     
     //更新処理
-    public function update (Request $request) 
+    public function update (TeamRequest $request) 
     {
         // user_id取得
         $user = Auth::user();
-
-        // //バリデーション 
-        // $validator = Validator::make($request->all(), [
-        //     'team_name' => 'required|max:255',
-        // ]);
-       
-        // //バリデーション:エラー
-        // if ($validator->fails()) 
-        // {
-        //     return redirect('/')
-        //         ->withInput()
-        //         ->withErrors($validator);
-        // }
    
         //対象のチームを取得
         $team = Team::find($request->id);
@@ -153,7 +129,7 @@ class TeamController extends Controller
         $team->invite_code = Str::random(30);
         $team->update();
 
-        return redirect()->route('team.show', $team)->with('flash_message', "招待コードおよび招待URLを生成しました。");
+        return redirect()->route('teams.show', $team)->with('flash_message', "招待コードおよび招待URLを生成しました。");
     }
 
     public function email_join(Request $request, $team_id, $token)
@@ -174,7 +150,7 @@ class TeamController extends Controller
                 $team->users()->attach(Auth::user());
                 User::find(Auth::id())->update([ 'role' => '50' ]);
 
-                return redirect()->to(route('team.show', $team))->with('flash_message', "メンバーとして参加しました。");
+                return redirect()->to(route('teams.show', $team))->with('flash_message', "メンバーとして参加しました。");
 
             }else{
                 //tokenが腐っているか、偽物ならば、弾いておく。
@@ -183,7 +159,7 @@ class TeamController extends Controller
 
         }else{
             //所属済みならば、弾いておく。
-            return redirect()->to(route('team.show', $team))->with('flash_message', "あなたは既に所属しています。");
+            return redirect()->to(route('teams.show', $team))->with('flash_message', "あなたは既に所属しています。");
         }   
     }
 }

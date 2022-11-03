@@ -49,7 +49,7 @@
                             </li>
                         @endif
                     @else
-                        <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('team.select') }}" role="button">イベントを作成</a></div>
+                        <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('teams.select') }}" role="button">イベントを作成</a></div>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 {{ Auth::user()->name }}

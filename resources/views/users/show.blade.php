@@ -18,13 +18,13 @@
                 </div>
                 <ul class="list-group list-group-horizontal list-group-flush">
                     <li class="list-group-item flex-fill">投稿
-                        <div class="count">{{ $events->count() ?? '' }}</div>
+                        <div class="count">{{ $events->total() }}</div>
                     </li>
                     <li class="list-group-item flex-fill">フォロー
-                        <div class="count">{{ $follow_count ?? '' }}</div>
+                        <div class="count">{{ $follow_count }}</div>
                     </li>
                     <li class="list-group-item flex-fill">フォロワー
-                        <div class="count">{{ $follower_count ?? '' }}</div>
+                        <div class="count">{{ $follower_count }}</div>
                     </li>
                 </ul>
                 @if (Auth::check())
@@ -47,7 +47,7 @@
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('team.select') }}" role="button">＋新規作成</a></div>
+                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('teams.select') }}" role="button">＋新規作成</a></div>
                         </div>
                         <div class="card mx-auto">
                             <div class="row gy-1 align-items-center">

@@ -51,27 +51,27 @@ Route::group(['prefix' => 'users'], function() {
 Route::post('mail', [MailController::class, 'send'])->middleware(['auth']);
 
 // チーム
-Route::group(['prefix' => 'teams'], function() {
+Route::group(['prefix' => 'teams', 'as' => 'teams.'], function() {
     // チーム選択処理
-    Route::get('/select', [TeamController::class, 'getSelect'])->name('team.select');
+    Route::get('/select', [TeamController::class, 'getSelect'])->name('select');
     // 主催者の新規登録
-    Route::get('/create', [TeamController::class, 'create'])->name('team.create');
+    Route::get('/create', [TeamController::class, 'create'])->name('create');
     // チーム作成登録処理
     Route::post('/', [TeamController::class, 'store']);
     // チーム詳細表示
-    Route::get('/{team}', [TeamController::class, 'show'])->name('team.show');
+    Route::get('/{team}', [TeamController::class, 'show'])->name('show');
     // チーム編集処理
-    Route::get('/edit/{team}', [TeamController::class, 'edit']); 
+    Route::get('/{team}/edit', [TeamController::class, 'edit'])->name('edit'); 
     //チーム更新処理
     Route::post('/update',  [TeamController::class, 'update']);
     // 削除処理
-    Route::delete('/delete/{team}', [TeamController::class, 'destroy'])->name('teams.destroy');
+    Route::delete('/{team}/delete', [TeamController::class, 'destroy'])->name('destroy');
     // チームに参加処理
     Route::get('/join/{team_id}', [TeamController::class, 'join']);
     // 招待
     Route::get('/invite/{team_id}', [TeamController::class, 'create_invitation_url']);
     // メールからチームに参加
-    Route::get('/email_join/{team_id}/{token}', [TeamController::class, 'email_join'])->name('team.invite');
+    Route::get('/email_join/{team_id}/{token}', [TeamController::class, 'email_join']);
 });
 
 // イベント

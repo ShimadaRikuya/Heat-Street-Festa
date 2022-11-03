@@ -64,7 +64,7 @@ class EventRequest extends FormRequest
             // イベント詳細日時
             'event_time_discription.max' => 'イベント詳細日時は255文字以下で入力してください',
             // 料金
-            'fee.numeric' => '数値以外入力できません',
+            'fee.numeric' => '料金は数値以外入力できません',
             // 公式URL
             'official_url.url' => 'URLの形式が正しくありません',
             // 会場名
