@@ -20,7 +20,9 @@
                 @endforeach
             </select>
 
-            <div class="ps-1 bd-highlight"><a class="btn" href="{{ route('team.create') }}" role="button">主催者を登録する</a></div>
+            <div class="ps-1">
+                <button type="button" onclick="location.href='{{ route('team.create') }}' " class="btn bd-highlight">主催者を登録する</button>
+            </div>
 
             <!-- Save ボタン/Back ボタン -->
             <div class="well well-sm">

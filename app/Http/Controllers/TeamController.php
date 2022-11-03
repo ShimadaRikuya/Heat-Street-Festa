@@ -19,7 +19,7 @@ class TeamController extends Controller
 
     public function create()
     {
-        return view('team.create');
+        return view('teams.create');
     }
 
     public function store(Request $request)

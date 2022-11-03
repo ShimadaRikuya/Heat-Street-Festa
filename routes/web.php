@@ -96,7 +96,7 @@ Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
         // 編集処理
         Route::get('/{event}/edit', [EventController::class, 'edit'])->name('edit');
         // 更新処理
-        Route::put('/{event}', [EventController::class, 'update'])->name('update');
+        Route::post('/{event}', [EventController::class, 'update'])->name('update');
         // 削除処理
         Route::delete('/{event}', [EventController::class, 'destroy'])->name('destroy');
     });

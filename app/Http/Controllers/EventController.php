@@ -155,7 +155,6 @@ class EventController extends Controller
     public function edit(Request $request, $id)
     {
         $event = Event::find($id);
-
         // カテゴリー一覧を取得
         $categories = Category::all();
         return view('events.edit', compact('categories', 'event'));
@@ -168,8 +167,9 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EventRequest $request, $id)
     {
+        $user_id = Auth::id();
         $event = Event::find($id);
         $form = $request->all();
 
@@ -186,6 +186,10 @@ class EventController extends Controller
                 $form['image_uploader'] = 'storage/event_images/'. $filename;
                 // 取得したファイル名で保存
                 $request->image_uploader->storeAs('public/event_images', $filename);
+                // 加工する画像のパスを取得
+                $image_uploader = Image::make($request->image_uploader);
+                // 指定する画像をリサイズする
+                $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
             }
         }
 
@@ -195,12 +199,12 @@ class EventController extends Controller
 
         if ($event) {
             return redirect()
-                ->route('events.show', $event)
+                ->route('user.show', $user_id)
                 ->with('flash_message', 'イベント記事の更新に成功しました。');
         } else {
             // 登録処理失敗時にリダイレクト
             return redirect()
-                ->route('events.index')
+                ->route('events.edit', $event)
                 ->with('flash_message', 'イベント記事の更新に失敗しました。');
         }
     }
