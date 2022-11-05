@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 use App\Models\Gatya;
 use App\Models\User;
@@ -41,7 +42,7 @@ class GatyaController extends Controller
     {
         $user_id = Auth::id();
         
-        $dates = Gatya::inRandomOrder()->take(1)->first();
+        $dates = Gatya::inRandomOrder()->first();
 
         $query = User::where('gatya_id', $dates->id)->doesntExist();
 
@@ -91,7 +92,21 @@ class GatyaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user_id = Auth::id();
+        $user = User::find($user_id);
+
+        if ($user->gatya_id == $id) {
+            User::where('id', $user_id)
+                    ->update([
+                        'gatya_id' => null
+                    ]);
+            return redirect()
+                ->route('user.edit', $user_id)
+                ->with('flash_message', 'チケットを使用しました');
+        }
+        return redirect()
+            ->route('user.edit', $user_id)
+            ->with('flash_message', '選択したチケットは現在使用できません');
     }
 
     /**

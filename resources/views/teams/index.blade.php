@@ -46,7 +46,7 @@
                     <!-- チーム編集ボタン-->
                     <td class="table-text">
                         @if(Auth::check()&& Auth::id() == $team->user_id )
-                            <form action="{{ url('teams/edit/'.$team->id) }}" method="GET">
+                            <form action="{{ route('teams.edit', $team->id) }}" method="GET">
                                 @csrf
                                 <button type="submit" class="btn btn-danger">
                                 編集

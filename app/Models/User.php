@@ -64,9 +64,9 @@ class User extends Authenticatable
         return $this->belongsTo(Team::class);
     }
 
-    public function gatyas()
+    public function gatya()
     {
-        return $this->hasMany(Gatya::class);
+        return $this->belongsTo(Gatya::class);
     }
 
      public function followers()

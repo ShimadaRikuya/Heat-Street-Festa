@@ -26,7 +26,7 @@
                     </li>
 
                     <form class="d-flex" role="search" method="GET" action="{{ route('events.keyword') }}">
-                        <input type="search" name="search"  value="{{request('search')}}" class="form-control me-2" placeholder="キーワードを入力" aria-label="検索...">
+                        <input type="search" name="search"  value="{{ request('search') }}" class="form-control me-2" placeholder="キーワードを入力" aria-label="検索...">
                         <button type="submit" class="btn btn-outline-success flex-shrink-0">検索</button>
                     </form>
 

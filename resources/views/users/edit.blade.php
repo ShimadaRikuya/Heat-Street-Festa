@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-ticket" role="tabpanel" aria-labelledby="v-pills-ticket-tab">
-                        @include('users.ticket')
+                        @include('gatyas.ticket')
                     </div>
 
                     <div class="tab-pane fade" id="v-pills-help" role="tabpanel" aria-labelledby="v-pills-help-tab">

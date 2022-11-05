@@ -18,7 +18,6 @@ class Event extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
-      'user_id',
       'team_id',
       'category_id',
       'title', 
@@ -30,8 +29,7 @@ class Event extends Model
       'fee',
       'official_url',
       'venue',
-      'zip1',
-      'zip2',
+      'zip',
       'address1',
       'address2',
       'form_public'

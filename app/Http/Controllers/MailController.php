@@ -31,7 +31,7 @@ class MailController extends Controller
 
         session()->flash('flash_message', '招待が完了しました');
 
-        return redirect()->route('team.show', $team);
+        return redirect()->route('teams.show', $team);
     }
 
     public function invite(Request $request)

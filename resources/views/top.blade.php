@@ -7,13 +7,14 @@
     @include('layouts.slider')
 
     <!-- NEW ARRIVALS -->
-    <h2 class="section_title">NEW ARRIVALS</h2>
+    <h2 class="section_title">新規記事</h2>
 
-    <div class="row">
+    <div class="row w-75 mx-auto">
         @foreach($events as $event)
-            <div class="col-6 col-md-6 col-lg-4">
-                <div class="card mx-auto">
-                    <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
+            <!-- PCサイズ -->
+            <div class="col-lg-4 my-3 d-none d-lg-block">
+                <div class="card">
+                    <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
                     <div class="card-body">
                         @if (Auth::check() && Auth::User() == $event->team->user)
                             <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -26,15 +27,34 @@
                     </div>
                 </div>
             </div>
-        @endforeach
-    </div>
+            <!--/ PCサイズ -->
 
-    <div class="d-grid gap-2 col text-center-6 mx-auto">
-        <button class="btn btn-outline-dark" type="button">VIEW ALL</button>
+            <!-- SPサイズ -->
+            <div class="col col-md-6 my-3 d-lg-none">
+                <div class="card">
+                    <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;"></a>
+                    <div class="card-body">
+                        @if (Auth::check() && Auth::User() == $event->team->user)
+                            <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
+                        @else
+                            <a class="card-text" href="{{ route('user.index', $event->team->user->name) }}">{{ $event->team->user->name }}</a>
+                        @endif
+                        <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $event->title }}</h5>
+                        <span class="card-text"><small class="text-muted">{{ $event->category->name }}</small></span>
+                        <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
+                    </div>
+                </div>
+            </div>
+            <!--/ SPサイズ -->
+
+        @endforeach
+        <div class="text-center">
+            <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
+        </div>
     </div>
 
     <!-- PICKUP POST -->
-    <h2 class="section_title">PICKUP POST</h2>
+    <h2 class="section_title">ランキング</h2>
 
     <div class="row">
 
@@ -111,7 +131,7 @@
     </div>
 
     <!-- TREND -->
-    <h2 class="section_title">TREND</h2>
+    <h2 class="section_title"></h2>
     
     <div class="row">
 

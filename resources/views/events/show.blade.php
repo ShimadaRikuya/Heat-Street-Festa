@@ -5,11 +5,11 @@
 @section('content')
 <div class="container">
 
-    <div class="row">
+    <div class="row w-75 mx-auto text-center">
         <div class="section_title">詳細</div>
 
-        <div class="text-center" style="width: 20rem;">
-            <img src="{{ asset($events->image_uploader) }}" class="card-img-top">
+        <div class="mx-auto" style="width: 30rem;">
+            <img src="{{ asset($events->image_uploader) }}" class="card-img-top" style="object-fit:cover;">
         </div>
         <div class="section title_area">
             <h1>{{ $events->title }}</h1>
