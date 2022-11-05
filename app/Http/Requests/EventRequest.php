@@ -79,6 +79,7 @@ class EventRequest extends FormRequest
             'address2.required' => '住所を入力してください',
             // カテゴリー
             'category_id.required' => 'カテゴリーを選択してください',
+            'category_id.exists' => '選択したカテゴリーは存在していません',
         ];
     }
 }

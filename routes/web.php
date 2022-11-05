@@ -28,8 +28,9 @@ use App\Http\Controllers\MailController;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Auth::routes();
-Route::group(['prefix' => 'gatyas'], function() {
+Route::group(['prefix' => 'gatyas', 'as' => 'gatyas.'], function() {
     Route::get('/get', [GatyaController::class, 'store']);
+    Route::post('/{gatya}/update', [GatyaController::class, 'update'])->name('update');
 });
 
 Route::group(['prefix' => 'users'], function() {

@@ -15,7 +15,7 @@ class AddIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //外部キー設定
-            $table->foreignId('gatya_id')->nullable()->after('role')->constrained('gatyas')->onDelete('cascade')->comment('ガチャID');
+            $table->foreignId('gatya_id')->nullable()->after('role')->constrained()->comment('ガチャID');
         });
     }
 
