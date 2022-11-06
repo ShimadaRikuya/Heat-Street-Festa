@@ -55,21 +55,20 @@
                 </ul>
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
-                        <div class="d-flex bd-highlight mb-3">
-                            <div class="ps-1 bd-highlight"><a class="btn btn-light" href="{{ route('events.create') }}" role="button">＋新規作成</a></div>
-                        </div>
                         <div class="card mx-auto">
-                            <div class="row gy-1 align-items-center">
+                            <div class="row align-items-center">
                                 @foreach($events as $event)
-                                    <div class="col-md-4">
+                                    <div class="col-md-3">
                                         <a href="{{ route('events.show', $event->id) }}">
                                             <img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;">
                                         </a>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-9">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $event->title }}</h5>
                                             <p class="card-text"><small class="text-muted">{{ $event->category->name }}</small></p>
+                                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span>
+                                            <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                                             <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($event->created_at)) }}</small></p>
                                         </div>
                                     </div>

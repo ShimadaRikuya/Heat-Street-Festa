@@ -102,4 +102,9 @@ class User extends Authenticatable
     {
         return (boolean) $this->followers()->where('following_id', $user_id)->first(['id']);
     }
+
+    public function likes()
+    {
+        return $this->belongsToMany(Event::class)->withTimestamps();
+    }
 }

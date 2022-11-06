@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Event;
 use App\Models\Team;
 use App\Models\Category;
+use App\Models\Like;
 
 use Intervention\Image\Facades\Image; // Imageファサードを使う
 
@@ -140,10 +141,8 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        //
-        $events = Event::find($id);
-        // ddd();
-        return view('events.show', compact('events'));
+        $event = Event::find($id);
+        return view('events.show', compact('event'));
     }
 
     /**
