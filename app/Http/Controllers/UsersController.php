@@ -55,8 +55,13 @@ class UsersController extends Controller
         //参加チーム 取得
         $teams = User::find($user->id)->teams;
 
-        // teamが投稿したイベントを表示
+        // 投稿したイベントを表示
         $events = Event::whereHas('team', function ($q) {
+            $q->where('user_id', Auth::id());
+        })->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
+            ->paginate(5);
+        
+        $likes = Event::whereHas('users', function ($q) {
             $q->where('user_id', Auth::id());
         })->orderBy('created_at', 'desc') // 投稿作成日が新しい順に並べる
             ->paginate(5);
@@ -65,7 +70,7 @@ class UsersController extends Controller
         $user_flg = preg_replace('/[^0-10000]/', '', $user_flg);
 
          // テンプレート「user/show.blade.php」を表示
-        return view('users/show', compact('user', 'events', 'teams', 'user_flg', 'follow_count', 'follower_count'));
+        return view('users/show', compact('user', 'events', 'teams', 'user_flg', 'follow_count', 'follower_count', 'likes'));
     }
 
     public function edit()

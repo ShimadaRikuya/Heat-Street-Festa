@@ -43,6 +43,9 @@
                     <li class="nav-item">
                         <a href="#tab2" class="nav-link" data-bs-toggle="tab">主催者チーム管理</a>
                     </li>
+                    <li class="nav-item">
+                        <a href="#tab3" class="nav-link" data-bs-toggle="tab">いいね</a>
+                    </li>
                 </ul>
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
@@ -52,7 +55,7 @@
                         <div class="card mx-auto">
                             <div class="row gy-1 align-items-center">
                                 @foreach($events as $event)
-                                    <div class="col-md-4">
+                                    <div class="col-md-2">
                                         <a href="{{ route('events.show', $event->id) }}">
                                             <img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;">
                                         </a>
@@ -60,11 +63,12 @@
                                     <div class="col-md-6">
                                         <div class="card-body">
                                             <h5 class="card-title">{{ $event->title }}</h5>
-                                            <p class="card-text"><small class="text-muted">{{ $event->category->name }}</small></p>
+                                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span>
+                                            <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                                             <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($event->created_at)) }}</small></p>
                                         </div>
                                     </div>
-                                    <div class="col-md-2 d-flex">
+                                    <div class="col-md-3 d-flex justify-content-center">
                                         <input
                                             type="button" 
                                             onclick="location.href='{{ route('events.edit', $event->id) }}'" 
@@ -92,6 +96,31 @@
                         </div>
                         <div class="d-flex bd-highlight mb-3">
                             @include('teams.index')
+                        </div>
+                    </div>
+                    <div id="tab3" class="tab-pane">
+                        
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="p-1 bd-highlight">一覧</div>
+                        </div>
+                        <div class="d-flex bd-highlight mb-3">
+                            <div class="row gy-1 align-items-center">
+                                @foreach ($likes as $like)
+                                    <div class="col-md-2">
+                                        <a href="{{ route('events.show', $like->id) }}">
+                                            <img class="card-img-top" src="{{ asset($like->image_uploader) }}" alt="{{ $like->image_uploader }}" style="height: 100px; object-fit:cover;">
+                                        </a>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $like->title }}</h5>
+                                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $like->category->name }}</small></span>
+                                            <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $like->users()->count() }}</small></span>
+                                            <p class="card-text"><small class="text-muted">作成日：{{ date('Y/m/d', strtotime($like->created_at)) }}</small></p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -18,6 +18,7 @@ class Event extends Model
 
     // 登録・編集ができるカラム
     protected $fillable = [
+      'user_id',
       'team_id',
       'category_id',
       'title', 
@@ -52,7 +53,8 @@ class Event extends Model
     /**
      * カテゴリーリレーション
      */
-    public function Category(){
+    public function Category()
+    {
         // 一つの記事は一つのカテゴリに属している
         return $this->belongsTo(Category::class);
     }
@@ -85,6 +87,11 @@ class Event extends Model
     public function scopePublicFindById(Builder $query, int $id)
     {
        return $query->public()->findOrFail($id);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\GatyaController;
+use App\Http\Controllers\LikeController;
 use App\Mail\SendTestMail;
 use App\Http\Controllers\MailController;
 
@@ -102,3 +103,7 @@ Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
         Route::delete('/{event}', [EventController::class, 'destroy'])->name('destroy');
     });
 });
+
+// いいね機能
+Route::post('{event}/like', [LikeController::class, 'store'])->name('like');
+Route::post('{event}/unlike', [LikeController::class, 'destroy'])->name('unlike');

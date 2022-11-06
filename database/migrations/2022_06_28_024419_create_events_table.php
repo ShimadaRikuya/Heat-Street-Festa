@@ -30,8 +30,9 @@ class CreateEventsTable extends Migration
             $table->boolean('form_public')->default(false)->comment('公開・非公開');
 
             //外部キー設定
-            $table->foreignId('team_id')->constrained('teams')->onDelete('cascade')->comment('主催者チームID');
-            $table->foreignId('category_id')->constrained('categories')->comment('カテゴリーID');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade')->comment('投稿者ID');
+            $table->foreignId('team_id')->constrained()->onDelete('cascade')->comment('主催者チームID');
+            $table->foreignId('category_id')->constrained()->comment('カテゴリーID');
 
             $table->timestamps();
         });
