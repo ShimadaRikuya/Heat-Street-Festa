@@ -94,4 +94,20 @@ class Event extends Model
         return $this->belongsToMany(User::class)->withTimestamps();
     }
 
+    // いいね数ランキング
+    public static function Ranking()
+    {
+        $events = Event::withCount('users')
+              ->orderBy('users_count', 'desc')
+              ->paginate(24);
+        return $events;
+    }
+
+    public static function getTrend()
+    {
+        return self::whereHas('category', function ($query) {
+            $query->where('id', 1);
+        })->paginate(24); //プロパティで呼び出す
+    }
+
 }

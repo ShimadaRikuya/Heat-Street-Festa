@@ -58,7 +58,7 @@
                         <div class="card mx-auto">
                             <div class="row align-items-center">
                                 @foreach($events as $event)
-                                    <div class="col-md-3">
+                                    <div class="col-md-2">
                                         <a href="{{ route('events.show', $event->id) }}">
                                             <img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;">
                                         </a>
