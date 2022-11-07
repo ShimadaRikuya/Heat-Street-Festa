@@ -109,12 +109,6 @@
 
             @endforeach
 
-            <!-- もっと見る -->
-            <div class="text-center">
-                <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
-            </div>
-            <!--/ もっと見る -->
-
         </div>
     </section>
 
