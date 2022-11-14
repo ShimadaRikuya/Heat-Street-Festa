@@ -1,0 +1,59 @@
+.fa-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.contact_name {
+    margin-top: 1rem;
+}
+
+// タブレット以上の表示
+@media (min-width: 992px) {
+    .likes {
+        display: block;
+        position: fixed;
+        top: 60px;
+        left: 60px;
+        padding: 6px 40px;
+    }
+    .img {
+        height: 500px;
+        position: relative;
+        &-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+        }
+        &-likes {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 50px;/*幅*/
+            height: 50px;/*高さ*/
+            border-radius: 50%;/*角丸*/
+            background: #C0C0C0;
+        }
+    }
+}
+
+// タブレット以下の表示
+@media (max-width: 991.98px) { 
+    .img {
+        position: relative;
+        &-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+        }
+        &-likes {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 50px;/*幅*/
+            height: 50px;/*高さ*/
+            border-radius: 50%;/*角丸*/
+            background: #C0C0C0;
+        }
+    }
+ }

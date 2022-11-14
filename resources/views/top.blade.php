@@ -3,11 +3,10 @@
 @include('footer')
 
 @section('content')
+<section class="section slider">
+    @include('layouts.slider')
+</section>
 <div class="container">
-    <section class="section slider">
-        @include('layouts.slider')
-    </section>
-    
 
     <section class="section new_event">
 
@@ -27,7 +26,7 @@
                                 <a class="card-text" href="{{ route('user.index', $event->team->user->name) }}">{{ $event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $event->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
                         </div>
@@ -46,7 +45,7 @@
                                 <a class="card-text" href="{{ route('user.index', $event->team->user->name) }}">{{ $event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $event->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $event->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
                         </div>
@@ -126,7 +125,7 @@
                         <a href="{{ route('events.show', $trend->id) }}"><img class="card-img-top" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
-                                <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trendt->team->user->name }}</a>
+                                <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
                             @else
                                 <a class="card-text" href="{{ route('user.index', $trend->team->user->name) }}">{{ $trend->team->user->name }}</a>
                             @endif
