@@ -86,7 +86,6 @@
                                 <input type="hidden" class="form-control" value="{{ $img_path }}" name="image_uploader" multiple>
                                 <input type="hidden" name="title" value="{{ $title }}">
                                 <input type="hidden" name="category_id" value="{{ $category_id }}">
-                                <input type="hidden" name="address1" value="{{ $address1 }}">
                                 <input type="hidden" name="event_start" value="{{ $event_start }}">
                                 <input type="hidden" name="event_end" value="{{ $event_end }}">
                                 <input type="hidden" name="event_time_discription" value="{{ $event_time_discription }}">
@@ -95,6 +94,7 @@
                                 <input type="hidden" name="official_url" value="{{ $official_url }}">
                                 <input type="hidden" name="venue" value="{{ $venue }}">
                                 <input type="hidden" name="zip" value="{{ $zip }}">
+                                <input type="hidden" name="address1" value="{{ $address1 }}">
                                 <input type="hidden" name="address2" value="{{ $address2 }}">
                             </form>
                         </div>

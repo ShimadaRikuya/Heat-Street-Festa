@@ -191,9 +191,9 @@
                                 name="address1" 
                                 value="{{ old('address1') }}" 
                                 class="form-select @error('address1') is-invalid @enderror">
-                                @foreach(config('pref') as $key => $score)
+                                @foreach(config('pref') as $pref_id => $name)
                                     <option value="" hidden>-- 都道府県 --</option>
-                                    <option value="{{ $score }}" @if( old('address1') === '{{ $score }}' ) selected @endif>{{ $score }}</option>
+                                    <option value="{{ $pref_id }}" @if( old('address1') === '{{ $pref_id }}' ) selected @endif>{{ $name }}</option>
                                 @endforeach
                             </select>
                             @error('address1')
