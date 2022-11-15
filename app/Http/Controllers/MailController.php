@@ -29,7 +29,7 @@ class MailController extends Controller
 
         Mail::to($email)->send($mail);
 
-        session()->flash('flash_message', '招待が完了しました');
+        session()->flash('msg_success', '招待が完了しました');
 
         return redirect()->route('teams.show', $team);
     }

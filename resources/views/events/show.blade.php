@@ -50,7 +50,7 @@
             <div class="section contact_area mt-5">
                 <h5>お問合わせ</h5>
                 <p class="contact_name">{{ $event->team->name }}</p>
-                <i class="fa-light fa-lg fa-phone"> {{ $event->team->phone }}</i>
+                <p><i class="fa-light fa-lg fa-phone"></i> {{ $event->team->phone }}</p>
             </div>
             
         </div>

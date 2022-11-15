@@ -95,7 +95,7 @@ class UsersController extends Controller
         unset($form['_token']);
         unset($form['_method']);
         $user->fill($form)->save();
-        return redirect()->route('user.show', $user->id)->with('flash_message', 'ユーザー情報を更新しました');
+        return redirect()->route('user.show', $user->id)->with('msg_success', 'ユーザー情報を更新しました');
     }
 
     private function saveProfilePicture($image, $id) {

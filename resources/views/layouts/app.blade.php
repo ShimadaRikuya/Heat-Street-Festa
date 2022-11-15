@@ -27,12 +27,16 @@
         @yield('navbar')
 
         <!-- フラッシュメッセージ -->
-        @if (session('flash_message'))
-            <div class="flash_message">
-                {{ session('flash_message') }}
+        @if (session('msg_success'))
+            <div class="alert alert-success">
+                {{ session('msg_success') }}
+            </div>
+        @elseif (session('msg_danger'))
+            <div class="alert alert-success">
+                {{ session('msg_danger') }}
             </div>
         @endif
-
+        
         <main class="py-4">
             @yield('content')
         </main>
@@ -46,8 +50,6 @@
     <script src="{{ mix('js/new_member.js') }}"></script>
     <!-- preview.js -->
     <script src="{{ mix('js/preview.js') }}"></script>
-    <!-- check.js -->
-    <script src="{{ mix('js/check.js') }}"></script>
 
 </body>
 </html>

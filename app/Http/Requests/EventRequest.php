@@ -24,8 +24,8 @@ class EventRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'  => 'required|max:50', 
-            'discription'  => 'required|max:200', 
+            'title'  => 'required|max:64', 
+            'discription'  => 'required|max:255', 
             'image_uploader'  => 'required|max:10000|mimes:jpeg,jpg,png,gif', 
             'event_start'  => 'required|date|after:yesterday',
             'event_end'  => 'required|date|after:event_start', 

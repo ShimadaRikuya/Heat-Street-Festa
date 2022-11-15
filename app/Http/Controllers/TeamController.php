@@ -42,7 +42,7 @@ class TeamController extends Controller
         //多対多のリレーションもここで登録
         $teams->users()->attach( $user_id );
         
-        return redirect()->route('user.show', $user_id)->with('flash_message', 'チームを作成しました。');
+        return redirect()->route('user.show', $user_id)->with('msg_success', 'チームを作成しました。');
         
     }
 
@@ -73,7 +73,7 @@ class TeamController extends Controller
         $team->phone = $request->phone;
         $team->save();
 
-        return redirect()->route('user.show', $user)->with('flash_message', 'チーム情報を更新しました。');
+        return redirect()->route('user.show', $user)->with('msg_success', 'チーム情報を更新しました。');
    
     }
 
@@ -88,7 +88,7 @@ class TeamController extends Controller
         //リレーションの登録
         $team->users()->attach($user);
         
-        return redirect()->route('user.show', $user)->with('flash_message', 'チームに参加しました。');
+        return redirect()->route('user.show', $user)->with('msg_success', 'チームに参加しました。');
     }
 
     /**
@@ -104,7 +104,7 @@ class TeamController extends Controller
         
         return redirect()
             ->route('user.show', $user)
-            ->with('flash_message', '削除に成功しました。');
+            ->with('msg_success', '削除に成功しました。');
     }
 
 
@@ -129,7 +129,7 @@ class TeamController extends Controller
         $team->invite_code = Str::random(30);
         $team->update();
 
-        return redirect()->route('teams.show', $team)->with('flash_message', "招待コードおよび招待URLを生成しました。");
+        return redirect()->route('teams.show', $team)->with('msg_success', "招待コードおよび招待URLを生成しました。");
     }
 
     public function email_join(Request $request, $team_id, $token)
@@ -150,16 +150,16 @@ class TeamController extends Controller
                 $team->users()->attach(Auth::user());
                 User::find(Auth::id())->update([ 'role' => '50' ]);
 
-                return redirect()->to(route('teams.show', $team))->with('flash_message', "メンバーとして参加しました。");
+                return redirect()->to(route('teams.show', $team))->with('msg_success', "メンバーとして参加しました。");
 
             }else{
                 //tokenが腐っているか、偽物ならば、弾いておく。
-                return redirect()->to(route('home'))->with('flash_message', "無効な招待です。再度、招待してもらってください。");      
+                return redirect()->to(route('home'))->with('msg_danger', "無効な招待です。再度、招待してもらってください。");      
             }
 
         }else{
             //所属済みならば、弾いておく。
-            return redirect()->to(route('teams.show', $team))->with('flash_message', "あなたは既に所属しています。");
+            return redirect()->to(route('teams.show', $team))->with('msg_success', "あなたは既に所属しています。");
         }   
     }
 }

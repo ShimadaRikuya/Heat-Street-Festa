@@ -56,7 +56,7 @@ class GatyaController extends Controller
             return view('gatyas.complate', compact('dates'));
         } else {
 
-            return redirect()->to(route('home'))->with('flash_message', "既にチケットは取得済みです。");   
+            return redirect()->to(route('home'))->with('msg_danger', "既にチケットは取得済みです。");   
         }
         
     }
@@ -102,11 +102,11 @@ class GatyaController extends Controller
                     ]);
             return redirect()
                 ->route('user.edit', $user_id)
-                ->with('flash_message', 'チケットを使用しました');
+                ->with('msg_success', 'チケットを使用しました');
         }
         return redirect()
             ->route('user.edit', $user_id)
-            ->with('flash_message', '選択したチケットは現在使用できません');
+            ->with('msg_danger', '選択したチケットは現在使用できません');
     }
 
     /**
