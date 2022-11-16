@@ -7,9 +7,9 @@
 
     <div class="row">
 
-        <div class="img mx-auto" style="width: 40rem;">
-            <img src="{{ asset($event->image_uploader) }}" class="card-img" style="object-fit:cover; height: 500px;">
-            <h3><span class="img-badge badge bg-success">{{ $event->category->name }}</span></h3>
+        <div class="img mx-auto text-center" style="width: 40rem;">
+            <img src="{{ asset($event->image_uploader) }}" class="img-fluid" style="object-fit:cover;">
+                <h3><span class="img-badge badge bg-success">{{ $event->category->name }}</span></h3>
         </div>
         <div class="cont_inner w-75 mx-auto">
             <div class="pt-4 section title_area">

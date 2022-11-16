@@ -23,12 +23,12 @@
                                 id="inputTitle"
                                 aria-describedby="titleHelp" 
                                 placeholder="イベント名">
-                            <div id="titleHelp" class="form-text">※64文字までで入力してください。</div>
                                 @error('title')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            <div id="titleHelp" class="form-text">※64文字までで入力してください。</div>
                         </div>
         
                         <div class="form-group mb-4">

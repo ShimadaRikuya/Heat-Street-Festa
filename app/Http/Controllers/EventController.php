@@ -114,7 +114,7 @@ class EventController extends Controller
             // 加工する画像のパスを取得
             $image_uploader = Image::make($request->image_uploader);
             // 指定する画像をリサイズする
-            $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
+            $image_uploader->resize(450, 450, function ($constraint) {$constraint->aspectRatio();})->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {

@@ -5,53 +5,76 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <form action="{{ url('teams/update') }}" method="POST">
-            @csrf
-            <!-- id 値を送信 -->
-            <input type="hidden" name="id" value="{{$team->id}}" />
-            <!--/ id 値を送信 -->
+        <div class="box">
+            <div class="title border rounded-pill"><h4 class="title-inner">主催者情報の編集</h4></div>
+            
+            <section class="create_cont">
+                <div class="create_cont-inner">
+                    <!-- 投稿フォーム -->
+                    @if( Auth::check() )
+                        <form action="{{ url('teams/update') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="id" value="{{$team->id}}" />
+                            <!-- チーム名 -->
+                            <div class="form-group mb-4">
+                                <label for="team_name" class="form-label">主催者名<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
+                                <input 
+                                    type="text" 
+                                    name="name" 
+                                    value="{{ old('name')?: $team->name }}" 
+                                    class="form-control @error('name') is-invalid @enderror"
+                                    placeholder="主催者名">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
+                            <!-- 問い合わせ連絡先 -->
+                            <div class="form-group mb-4">
+                                <label for="team_phone" class="form-label">問い合わせ電話番号</label>
+                                <input 
+                                    type="text" 
+                                    name="phone" 
+                                    value="{{ old('phone')?: $team->phone }}"
+                                    class="form-control @error('phone') is-invalid @enderror"
+                                    aria-describedby="phoneHelp" 
+                                    placeholder="問い合わせ電話番号">
+                                    @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                <div id="phoneHelp" class="form-text">※記号を使用せず、半角数字のみで入力してください。</div>
+                            </div>
+                            <!-- 登録ボタン -->
+                            <!-- 問い合わせメールアドレス -->
+                            <div class="form-group mb-4">
+                                <label for="team_email" class="form-label">問い合わせメールアドレス</label>
+                                <input 
+                                    type="text" 
+                                    name="email" 
+                                    value="{{ old('email')?: $team->email }}"
+                                    class="form-control @error('email') is-invalid @enderror"
+                                    placeholder="問い合わせメールアドレス">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                            </div>
 
-            <!-- team_name -->
-            <div class="form-group">
-                <label for="team_name">チーム名</label>
-                <input type="text" name="name" value="{{ old('name')?: $team->name }}" class="form-control @error('name') is-invalid @enderror">
-                @error('name')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <!--/ team_name -->
-            <!-- team_email -->
-            <div class="form-group">
-                <label for="team_emai">問い合わせメールアドレス</label>
-                <input type="text" name="email" value="{{ old('email')?: $team->email }}" class="form-control  @error('email') is-invalid @enderror">
-                @error('email')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <!--/ team_email -->
-            <!-- team_phone -->
-            <div class="form-group">
-                <label for="team_phone">問い合わせ連絡先</label>
-                <input type="text" name="phone" value="{{ old('phone')?: $team->phone }}" class="form-control  @error('phone') is-invalid @enderror">
-                @error('phone')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
-            </div>
-            <!--/ team_phone -->
-            <!-- Save ボタン/Back ボタン -->
-            <div class="well well-sm">
-                <button type="submit" class="btn btn-primary">Save</button>
-                <a class="btn btn-link pull-right" href="{{ url('/') }}"> Back</a>
-            </div>
-            <!--/ Save ボタン/Back ボタン -->
+                            <div class="create_cont-btn well well-sm">
+                                <a class="btn btn-outline-secondary" href="{{ route('teams.select') }}">戻る</a>
+                                <button type="submit" class="btn btn-success">更新する</button>
+                            </div>
 
-        </form>
+                        </form>
+                    @endif
+                    <!-- 全てのチームリスト -->
+                </div>
+            </section>
+        </div>
     </div>
 </div>
 @endsection
