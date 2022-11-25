@@ -113,8 +113,8 @@ class EventController extends Controller
             $event = Event::create($request->all());
             // 加工する画像のパスを取得
             $image_uploader = Image::make($request->image_uploader);
-            // 指定する画像をリサイズする
-            $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
+            // リサイズしてはみ出した部分を切り捨てる
+            $image_uploader->fit(1080, 700)->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {
@@ -125,12 +125,12 @@ class EventController extends Controller
             // 登録処理失敗時にリダイレクト
             return redirect()
                 ->route('teams.select')
-                ->with('flash_message', 'イベントの作成に失敗しました。');
+                ->with('msg_danger', 'イベントの作成に失敗しました。');
 
         }
             return redirect()
                 ->route('events.show', $event)
-                ->with('flash_message', 'イベントを作成しました。');
+                ->with('msg_success', 'イベントを作成しました。');
     }
 
     /**
@@ -199,12 +199,12 @@ class EventController extends Controller
         if ($event) {
             return redirect()
                 ->route('user.show', $user_id)
-                ->with('flash_message', 'イベント記事の更新に成功しました。');
+                ->with('msg_success', 'イベント記事の更新に成功しました。');
         } else {
             // 登録処理失敗時にリダイレクト
             return redirect()
                 ->route('events.edit', $event)
-                ->with('flash_message', 'イベント記事の更新に失敗しました。');
+                ->with('msg_danger', 'イベント記事の更新に失敗しました。');
         }
     }
 
@@ -221,7 +221,7 @@ class EventController extends Controller
             Event::where('id', $id)->delete();
             return redirect()
                 ->route('events.index')
-                ->with('flash_message', '削除に成功しました。');
+                ->with('msg_success', '削除に成功しました。');
         }
     }
 
@@ -254,7 +254,7 @@ class EventController extends Controller
                 $query->where('title', 'like', '%'.$value.'%');
             }
         } else {
-            return redirect('')->with('flash_message', 'キーワードを取得できませんでした');
+            return redirect('')->with('msg_danger', 'キーワードを取得できませんでした');
         }
 
         $events = $query->paginate(24);

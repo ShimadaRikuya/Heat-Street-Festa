@@ -3,9 +3,11 @@
 
 // Variables
 @import 'variables';
+@import 'modal';
+@import 'mypage';
+@import 'event';
+@import 'team';
+@import 'swiper';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
-
-// Modal
-@import 'resources/sass/modal.scss';

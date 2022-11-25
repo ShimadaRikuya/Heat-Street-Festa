@@ -1,0 +1,45 @@
+.swiper-container {
+    position: relative;
+    overflow: hidden;
+    padding: 20px 0;
+    max-height: 600px; //最大の高さ
+    min-height: 300px; //最小の高さ
+      
+    .swiper-slide {
+        line-height: 1;
+        display: flex;
+        justify-content: center; //左右の中央揃え
+        position: relative;
+  
+        img {
+            object-fit: cover;
+            display: inline; //念のため
+            max-width: 100%;
+            max-height: 100%;
+            align-self: center; //上下の中央揃え
+        }
+        .title-text {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            color: #FFFFFF;
+        }
+    }
+    .swiper-button-white {
+        &:focus {
+            outline: none;
+        }
+    }
+    .swiper-button-prev {
+        left: 25px;
+    }
+    .swiper-button-next {
+        right: 25px;
+    }
+    .swiper-horizontal>.swiper-pagination-bullets,
+    .swiper-pagination-bullets.swiper-pagination-horizontal, 
+    .swiper-pagination-custom, 
+    .swiper-pagination-fraction {
+        bottom: 0px;
+    }
+  }

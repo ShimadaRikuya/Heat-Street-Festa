@@ -1,0 +1,12 @@
+.prof {
+    background: #ffffff;
+    padding: 24px;
+    &-ul {
+        list-style: none;
+        border-top: 1px solid rgba(0,0,0,0.12);
+        padding-top: 8px;
+        &-list {
+            flex: 1;
+        }
+    }
+}

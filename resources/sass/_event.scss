@@ -1,0 +1,103 @@
+.fa-phone::before {
+    content: '\f095';
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+}
+
+.contact_name {
+    margin-top: 1rem;
+}
+
+.preview_btn_area {
+    width: 100%;
+    position: fixed;
+    z-index: 9996;
+    bottom: 0;
+    left: 0;
+    padding: 2rem 1rem;
+    background: rgba(239,239,239,.75);
+    &-inner {
+        display: flex;
+        justify-content: space-between;
+        max-width: 50%;
+        margin: 0 auto;
+    }
+}
+
+// タブレット以上の表示
+@media (min-width: 992px) {
+    .likes {
+        display: block;
+        position: fixed;
+        top: 60px;
+        left: 60px;
+        padding: 6px 40px;
+    }
+    .img {
+        position: relative;
+        &-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+        }
+        &-likes {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 50px;/*幅*/
+            height: 50px;/*高さ*/
+            border-radius: 50%;/*角丸*/
+            background: #C0C0C0;
+        }
+    }
+}
+
+// タブレット以下の表示
+@media (max-width: 991.98px) { 
+    .img {
+        position: relative;
+        &-badge {
+            position: absolute;
+            bottom: -10px;
+            left: 20px;
+        }
+        &-likes {
+            position: absolute;
+            bottom: -10px;
+            right: 20px;
+            width: 50px;/*幅*/
+            height: 50px;/*高さ*/
+            border-radius: 50%;/*角丸*/
+            background: #C0C0C0;
+        }
+    }
+}
+
+.box {
+    text-align: -webkit-center;
+    .title {
+        background-color: #FFFFFF;
+        width: fit-content;
+        &-inner {
+            margin-bottom: 0;
+            padding: 0.5rem 3rem;
+        }
+    }
+    .create_cont {
+        padding: 3rem 20%;
+        &-inner {
+            background-color: #FFFFFF;
+            text-align: left;
+            padding: 3rem;
+        }
+        &-btn {
+            margin-top: 3rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        &-create {
+            text-align: center;
+            margin-top: 0.5rem;
+        }
+    }
+}

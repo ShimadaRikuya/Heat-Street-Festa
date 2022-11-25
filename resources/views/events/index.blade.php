@@ -30,7 +30,8 @@
                                 <a class="card-text" href="{{ route('user.index', $event->team->user->name) }}">{{ $event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $event->title }}</h5>
-                            <span class="card-text"><small class="text-muted">{{ $event->category->name }}</small></span>
+                            <span class="card-text"><small class="text-muted">{{ $event->category->name }}</small></span><br>
+                            <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
                         </div>
                     </div>
@@ -48,7 +49,8 @@
                                 <a class="card-text" href="{{ route('user.index', $event->team->user->name) }}">{{ $event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $event->title }}</h5>
-                            <span class="card-text"><small class="text-muted">{{ $event->category->name }}</small></span>
+                            <span class="card-text"><small class="text-muted">{{ $event->category->name }}</small></span><br>
+                            <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $event->event_start }}</small></p>
                         </div>
                     </div>
