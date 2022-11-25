@@ -8,11 +8,11 @@
 </section>
 <div class="container">
 
-    <section class="section new_event">
+    <section class="section new_event p-5">
 
-        <div class="row w-75 mx-auto">
+        <div class="row mx-auto">
             <!-- NEW ARRIVALS -->
-            <h2 class="section_title">新規記事</h2>
+            <h2 class="section_title text-center">新規記事</h2>
 
             @foreach($events as $event)
                 <!-- PCサイズ -->
@@ -54,18 +54,18 @@
                 <!--/ SPサイズ -->
 
             @endforeach
-            <div class="text-center">
+            <div class="text-center mt-5">
                 <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
             </div>
         </div>
     </section>
 
 
-    <section class="section ranking_event">
+    <section class="section ranking_event p-5">
 
-        <div class="row w-75 mx-auto">
+        <div class="row mx-auto">
             <!-- PICKUP POST -->
-            <h2 class="section_title">ランキング</h2>
+            <h2 class="section_title text-center">ランキング</h2>
 
             @foreach($ranking_events as $ranking_event)
                 <!-- PCサイズ -->
@@ -112,11 +112,11 @@
     </section>
 
 
-    <section class="section trend_event">
+    <section class="section trend_event p-5">
 
-        <div class="row w-75 mx-auto">
+        <div class="row mx-auto">
             <!-- TREND -->
-            <h2 class="section_title">トレンド</h2>
+            <h2 class="section_title text-center">トレンド</h2>
 
             @foreach($trends as $trend)
                 <!-- PCサイズ -->
@@ -158,7 +158,7 @@
                 <!--/ SPサイズ -->
 
             @endforeach
-            <div class="text-center">
+            <div class="text-center mt-5">
                 <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
             </div>
         </div>
