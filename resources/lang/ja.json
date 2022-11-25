@@ -4,6 +4,7 @@
     "Before proceeding, please check your email for a verification link.": "次に進む前に、確認リンクのメールをチェックしてください。",
     "click here to request another": "ここをクリックしてメールを再送信してください。",
     "Confirm Password": "パスワード（確認用）",
+    "Password Confirm": "パスワード(8文字以上の半角英数)",
     "E-Mail Address": "メールアドレス",
     "Error": "エラー",
     "Forbidden": "禁止されています",

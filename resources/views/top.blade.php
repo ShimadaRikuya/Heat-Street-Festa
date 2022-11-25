@@ -3,7 +3,7 @@
 @include('footer')
 
 @section('content')
-<section class="section slider">
+<section class="section swipe">
     @include('layouts.slider')
 </section>
 <div class="container">
@@ -18,7 +18,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="img-fluid" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -35,9 +35,9 @@
                 <!--/ PCサイズ -->
 
                 <!-- SPサイズ -->
-                <div class="col col-md-6 my-3 d-lg-none">
+                <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -71,7 +71,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-3 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="card-img-top" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="img-fluid" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -79,7 +79,7 @@
                                 <a class="card-text" href="{{ route('user.index', $ranking_event->team->user->name) }}">{{ $ranking_event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $ranking_event->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $ranking_event->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $ranking_event->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $ranking_event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $ranking_event->event_start }}</small></p>
                         </div>
@@ -88,9 +88,9 @@
                 <!--/ PCサイズ -->
 
                 <!-- SPサイズ -->
-                <div class="col col-md-6 my-3 d-lg-none">
+                <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}" style="height: 100px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -98,7 +98,7 @@
                                 <a class="card-text" href="{{ route('user.index', $ranking_event->team->user->name) }}">{{ $ranking_event->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $ranking_event->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $ranking_event->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $ranking_event->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $ranking_event->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $event->ranking_event_start }}</small></p>
                         </div>
@@ -122,7 +122,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="card-img-top" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $trend->id) }}"><img class="img-fluid" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
@@ -130,7 +130,7 @@
                                 <a class="card-text" href="{{ route('user.index', $trend->team->user->name) }}">{{ $trend->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $trend->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $trend->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $trend->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $trend->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $trend->event_start }}</small></p>
                         </div>
@@ -139,9 +139,9 @@
                 <!--/ PCサイズ -->
 
                 <!-- SPサイズ -->
-                <div class="col col-md-6 my-3 d-lg-none">
+                <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}" style="height: 100px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $trend->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
@@ -149,7 +149,7 @@
                                 <a class="card-text" href="{{ route('user.index', $trend->team->user->name) }}">{{ $trend->team->user->name }}</a>
                             @endif
                             <h5 class="card-title" style="overflow: hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;">{{ $trend->title }}</h5>
-                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $trend->category->name }}</small></span>
+                            <span class="card-text"><i class="fa-solid fa-tag"></i><small class="text-muted">{{ $trend->category->name }}</small></span><br>
                             <span class="card-text"><i class="fa-regular fa-heart"></i><small class="text-muted">{{ $trend->users()->count() }}</small></span>
                             <p class="card-text"><small class="text-muted">{{ $trend->event_start }}</small></p>
                         </div>

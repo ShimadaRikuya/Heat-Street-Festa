@@ -45,6 +45,7 @@
     </div>
 
     <!-- swiper.js -->
+    <script src="path-to/swiper-bundle.min.js"></script>
     <script src="{{ mix('js/swiper.js') }}"></script>
     <!-- new_member.js -->
     <script src="{{ mix('js/new_member.js') }}"></script>

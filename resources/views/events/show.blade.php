@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="img mx-auto text-center" style="width: 40rem;">
-            <img src="{{ asset($event->image_uploader) }}" class="img-fluid" style="object-fit:cover;">
+            <img src="{{ asset($event->image_uploader) }}" class="img-fluid">
                 <h3><span class="img-badge badge bg-success">{{ $event->category->name }}</span></h3>
         </div>
         <div class="cont_inner w-75 mx-auto">
@@ -18,37 +18,41 @@
             </div>
 
             <div class="section date_area mt-5">
-                <span><h5>開催日時</h5></span>
+                <span><p class="fw-bold">開催日時</p></span>
                 <div class="date_area_info">
                     <p class="date">{{ $event->event_start }} ~ {{ $event->event_end }}</p>
                     <p class="time">{{ $event->event_time_discription }}</p>
                 </div>
             </div>
 
-            <div class="section price_area mt-5">
-                <h5>料金</h5>
-                <p>{{ $event->fee }}円</p>
-            </div>
+            @if (isset($event->fee))
+                <div class="section price_area mt-5">
+                    <p class="fw-bold">料金</p>
+                    <p>{{ $event->fee }}円</p>
+                    <p>{{ $event->event_time_discription }}</p>
+                </div>
+            @endif
+            
 
             <div class="border-bottom my-5"></div>
 
             <div class="section about_area">
-                <h5>概要</h5>
+                <p class="fw-bold">概要</p>
                 <p>{{ $event->discription }}</p>
             </div>
 
             <div class="section venue_area mt-5">
-                <h5>会場</h5>
+                <p class="fw-bold">会場</p>
                 <p>{{ $event->venue }}</p>
             </div>
 
             <div class="section sponser_area mt-5">
-                <h5>主催者</h5>
+                <p class="fw-bold">主催者</p>
                 <p>{{ $event->team->name }}</p>
             </div>
 
             <div class="section contact_area mt-5">
-                <h5>お問合わせ</h5>
+                <p class="fw-bold">お問合わせ</p>
                 <p class="contact_name">{{ $event->team->name }}</p>
                 <p><i class="fa-light fa-lg fa-phone"></i> {{ $event->team->phone }}</p>
             </div>

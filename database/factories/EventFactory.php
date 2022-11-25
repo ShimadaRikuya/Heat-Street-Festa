@@ -16,7 +16,7 @@ class EventFactory extends Factory
         return [
             'title' => $this->faker->name(),
             'discription' => $this->faker->unique()->safeEmail(),
-            'image_uploader' => 'storage/event_images/アインシュタイン.jpg',
+            'image_uploader' => 'storage/event_images/アイアンマン.png',
             'event_start' => now(), // password
             'event_end' => '2022-12-31',
             'event_time_discription' => '10時会場、11時開演',

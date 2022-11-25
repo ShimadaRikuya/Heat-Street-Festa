@@ -25,7 +25,8 @@ class HomeController extends Controller
         $ranking_events = Event::Ranking()->take(4);
 
         $trends = Event::getTrend()->take(6);
+        $slides = Event::inRandomOrder()->limit(5)->get();
 
-        return view('top', compact('events', 'ranking_events', 'trends'));
+        return view('top', compact('events', 'ranking_events', 'trends', 'slides'));
     }
 }

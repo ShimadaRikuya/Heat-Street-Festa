@@ -178,7 +178,7 @@
 }
 .box .title-inner {
   margin-bottom: 0;
-  padding: 0.5rem 4rem;
+  padding: 0.5rem 3rem;
 }
 .box .create_cont {
   padding: 3rem 20%;
@@ -215,6 +215,49 @@
 .box .section-inner .event-inner-filed {
   flex: 1;
   padding-left: 1rem;
+}
+
+.swiper-container {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 0;
+  max-height: 600px;
+  min-height: 300px;
+}
+.swiper-container .swiper-slide {
+  line-height: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.swiper-container .swiper-slide img {
+  -o-object-fit: cover;
+     object-fit: cover;
+  display: inline;
+  max-width: 100%;
+  max-height: 100%;
+  align-self: center;
+}
+.swiper-container .swiper-slide .title-text {
+  position: absolute;
+  bottom: 25px;
+  left: 25px;
+  color: #FFFFFF;
+}
+.swiper-container .swiper-button-white:focus {
+  outline: none;
+}
+.swiper-container .swiper-button-prev {
+  left: 25px;
+}
+.swiper-container .swiper-button-next {
+  right: 25px;
+}
+.swiper-container .swiper-horizontal > .swiper-pagination-bullets,
+.swiper-container .swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-container .swiper-pagination-custom,
+.swiper-container .swiper-pagination-fraction {
+  bottom: 0px;
 }
 
 /*!

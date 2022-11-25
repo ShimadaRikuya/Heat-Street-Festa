@@ -78,7 +78,7 @@
                         <div class="preview_btn_area-inner">
                             <input type="button"class="btn btn-outline-secondary" value="修正" onClick="history.back()">
                             <form action="{{ route('events.store') }}" method="POST" enctype="multipart/form-data">
-                                <button type="submit" class="btn btn-success">登録</button>
+                                <button type="submit" class="btn btn-success">作成を完了する</button>
                                 @csrf
                                 <input type="hidden" name="form_public" value="{{ $form_public }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
