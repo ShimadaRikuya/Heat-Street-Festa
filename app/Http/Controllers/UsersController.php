@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -85,32 +87,40 @@ class UsersController extends Controller
 
     public function update(Request $request, $id) {
         $user = Auth::user();
-        $form = $request->all();
+        $all_request = $request->except('profile_picture');
 
-        $profilePicture = $request->file('profile_picture');
-        if ($profilePicture != null) {
-            $form['profile_picture'] = $this->saveProfilePicture($profilePicture, $id); // return file name
-        }
+        // saveProfilePicture()で投稿画像のファイル名をDBに保存
+        $fileName = $this->saveProfilePicturePro($request->file('profile_picture')); // return file name
+        $user->profile_picture = $fileName;
+        $user->save();
 
-        unset($form['_token']);
-        unset($form['_method']);
-        $user->fill($form)->save();
+        $user->fill($all_request)->save();
         return redirect()->route('user.show', $user->id)->with('msg_success', 'ユーザー情報を更新しました');
     }
 
-    private function saveProfilePicture($image, $id) {
-        // get instance
-        $img = \Image::make($image);
-        // resize
-        $img->fit(100, 100, function($constraint){
-            $constraint->upsize(); 
-        });
-        // save
-        $file_name = 'profile_'.$id.'.'.$image->getClientOriginalExtension();
-        $save_path = 'public/profiles/'.$file_name;
-        Storage::put($save_path, (string) $img->encode());
-        // return file name
-        return $file_name;
+    private function saveProfilePicturePro(UploadedFile $file): string {
+        //makeTempPath()で一次保存用のファイルを生成
+        $tempPath = $this->makeTempPath();
+        //Intervention Imageを使用して、画像をリサイズ後、一時ファイルに保管
+        Image::make($file)->fit(100, 100)->save($tempPath);
+        
+        //Storageファサードを使用して画像ファイルをディスク（s3を選択）にprofile_picturesフォルダに保存
+        $filePath = Storage::disk('s3')
+                    ->putFile('profile_pictures', new File($tempPath), 'public');
+        return basename($filePath);
+    }
+
+    //一時ファイル生成して保存パスを生成。
+    private function makeTempPath(): string
+    {
+        //tmpに一時ファイルが生成され、そのファイルポインタを取得
+        $tmp_fp = tmpfile();
+
+        //ファイルのメタ情報を取得
+        $meta   = stream_get_meta_data($tmp_fp);
+
+        //メタ情報からURI(ファイルのパス)を取得
+        return $meta["uri"];
     }
 
     // フォロー

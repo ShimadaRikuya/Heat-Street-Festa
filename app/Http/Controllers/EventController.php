@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth; //Auth::id()でログイン中のユーザIDを取得するのに必要
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -64,21 +66,15 @@ class EventController extends Controller
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
 
-        // 画像
-        $image = $request->file('image_uploader');
-        if($request->hasFile('image_uploader') && $image->isValid()) {
-            // アップロードされたファイル名を取得
-            $filename = $image->getClientOriginalName();
-            // 取得したファイル名で保存
-            $image->storeAs('public/event_images', $filename);
-        } else {
-            
+        if($request->file('image_uploader')->isValid([])) {
+            // saveEventPicture()で投稿画像のファイル名をDBに保存
+            $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
         }
-        $img_path = 'storage/event_images/'.$filename;
+        
 
         return view('events.confirm', 
         [
-        'img_path' => $img_path,
+        'fileName' => $fileName,
         'categories' => $categories,
         'teams' => $teams
         ])
@@ -111,10 +107,6 @@ class EventController extends Controller
             DB::beginTransaction();
             // 登録対象のレコードの登録処理を実行
             $event = Event::create($request->all());
-            // 加工する画像のパスを取得
-            $image_uploader = Image::make($request->image_uploader);
-            // リサイズしてはみ出した部分を切り捨てる
-            $image_uploader->fit(1080, 700)->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {
@@ -188,7 +180,7 @@ class EventController extends Controller
                 // 加工する画像のパスを取得
                 $image_uploader = Image::make($request->image_uploader);
                 // 指定する画像をリサイズする
-                $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
+                $image_uploader->resize(1080, 700)->save();
             }
         }
 
@@ -275,5 +267,30 @@ class EventController extends Controller
     {
         $events = Event::where('category_id', $category_id)->paginate(24);
         return view('events.index', compact('events', 'category'));
+    }
+
+    private function saveEventPicturePro(UploadedFile $file): string {
+        //makeTempPath()で一次保存用のファイルを生成
+        $tempPath = $this->makeTempPath();
+        //Intervention Imageを使用して、画像をリサイズ後、一時ファイルに保管
+        Image::make($file)->fit(1080, 700)->save($tempPath);
+        
+        //Storageファサードを使用して画像ファイルをディスク（s3を選択）にeventsフォルダに保存
+        $filePath = Storage::disk('s3')
+                    ->putFile('events', new File($tempPath), 'public');
+        return basename($filePath);
+    }
+
+    //一時ファイル生成して保存パスを生成。
+    private function makeTempPath(): string
+    {
+        //tmpに一時ファイルが生成され、そのファイルポインタを取得
+        $tmp_fp = tmpfile();
+
+        //ファイルのメタ情報を取得
+        $meta   = stream_get_meta_data($tmp_fp);
+
+        //メタ情報からURI(ファイルのパス)を取得
+        return $meta["uri"];
     }
 }

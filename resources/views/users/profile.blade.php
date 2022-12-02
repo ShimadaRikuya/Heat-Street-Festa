@@ -6,11 +6,15 @@
             <div class="form-group">
                 <label for="profile_picture">プロフィール写真</label><br>
                 @if ($user->profile_picture)
-                    <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
+                    <img src="{{ Storage::disk('s3')->url("profile_pictures/".$user->profile_picture) }}" class="rounded-circle">
                 @else
-                    <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
+                    <img src="{{ asset('storage/profiles/user-shape.jpg') }}" class="rounded-circle">
                 @endif
-                <input type="file" name="profile_picture"  value="{{ old('profile_picture',$user->id) }}" accept="image/jpeg,image/gif,image/png" />
+                <input 
+                    type="file" 
+                    name="profile_picture" 
+                    value="{{ old('profile_picture',$user->id) }}" 
+                    accept="image/jpeg,image/gif,image/png"/>
             </div>
       
           <div class="form-group">

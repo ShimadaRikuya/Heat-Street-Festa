@@ -23,7 +23,7 @@
                         <div class="event-inner d-flex justify-content-between mb-3">
                             <div class="event-inner-img d-flex align-items-center">
                                 <a href="{{ route('events.show', $event->id) }}">
-                                    <img class="img-fluid" src="{{ asset($event->image_uploader) }}" alt="Card image cap">
+                                    <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="Card image cap">
                                 </a>
                             </div>
                             <div class="event-inner-filed">

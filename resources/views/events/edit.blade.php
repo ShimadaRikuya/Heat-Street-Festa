@@ -52,7 +52,7 @@
                         <div class="form-group mb-4">
                             <label class="form-label" for="file">ファイル<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
                             <figure id="figure">
-                                <img src="{{ asset($event->image_uploader) }}" alt="" id="figureImage" class="mb-3" style="max-width: 50%;">
+                                <img src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="" id="figureImage" class="mb-3" style="max-width: 50%;">
                             <div id="file" class="input-group">
                                 <input 
                                     type="file" 
