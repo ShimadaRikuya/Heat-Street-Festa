@@ -18,7 +18,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="img-fluid" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -37,7 +37,7 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -71,7 +71,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-3 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="img-fluid" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -90,7 +90,7 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($ranking_event->image_uploader) }}" alt="{{ $ranking_event->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -122,7 +122,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="img-fluid" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $trend->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
@@ -141,7 +141,7 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ asset($trend->image_uploader) }}" alt="{{ $trend->image_uploader }}"></a>
+                        <a href="{{ route('events.show', $trend->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>

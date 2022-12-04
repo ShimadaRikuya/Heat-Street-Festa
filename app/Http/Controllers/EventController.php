@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\EventRequest;
 use Illuminate\Support\Facades\Auth; //Auth::id()でログイン中のユーザIDを取得するのに必要
+use Illuminate\Http\File;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -64,21 +66,15 @@ class EventController extends Controller
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
 
-        // 画像
-        $image = $request->file('image_uploader');
-        if($request->hasFile('image_uploader') && $image->isValid()) {
-            // アップロードされたファイル名を取得
-            $filename = $image->getClientOriginalName();
-            // 取得したファイル名で保存
-            $image->storeAs('public/event_images', $filename);
-        } else {
-            
+        if($request->file('image_uploader')->isValid([])) {
+            // saveEventPicture()で投稿画像のファイル名をDBに保存
+            $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
         }
-        $img_path = 'storage/event_images/'.$filename;
+        
 
         return view('events.confirm', 
         [
-        'img_path' => $img_path,
+        'fileName' => $fileName,
         'categories' => $categories,
         'teams' => $teams
         ])
@@ -111,10 +107,6 @@ class EventController extends Controller
             DB::beginTransaction();
             // 登録対象のレコードの登録処理を実行
             $event = Event::create($request->all());
-            // 加工する画像のパスを取得
-            $image_uploader = Image::make($request->image_uploader);
-            // リサイズしてはみ出した部分を切り捨てる
-            $image_uploader->fit(1080, 700)->save();
             // 処理に成功したらコミット
             DB::commit();
         } catch (\Throwable $e) {
@@ -170,31 +162,36 @@ class EventController extends Controller
     {
         $user_id = Auth::id();
         $event = Event::find($id);
-        $form = $request->all();
 
-        if (isset($form['image_uploader'])) {
+        if ($request->file('image_uploader')->isValid([])) {
             // 画像ファイルインスタンス取得
             $filedel = $event->image_uploader;
             // 現在の画像ファイルの削除
-            Storage::disk('public')->delete($filedel);
-            
-            if ($form['image_uploader']) {
-                $image = $request->file('image_uploader');
-                // アップロードされたファイル名を取得
-                $filename = $image->getClientOriginalName();
-                $form['image_uploader'] = 'storage/event_images/'. $filename;
-                // 取得したファイル名で保存
-                $request->image_uploader->storeAs('public/event_images', $filename);
-                // 加工する画像のパスを取得
-                $image_uploader = Image::make($request->image_uploader);
-                // 指定する画像をリサイズする
-                $image_uploader->resize(1080, null, function ($constraint) {$constraint->aspectRatio();})->save();
-            }
+            Storage::disk('s3')->delete('events/'.$filedel);
+            // saveEventPicture()で投稿画像のファイル名をDBに保存
+            $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
+            $event->image_uploader = $fileName;
         }
 
-        //データ更新処理
         // updateは更新する情報がなくても更新が走る（updated_atが更新される）
-        $event->update($form);
+        $event->update([
+            'user_id'                   =>$request->user_id,
+            'team_id'                   =>$request->team_id,
+            'category_id'               =>$request->category_id,
+            'title'                     =>$request->title, 
+            'discription'               =>$request->discription, 
+            'event_start'               =>$request->event_start, 
+            'event_end'                 =>$request->event_end, 
+            'event_time_discription'    =>$request->event_time_discription,
+            'fee'                       =>$request->fee,
+            'official_url'              =>$request->official_url,
+            'venue'                     =>$request->venue,
+            'zip'                       =>$request->zip,
+            'address1'                  =>$request->address1,
+            'address2'                  =>$request->address2,
+            'form_public'               =>$request->form_public,
+            'image_uploader'            =>$event->image_uploader
+        ]);
 
         if ($event) {
             return redirect()
@@ -216,13 +213,19 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        if($id)
-        {
-            Event::where('id', $id)->delete();
-            return redirect()
-                ->route('events.index')
-                ->with('msg_success', '削除に成功しました。');
-        }
+        $user_id = Auth::id();
+        // 削除レコード取得
+        $deleteEvent = Event::find($id);
+        // 画像ファイルインスタンス取得
+        $filedel = $deleteEvent->image_uploader;
+        // 現在の画像ファイルの削除
+        Storage::disk('s3')->delete('events/'.$filedel);
+        // レコードの削除
+        $deleteEvent->delete();
+
+        return redirect()
+            ->route('user.show', $user_id)
+            ->with('msg_success', '削除に成功しました。');
     }
 
     /**
@@ -275,5 +278,30 @@ class EventController extends Controller
     {
         $events = Event::where('category_id', $category_id)->paginate(24);
         return view('events.index', compact('events', 'category'));
+    }
+
+    private function saveEventPicturePro(UploadedFile $file): string {
+        //makeTempPath()で一次保存用のファイルを生成
+        $tempPath = $this->makeTempPath();
+        //Intervention Imageを使用して、画像をリサイズ後、一時ファイルに保管
+        Image::make($file)->fit(1080, 700)->save($tempPath);
+        
+        //Storageファサードを使用して画像ファイルをディスク（s3を選択）にeventsフォルダに保存
+        $filePath = Storage::disk('s3')
+                    ->putFile('events', new File($tempPath), 'public');
+        return basename($filePath);
+    }
+
+    //一時ファイル生成して保存パスを生成。
+    private function makeTempPath(): string
+    {
+        //tmpに一時ファイルが生成され、そのファイルポインタを取得
+        $tmp_fp = tmpfile();
+
+        //ファイルのメタ情報を取得
+        $meta   = stream_get_meta_data($tmp_fp);
+
+        //メタ情報からURI(ファイルのパス)を取得
+        return $meta["uri"];
     }
 }

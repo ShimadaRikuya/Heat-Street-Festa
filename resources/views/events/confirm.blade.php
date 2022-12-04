@@ -13,7 +13,7 @@
                         <!-- 画像 --->
                         <div class="section article_hero">
                             <div class="image text-center">
-                                <img src="{{ asset($img_path) }}" class="img-fluid" alt="画像">
+                                <img src="{{ Storage::disk('s3')->url("events/$fileName") }}" class="img-fluid" alt="画像">
                             </div>
                         </div>
                     
@@ -83,7 +83,7 @@
                                 <input type="hidden" name="form_public" value="{{ $form_public }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                                 <input type="hidden" name="team_id" value="{{ $teams->id }}">
-                                <input type="hidden" class="form-control" value="{{ $img_path }}" name="image_uploader" multiple>
+                                <input type="hidden" class="form-control" value="{{ $fileName }}" name="image_uploader" multiple>
                                 <input type="hidden" name="title" value="{{ $title }}">
                                 <input type="hidden" name="category_id" value="{{ $category_id }}">
                                 <input type="hidden" name="event_start" value="{{ $event_start }}">

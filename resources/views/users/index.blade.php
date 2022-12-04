@@ -12,9 +12,9 @@
                     <div class="prof">
                         <div class="prof-inner mb-4" id="">
                             @if ($user->profile_picture)
-                                <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle mb-3">
+                                <img src="{{ Storage::disk('s3')->url("profile_pictures/".$user->profile_picture) }}" class="rounded-circle">
                             @else
-                                <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle mb-3">
+                                <img src="{{ asset('storage/profiles/user-shape.jpg') }}" class="rounded-circle">
                             @endif
                             <div class="username">{{ Auth::user()->name }}</div>
                         </div>
@@ -71,7 +71,7 @@
                                 @foreach($events as $event)
                                     <div class="col-lg-3 text-center p-1">
                                         <a href="{{ route('events.show', $event->id) }}">
-                                            <img class="img-fluid" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}">
+                                            <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像">
                                         </a>
                                     </div>
                                     <div class="col-lg-9">

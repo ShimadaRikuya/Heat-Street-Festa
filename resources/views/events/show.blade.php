@@ -8,7 +8,7 @@
     <div class="row">
 
         <div class="img mx-auto text-center" style="width: 40rem;">
-            <img src="{{ asset($event->image_uploader) }}" class="img-fluid">
+            <img src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" class="img-fluid">
                 <h3><span class="img-badge badge bg-success">{{ $event->category->name }}</span></h3>
         </div>
         <div class="cont_inner w-75 mx-auto">

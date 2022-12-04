@@ -153,7 +153,7 @@
                         </div>
         
                         <div class="form-group mb-4">
-                            <label for="venue" class="form-label">会場名</label>
+                            <label for="venue" class="form-label">会場名<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
                             <input 
                                 type="text" 
                                 name="venue" 

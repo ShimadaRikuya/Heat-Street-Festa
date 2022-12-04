@@ -14,7 +14,7 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 150px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="card-img-top" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像" style="height: 150px; object-fit:cover;"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -33,7 +33,7 @@
                 <!-- SPサイズ -->
                 <div class="col col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ asset($event->image_uploader) }}" alt="{{ $event->image_uploader }}" style="height: 100px; object-fit:cover;"></a>
+                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img card-img-top" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像" style="height: 100px; object-fit:cover;"></a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>

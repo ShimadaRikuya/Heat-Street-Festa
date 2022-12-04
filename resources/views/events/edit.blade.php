@@ -11,6 +11,7 @@
             <section class="create_cont">
                 <div class="create_cont-inner">
                     <form action="{{ route('events.update', $event->id) }}" enctype="multipart/form-data" method="POST">
+                        <input type="hidden" name="user_id" value="{{ $event->user_id }}">
 
                         @csrf
                         <div class="form-group mb-4">
@@ -36,12 +37,11 @@
                             <textarea 
                                 type="text" 
                                 name="discription" 
-                                value="{{ old('discription')?: $event->discription }}"
                                 class="form-control @error('discription') is-invalid @enderror" 
                                 rows="3" 
                                 id="textarea" 
                                 aria-describedby=""
-                                placeholder="イベント概要"></textarea>
+                                placeholder="イベント概要">{{ old('discription')?: $event->discription }}</textarea>
                                 @error('discription')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -52,7 +52,7 @@
                         <div class="form-group mb-4">
                             <label class="form-label" for="file">ファイル<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
                             <figure id="figure">
-                                <img src="{{ asset($event->image_uploader) }}" alt="" id="figureImage" class="mb-3" style="max-width: 50%;">
+                                <img src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="" id="figureImage" class="mb-3" style="max-width: 50%;">
                             <div id="file" class="input-group">
                                 <input 
                                     type="file" 
@@ -105,12 +105,11 @@
                             <textarea 
                                 type="text"
                                 name="event_time_discription" 
-                                value="{{ old('event_time_discription')?: $event->event_time_discription }}"
                                 class="form-control  @error('event_time_discription') is-invalid @enderror" 
                                 rows="3" 
                                 id="textarea" 
                                 aria-describedby=""
-                                placeholder="開催日時の詳細"></textarea>
+                                placeholder="開催日時の詳細">{{ old('event_time_discription')?: $event->event_time_discription }}</textarea>
                                 @error('event_time_discription')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -237,6 +236,41 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+
+                        <!-- チーム情報 --->
+                        <div class="form-group mb-4">
+                            <input type="hidden" name="team_id" value=" {{ $event->team->id }}">
+                            <!-- チーム名 -->
+                            <div class="form-group mb-4">
+                                <label for="cont_name" class="form-label">チーム名</label>
+                                <input 
+                                    type="name"
+                                    name="cont_name" 
+                                    value="{{ $event->team->name }}" 
+                                    class="form-control" 
+                                    disabled>
+                            </div>
+                            <!-- 問い合わせメールアドレス -->
+                            <div class="form-group mb-4">
+                                <label for="cont_email" class="form-label">問い合わせメールアドレス</label>
+                                <input 
+                                    type="name" 
+                                    name="cont_email" 
+                                    value="{{ $event->team->email }}" 
+                                    class="form-control" 
+                                    disabled>
+                            </div>
+                            <!-- 問い合わせ連絡先 -->
+                            <div class="form-group mb-4">
+                                <label for="cont_email" class="form-label">問い合わせ連絡先</label>
+                                <input 
+                                    type="name" 
+                                    name="cont_email" 
+                                    value="{{ $event->team->phone }}" 
+                                    class="form-control" 
+                                    disabled>
+                            </div>
                         </div>
         
                         <div class="form-group mb-4">
