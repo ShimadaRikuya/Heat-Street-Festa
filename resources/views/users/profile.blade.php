@@ -8,7 +8,7 @@
                 @if ($user->profile_picture)
                     <img src="{{ Storage::disk('s3')->url("profile_pictures/".$user->profile_picture) }}" class="rounded-circle">
                 @else
-                    <img src="{{ asset('storage/profiles/user-shape.jpg') }}" class="rounded-circle">
+                    <img src="{{ Storage::disk('s3')->url("profile_pictures/Yz0MRTMXV3Ucv2CUaWGSjbGT5mqcJqnfjVxuvKBS.jpg") }}" class="rounded-circle">
                 @endif
                 <input 
                     type="file" 
