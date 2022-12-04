@@ -92,7 +92,6 @@ class UsersController extends Controller
         // saveProfilePicture()で投稿画像のファイル名をDBに保存
         $fileName = $this->saveProfilePicturePro($request->file('profile_picture')); // return file name
         $user->profile_picture = $fileName;
-        $user->save();
 
         $user->fill($all_request)->save();
         return redirect()->route('user.show', $user->id)->with('msg_success', 'ユーザー情報を更新しました');

@@ -162,31 +162,36 @@ class EventController extends Controller
     {
         $user_id = Auth::id();
         $event = Event::find($id);
-        $form = $request->all();
 
-        if (isset($form['image_uploader'])) {
+        if ($request->file('image_uploader')->isValid([])) {
             // 画像ファイルインスタンス取得
             $filedel = $event->image_uploader;
             // 現在の画像ファイルの削除
-            Storage::disk('public')->delete($filedel);
-            
-            if ($form['image_uploader']) {
-                $image = $request->file('image_uploader');
-                // アップロードされたファイル名を取得
-                $filename = $image->getClientOriginalName();
-                $form['image_uploader'] = 'storage/event_images/'. $filename;
-                // 取得したファイル名で保存
-                $request->image_uploader->storeAs('public/event_images', $filename);
-                // 加工する画像のパスを取得
-                $image_uploader = Image::make($request->image_uploader);
-                // 指定する画像をリサイズする
-                $image_uploader->resize(1080, 700)->save();
-            }
+            Storage::disk('s3')->delete('events/'.$filedel);
+            // saveEventPicture()で投稿画像のファイル名をDBに保存
+            $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
+            $event->image_uploader = $fileName;
         }
 
-        //データ更新処理
         // updateは更新する情報がなくても更新が走る（updated_atが更新される）
-        $event->update($form);
+        $event->update([
+            'user_id'                   =>$request->user_id,
+            'team_id'                   =>$request->team_id,
+            'category_id'               =>$request->category_id,
+            'title'                     =>$request->title, 
+            'discription'               =>$request->discription, 
+            'event_start'               =>$request->event_start, 
+            'event_end'                 =>$request->event_end, 
+            'event_time_discription'    =>$request->event_time_discription,
+            'fee'                       =>$request->fee,
+            'official_url'              =>$request->official_url,
+            'venue'                     =>$request->venue,
+            'zip'                       =>$request->zip,
+            'address1'                  =>$request->address1,
+            'address2'                  =>$request->address2,
+            'form_public'               =>$request->form_public,
+            'image_uploader'            =>$event->image_uploader
+        ]);
 
         if ($event) {
             return redirect()
@@ -208,13 +213,19 @@ class EventController extends Controller
      */
     public function destroy($id)
     {
-        if($id)
-        {
-            Event::where('id', $id)->delete();
-            return redirect()
-                ->route('events.index')
-                ->with('msg_success', '削除に成功しました。');
-        }
+        $user_id = Auth::id();
+        // 削除レコード取得
+        $deleteEvent = Event::find($id);
+        // 画像ファイルインスタンス取得
+        $filedel = $deleteEvent->image_uploader;
+        // 現在の画像ファイルの削除
+        Storage::disk('s3')->delete('events/'.$filedel);
+        // レコードの削除
+        $deleteEvent->delete();
+
+        return redirect()
+            ->route('user.show', $user_id)
+            ->with('msg_success', '削除に成功しました。');
     }
 
     /**

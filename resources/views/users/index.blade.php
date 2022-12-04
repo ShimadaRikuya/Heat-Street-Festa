@@ -14,7 +14,7 @@
                             @if ($user->profile_picture)
                                 <img src="{{ Storage::disk('s3')->url("profile_pictures/".$user->profile_picture) }}" class="rounded-circle">
                             @else
-                                <img src="{{ asset('storage/profiles/'.$user->profile_picture) }}" class="rounded-circle">
+                                <img src="{{ asset('storage/profiles/user-shape.jpg') }}" class="rounded-circle">
                             @endif
                             <div class="username">{{ Auth::user()->name }}</div>
                         </div>
