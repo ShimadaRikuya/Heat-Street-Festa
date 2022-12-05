@@ -54,8 +54,6 @@ Route::post('mail', [MailController::class, 'send'])->middleware(['auth']);
 
 // チーム
 Route::group(['prefix' => 'teams', 'as' => 'teams.'], function() {
-    // チーム選択処理
-    Route::get('/select', [TeamController::class, 'getSelect'])->name('select');
     // 主催者の新規登録
     Route::get('/create', [TeamController::class, 'create'])->name('create');
     // チーム作成登録処理
@@ -88,8 +86,10 @@ Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
     Route::get('/{event}/show', [EventController::class, 'show'])->name('show');
     // ログイン確認必須
     Route::group(['middleware' => 'auth'], function(){
+        // チーム選択処理
+        Route::get('/select', [EventController::class, 'getSelect'])->name('select');
         // 新規投稿画面
-        Route::get('/create/{team}', [EventController::class, 'create'])->name('create');
+        Route::get('/create', [EventController::class, 'create'])->name('create');
         // 確認画面
         Route::get('/confirm', [EventController::class, 'getConfirm'])->name('confirm');
         Route::post('/confirm', [EventController::class, 'confirm'])->name('confirm');

@@ -107,21 +107,6 @@ class TeamController extends Controller
             ->with('msg_success', '削除に成功しました。');
     }
 
-
-
-    public function getSelect()
-    {
-        //ログイン中のユーザーを取得
-        $user_id = Auth::id();
-
-        // ユーザーは1つのチームに所属。
-        $teams = User::find($user_id)->team;
-
-        return view('teams.select',[
-            'teams' => $teams,
-            ]);
-    }
-
     public function create_invitation_url($team_id)
     {
         $team = Team::find($team_id);

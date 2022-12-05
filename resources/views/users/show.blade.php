@@ -25,19 +25,21 @@
                                     <div class="event_count">{{ $events->total() }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロー
                                     <div class="follow_count">{{ $follow_count }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロワー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロワー
                                     <div class="follwer_count">{{ $follower_count }}</div>
                                 </a>
                             </div>
                         </div>
                         @if (Auth::check())
-                            <a class="btn btn-secondary" href="{{ route('user.edit', Auth::user()->id ) }}">プロフィールを編集する</a>
+                            <a class="btn btn-secondary" href="{{ route('user.edit', Auth::user()->id) }}">プロフィールを編集する</a>
                         @endif
                     </div>
                 </div>
@@ -61,7 +63,7 @@
                 <div class="tab-content">
                     <div id="tab1" class="tab-pane active">
                         <div class="d-flex bd-highlight mt-2">
-                            <div class="bd-highlight"><a class="btn" href="{{ route('teams.select') }}" role="button">＋新規作成</a></div>
+                            <div class="bd-highlight"><a class="btn" href="{{ route('events.select') }}" role="button">＋新規作成</a></div>
                         </div>
                         <div class="d">
                             <div class="row gy-1 align-items-center">

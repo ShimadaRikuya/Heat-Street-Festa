@@ -10,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Team;
 use App\Models\Category;
@@ -31,6 +32,19 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+    public function getSelect()
+    {
+        //ログイン中のユーザーを取得
+        $user_id = Auth::id();
+
+        // ユーザーは1つのチームに所属。
+        $teams = User::find($user_id)->team;
+
+        return view('teams.select',[
+            'teams' => $teams,
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,10 +53,10 @@ class EventController extends Controller
      * 新規登録（入力）
      * 
      */
-    public function create($team)
+    public function create(Request $request)
     {
         //チーム情報の取得
-        $team = Team::where('id', $team)->first();
+        $team = Team::find($request->team);
         $categories = Category::all();
 
         // ddd($categories);

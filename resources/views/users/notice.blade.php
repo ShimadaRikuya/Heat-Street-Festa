@@ -1,1 +1,1 @@
-<p>お知らせ</p>
+<h4 class="title_notice">お知らせ</h4>

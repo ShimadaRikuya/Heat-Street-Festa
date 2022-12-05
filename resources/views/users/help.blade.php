@@ -1,1 +1,1 @@
-<p>ヘルプ</p>
+<h4 class="title_help">ヘルプ</h4>

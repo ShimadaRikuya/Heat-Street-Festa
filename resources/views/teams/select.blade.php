@@ -19,24 +19,24 @@
 
                     @else
 
-                        <h4>主催者<span class="badge bg-success">必須</span></h4>
-                        <select name="team_id" class="form-select">
-                            @foreach ($teams as $team)
-                                <option name="team_id" value="{{ $team->id }}">{{ $team->name }}</option>
-                            @endforeach
-                        </select>
-
-                        <div class="create_cont-create ps-1">
-                            <button type="button" onclick="location.href='{{ route('teams.create') }}' " class="btn bd-highlight">主催者を登録する</button>
-                        </div>
-
-                        <!-- Save ボタン/Back ボタン -->
-                        <div class="create_cont-btn well well-sm">
-                            <a class="btn btn-outline-secondary" href="{{ url('/') }}"> 戻る</a>
-                            <button type="button" onclick="location.href='{{ route('events.create', $team->id) }}' " class="btn btn-success">次へ</button>
-                        </div>
-                        <!--/ Save ボタン/Back ボタン -->
-                    
+                        <form action="{{ route('events.create') }}" method="GET">
+                            <h4>主催者<span class="badge bg-success">必須</span></h4>
+                            <select name="team" class="form-select">
+                                @foreach ($teams as $team)
+                                    <option name="team" value="{{ $team->id }}" selected>{{ $team->name }}</option>
+                                @endforeach
+                            </select>
+                            <div class="create_cont-create ps-1">
+                                <a href="{{ route('teams.create') }}" class="btn bd-highlight">主催者を登録する</a>
+                            </div>
+                            <!-- Save ボタン/Back ボタン -->
+                            <div class="create_cont-btn well well-sm">
+                                <a class="btn btn-outline-secondary" href="{{ url('/') }}">戻る</a>
+                                <button type="submit" class="btn btn-success">次へ</button>
+                            </div>
+                            <!--/ Save ボタン/Back ボタン -->
+                        </form>
+                        
                     @endif
                 </div>
             </section>

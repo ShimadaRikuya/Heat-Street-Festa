@@ -25,13 +25,15 @@
                                     <div class="event_count">{{ $events->total() }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロー
                                     <div class="follow_count">{{ $follow_count }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロワー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロワー
                                     <div class="follwer_count">{{ $follower_count }}</div>
                                 </a>
                             </div>
