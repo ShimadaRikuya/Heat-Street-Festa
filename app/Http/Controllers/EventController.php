@@ -59,7 +59,6 @@ class EventController extends Controller
         $team = Team::find($request->team);
         $categories = Category::all();
 
-        // ddd($categories);
         return view('events.create', compact('categories', 'team'));
     }
 
@@ -76,6 +75,7 @@ class EventController extends Controller
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader', 'team_name', 'team_email', 'team_phone');
         $teams = Team::where('id', $request->team_id)->first();
+        $hold = $request->event_start == now();
 
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
@@ -84,13 +84,13 @@ class EventController extends Controller
             // saveEventPicture()で投稿画像のファイル名をDBに保存
             $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
         }
-        
 
         return view('events.confirm', 
         [
         'fileName' => $fileName,
         'categories' => $categories,
-        'teams' => $teams
+        'teams' => $teams,
+        'hold' => $hold
         ])
         ->with($event);
     }

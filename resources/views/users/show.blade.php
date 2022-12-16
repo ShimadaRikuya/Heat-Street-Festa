@@ -68,9 +68,14 @@
                         <div class="d">
                             <div class="row gy-1 align-items-center">
                                 @foreach($events as $event)
-                                    <div class="col-lg-2 text-center">
+                                    <div class="col-lg-2 text-center img">
                                         <a href="{{ route('events.show', $event->id) }}">
                                             <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像">
+                                                @if ($event->event_start <= now())
+                                                    <h5><span class="img-badge badge bg-success">開催中</span></h5>
+                                                @else
+                                                    <h5><span class="img-badge badge bg-success">開催前</span></h5>
+                                                @endif
                                         </a>
                                     </div>
                                     <div class="col-lg-7">

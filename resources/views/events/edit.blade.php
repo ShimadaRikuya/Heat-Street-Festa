@@ -11,9 +11,9 @@
             <section class="create_cont">
                 <div class="create_cont-inner">
                     <form action="{{ route('events.update', $event->id) }}" enctype="multipart/form-data" method="POST">
+                        @csrf
                         <input type="hidden" name="user_id" value="{{ $event->user_id }}">
 
-                        @csrf
                         <div class="form-group mb-4">
                             <label for="event_title" class="form-label">イベント名<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
                             <input 
@@ -59,7 +59,6 @@
                                     class="form-control @error('image_uploader') is-invalid @enderror" 
                                     id="input" 
                                     name="image_uploader" 
-                                    value="{{ old('image_uploader')?: $event->image_uploader }}"
                                     aria-describedby="btnResetFile" 
                                     multiple>
                                     @error('image_uploader')
@@ -176,7 +175,9 @@
                                 value="{{ old('zip')?: $event->zip }}"
                                 class="form-control @error('zip') is-invalid @enderror" 
                                 onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');"
+                                aria-describedby="zipHelp" 
                                 placeholder="会場住所">
+                                <div id="zipHelp" class="form-text">※7桁の - 「ハイフン」無しで入力してください。</div>
                                 @error('zip')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -190,7 +191,7 @@
                                 name="address1"
                                 class="form-select @error('address1') is-invalid @enderror">
                                 @foreach(config('pref') as $pref_id => $name)
-                                    <option value="{{ $pref_id }}" @if( old('address1', $event->address1 == $pref_id) ) selected @endif>{{ $name }}</option>
+                                    <option value="{{ $name }}" @if( old('address1', $event->address1 == $pref_id) ) selected @endif>{{ $name }}</option>
                                 @endforeach
                             </select>
                             @error('address1')

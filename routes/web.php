@@ -75,7 +75,7 @@ Route::group(['prefix' => 'teams', 'as' => 'teams.'], function() {
 });
 
 // イベント
-Route::group(['prefix' => 'events', 'as' => 'events.'], function () {
+Route::group(['prefix' => 'events', 'as' => 'events.'], function () { 
     // 一覧
     Route::get('', [EventController::class, 'index'])->name('index');
     // 検索機能

@@ -9,12 +9,16 @@
 
         <div class="img mx-auto text-center" style="width: 40rem;">
             <img src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" class="img-fluid">
-                <h3><span class="img-badge badge bg-success">{{ $event->category->name }}</span></h3>
+                @if ($event->event_start <= now())
+                    <h3><span class="img-badge badge bg-success">イベント・開催中</span></h3>
+                @else
+                    <h3><span class="img-badge badge bg-success">イベント・開催前</span></h3>
+                @endif
         </div>
         <div class="cont_inner w-75 mx-auto">
             <div class="pt-4 section title_area">
                 <h1>{{ $event->title }}</h1>
-                <p class="sub">{{ $event->venue }}</p>
+                <p class="sub">{{ $event->category->name }} / {{ $event->address1 }}</p>
             </div>
 
             <div class="section date_area mt-5">

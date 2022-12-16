@@ -8,6 +8,7 @@ use App\Models\User;//この行を上に追加
 use App\Models\Team;
 use App\Models\Event;
 use App\Models\Category;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -23,9 +24,8 @@ class HomeController extends Controller
 
         // いいね数ランキング
         $ranking_events = Event::Ranking()->take(4);
-
         $trends = Event::getTrend()->take(6);
-        $slides = Event::inRandomOrder()->limit(5)->get();
+        $slides = Event::inRandomOrder()->where('event_end', '>=', now())->limit(5)->get();
 
         return view('top', compact('events', 'ranking_events', 'trends', 'slides'));
     }

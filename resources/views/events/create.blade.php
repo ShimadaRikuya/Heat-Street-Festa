@@ -41,7 +41,7 @@
                                 rows="3" 
                                 id="textarea" 
                                 aria-describedby=""
-                                placeholder="イベント概要"></textarea>
+                                placeholder="イベント概要">{{ old('discription') }}</textarea>
                                 @error('discription')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -110,7 +110,7 @@
                                 rows="3" 
                                 id="textarea" 
                                 aria-describedby=""
-                                placeholder="開催日時の詳細"></textarea>
+                                placeholder="開催日時の詳細">{{ old('event_time_discription') }}</textarea>
                                 @error('event_time_discription')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -177,7 +177,9 @@
                                 value="{{ old('zip') }}" 
                                 class="form-control @error('zip') is-invalid @enderror" 
                                 onKeyUp="AjaxZip3.zip2addr(this,'','address1','address2');"
+                                aria-describedby="zipHelp"
                                 placeholder="会場住所">
+                                <div id="zipHelp" class="form-text">※7桁の -「ハイフン」無しで入力してください。</div>
                                 @error('zip')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -189,11 +191,10 @@
                             <label for="address1" class="form-label">開催都道府県<span class="badge bg-success ms-2">{{ __('必須') }}</span></label>
                             <select 
                                 name="address1" 
-                                value="{{ old('address1') }}" 
                                 class="form-select @error('address1') is-invalid @enderror">
                                 @foreach(config('pref') as $pref_id => $name)
                                     <option value="" hidden>-- 都道府県 --</option>
-                                    <option value="{{ $pref_id }}" @if( old('address1') === '{{ $pref_id }}' ) selected @endif>{{ $name }}</option>
+                                    <option value="{{ $name }}" @if( old('address1') == $pref_id ) selected @endif>{{ $name }}</option>
                                 @endforeach
                             </select>
                             @error('address1')
@@ -286,7 +287,8 @@
                                 type="checkbox" 
                                 id="checkbox1" 
                                 name="form_public" 
-                                value="1">
+                                value="1"
+                                @if ( old('form_public' == 1) ) checked @endif>
                         </div>
         
                         <div class="form-group mb-4">
