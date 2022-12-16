@@ -14,7 +14,7 @@
                             @if ($user->profile_picture)
                                 <img src="{{ Storage::disk('s3')->url("profile_pictures/".$user->profile_picture) }}" class="rounded-circle">
                             @else
-                                <img src="{{ asset('storage/profiles/user-shape.jpg') }}" class="rounded-circle">
+                                <img src="{{ Storage::disk('s3')->url("profile_pictures/Yz0MRTMXV3Ucv2CUaWGSjbGT5mqcJqnfjVxuvKBS.jpg") }}" class="rounded-circle">
                             @endif
                             <div class="username">{{ Auth::user()->name }}</div>
                         </div>
@@ -25,13 +25,15 @@
                                     <div class="event_count">{{ $events->total() }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロー
                                     <div class="follow_count">{{ $follow_count }}</div>
                                 </a>
                             </div>
-                            <div class="prof-ul-list">フォロワー
+                            <div class="prof-ul-list">
                                 <a href="" class="link-dark text-decoration-none">
+                                    フォロワー
                                     <div class="follwer_count">{{ $follower_count }}</div>
                                 </a>
                             </div>
@@ -69,9 +71,14 @@
                         <div class="d">
                             <div class="row gy-1 align-items-center">
                                 @foreach($events as $event)
-                                    <div class="col-lg-3 text-center p-1">
+                                    <div class="col-lg-3 text-center p-1 img">
                                         <a href="{{ route('events.show', $event->id) }}">
                                             <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像">
+                                                @if ($event->event_start <= now())
+                                                    <h5><span class="img-badge badge bg-success">開催中</span></h5>
+                                                @else
+                                                    <h5><span class="img-badge badge bg-success">開催前</span></h5>
+                                                @endif
                                         </a>
                                     </div>
                                     <div class="col-lg-9">

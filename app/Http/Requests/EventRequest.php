@@ -28,7 +28,7 @@ class EventRequest extends FormRequest
             'discription'  => 'required|max:255', 
             'image_uploader'  => 'required|max:10000|mimes:jpeg,jpg,png,gif', 
             'event_start'  => 'required|date|after:yesterday',
-            'event_end'  => 'required|date|after:event_start', 
+            'event_end'  => 'required|date|after_or_equal:event_start', 
             'event_time_discription'  => 'nullable|max:255',
             'fee'  => 'nullable|numeric',
             'official_url'  => 'nullable|url',

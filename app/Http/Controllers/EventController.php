@@ -10,6 +10,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\User;
 use App\Models\Event;
 use App\Models\Team;
 use App\Models\Category;
@@ -31,6 +32,19 @@ class EventController extends Controller
         return view('events.index', compact('events'));
     }
 
+    public function getSelect()
+    {
+        //ログイン中のユーザーを取得
+        $user_id = Auth::id();
+
+        // ユーザーは1つのチームに所属。
+        $teams = User::find($user_id)->team;
+
+        return view('teams.select',[
+            'teams' => $teams,
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -39,13 +53,12 @@ class EventController extends Controller
      * 新規登録（入力）
      * 
      */
-    public function create($team)
+    public function create(Request $request)
     {
         //チーム情報の取得
-        $team = Team::where('id', $team)->first();
+        $team = Team::find($request->team);
         $categories = Category::all();
 
-        // ddd($categories);
         return view('events.create', compact('categories', 'team'));
     }
 
@@ -62,6 +75,7 @@ class EventController extends Controller
         // 入力内容の取得(画像以外)
         $event = $request->except('image_uploader', 'team_name', 'team_email', 'team_phone');
         $teams = Team::where('id', $request->team_id)->first();
+        $hold = $request->event_start == now();
 
         // 選択カテゴリー取得
         $categories = Category::where('id', $request->category_id)->first();
@@ -70,13 +84,13 @@ class EventController extends Controller
             // saveEventPicture()で投稿画像のファイル名をDBに保存
             $fileName = $this->saveEventPicturePro($request->file('image_uploader')); // return file name
         }
-        
 
         return view('events.confirm', 
         [
         'fileName' => $fileName,
         'categories' => $categories,
-        'teams' => $teams
+        'teams' => $teams,
+        'hold' => $hold
         ])
         ->with($event);
     }

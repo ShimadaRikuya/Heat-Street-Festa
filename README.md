@@ -1,64 +1,103 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# 開催イベントを・作成・管理ができるWebアプリケーション【Promo】
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<img src="" alt="">
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+# 概要
+主催者側がイベントスタッフと開催場所の確保、集客が簡単にできイベントを誰でも企画・開催できるようなサービスをコンセプトとしました。
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 制作背景
+InstagramやTwitterなどのSNSでの集客だと不特定多数の人に表示はされるが、
+検索時にはあまりヒットしないという課題が見つかりました。
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+**課題まとめ**
+- SNSで運営しようとするとチームでイベントを運営することが大変。
+- 文字数制限があり分割などをして投稿する必要がある。
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-## Laravel Sponsors
+## 画面基本操作
+**●イベント情報の新規作成** 
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+*ログイン後(ユーザー登録必須)
 
-### Premium Partners
+① TOP画面からイベント情報の新規作成()  
+② チームを作成・選択  
+③ イベントの情報を入力して作成  
+④ イベントの作成が完了して、詳細ページで入力した内容を確認
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
 
-## Contributing
+**●マイページからイベント情報やチームを管理**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+① マイページに遷移  
+② イベント・主催者チームの管理タブからイベント情報を確認や管理ができる  
 
-## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**●イベント情報の検索**
 
-## Security Vulnerabilities
+① TOPページで検索したいキーワードを入力して、検索ボタンを押下  
+② 検索値での該当顧客が表示  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-## License
+**●イベントで使用できる特典**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+① ユーザーの新規作成時にて特典を付与  
+② マイページの「プロフィールを編集する」を押下  
+③ チケット一覧タブから所持チケットを確認  
+
+
+## 使用技術
+バックエンド  
+PHP 8.1.7 / Laravel 8.83.16
+
+フロントエンド  
+HTML / CSS / javascript / Bootstrap
+
+インフラ  
+mysql 8.0.25  
+AWS(EC2, S3, RDS, Route 53, ELB, IAM)  
+Docker 20.10.7 / Docker compose 1.29.1 (開発環境)
+
+その他の使用技術  
+git(gitHub) / Visual Studio Code / gmail(メール)  
+Adobe XD(画面遷移図) / lucidchart(ER図) / Drawio(AWS構成図)  
+Sequel Ace(SQLクライアントツール)
+
+
+## AWS構成図
+
+
+## DB設計図
+
+
+**・ER図**
+
+
+**・各種テーブル**
+| テーブル名 | 定義 |
+|---|---|
+| Users(ユーザー) | ユーザー登録情報 |
+| Events(イベント) | イベントの登録情報 |
+| Teams(チーム) | イベントチームの登録情報 |
+| Categories(カテゴリー) | カテゴリー情報 |
+| Gatya(ガチャガチャ) | 特典 |
+| Followers(フォロー) | フォロー・フォロワー |
+
+
+## アプリ機能一覧
+### メイン機能
+- イベント情報の新規作成・表示・編集・削除（CRUD処理）  
+- チームの作成・表示・編集・削除（CRUD処理）  
+- チーム招待・参加  
+- イベント特典付与  
+- イベント情報検索  
+
+### 認証機能
+- ユーザー登録・ログイン・ログアウト  
+- メールアドレス認証  
+- メールアドレス変更  
+- パスワード再設定  
+- ユーザープロフィール編集  
+
+## 最後に

@@ -62,7 +62,7 @@ class Event extends Model
     // 公開のみ表示
     public function scopePublic(Builder $query)
     {
-       return $query->where('form_public', true);
+       return $query->where('form_public', true)->where('event_end', '>=', now());
     }
   
     // 公開記事一覧取得(イベント間近)
@@ -99,6 +99,7 @@ class Event extends Model
     {
         $events = Event::withCount('users')
               ->orderBy('users_count', 'desc')
+              ->where('event_end', '>=', now())
               ->paginate(24);
         return $events;
     }
@@ -107,7 +108,8 @@ class Event extends Model
     {
         return self::whereHas('category', function ($query) {
             $query->where('id', 1);
-        })->paginate(24); //プロパティで呼び出す
+        })->where('event_end', '>=', now())
+        ->paginate(24); //プロパティで呼び出す
     }
 
 }

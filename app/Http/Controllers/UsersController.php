@@ -14,6 +14,7 @@ use App\Models\Event;
 use App\Models\Team;
 use App\Models\Gatya;
 use App\Models\Follower;
+use Carbon\Carbon;
 
 use Intervention\Image\Facades\Image; // Imageファサードを使う
 

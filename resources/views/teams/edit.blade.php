@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="create_cont-btn well well-sm">
-                                <a class="btn btn-outline-secondary" href="{{ route('teams.select') }}">戻る</a>
+                                <a class="btn btn-outline-secondary" href="{{ route('events.select') }}">戻る</a>
                                 <button type="submit" class="btn btn-success">更新する</button>
                             </div>
 

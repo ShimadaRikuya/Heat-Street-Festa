@@ -18,7 +18,14 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $event->id) }}" class="img">
+                            <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像">
+                                @if ($event->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -37,7 +44,14 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $event->id) }}" class="img">
+                            <img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$event->image_uploader") }}" alt="画像">
+                                @if ($event->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $event->team->user->name }}</a>
@@ -54,9 +68,13 @@
                 <!--/ SPサイズ -->
 
             @endforeach
+
             <div class="text-center mt-5">
-                <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
+                <button type="button" class="btn btn-outline-dark btn-lg rounded-pill" onclick="location.href='{{ route('events.index') }}'">
+                    VIEW ALL
+                </button>
             </div>
+
         </div>
     </section>
 
@@ -71,7 +89,14 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-3 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}" class="img">
+                            <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像">
+                                @if ($ranking_event->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -90,7 +115,14 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $ranking_event->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $ranking_event->id) }}" class="img">
+                            <img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$ranking_event->image_uploader") }}" alt="画像">
+                                @if ($ranking_event->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $ranking_event->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $ranking_event->team->user->name }}</a>
@@ -111,7 +143,6 @@
         </div>
     </section>
 
-
     <section class="section trend_event p-5">
 
         <div class="row mx-auto">
@@ -122,7 +153,14 @@
                 <!-- PCサイズ -->
                 <div class="col-lg-4 my-3 d-none d-lg-block">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $trend->id) }}" class="img">
+                            <img class="img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像">
+                                @if ($trend->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
@@ -141,7 +179,14 @@
                 <!-- SPサイズ -->
                 <div class="col-12 col-md-6 my-3 d-lg-none">
                     <div class="card">
-                        <a href="{{ route('events.show', $trend->id) }}"><img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像"></a>
+                        <a href="{{ route('events.show', $trend->id) }}" class="img">
+                            <img class="bd-placeholder-img img-fluid" src="{{ Storage::disk('s3')->url("events/$trend->image_uploader") }}" alt="画像">
+                                @if ($trend->event_start <= now())
+                                    <h5><span class="img-badge badge bg-success">イベント・開催中</span></h5>
+                                @else
+                                    <h5><span class="img-badge badge bg-success">イベント・開催前</span></h5>
+                                @endif
+                        </a>
                         <div class="card-body">
                             @if (Auth::check() && Auth::User() == $trend->team->user)
                                 <a class="card-text" href="{{ route('user.show', Auth::id()) }}">{{ $trend->team->user->name }}</a>
@@ -158,12 +203,15 @@
                 <!--/ SPサイズ -->
 
             @endforeach
+
             <div class="text-center mt-5">
-                <button class="btn btn-outline-dark btn-lg rounded-pill" type="button">VIEW ALL</button>
+                <button type="button" class="btn btn-outline-dark btn-lg rounded-pill" onclick="location.href='{{ url('events', ['category_id' => 1, '$category' => 'パーティー']) }}'">
+                    VIEW ALL
+                </button>
             </div>
+
         </div>
     </section>
 
-    
 </div>
 @endsection

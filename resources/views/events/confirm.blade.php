@@ -12,8 +12,13 @@
                 <div class="create_cont-inner">
                         <!-- 画像 --->
                         <div class="section article_hero">
-                            <div class="image text-center">
+                            <div class="img text-center">
                                 <img src="{{ Storage::disk('s3')->url("events/$fileName") }}" class="img-fluid" alt="画像">
+                                    @if ($event_start <= now())
+                                        <h3><span class="img-badge badge bg-success">イベント・開催中</span></h3>
+                                    @else
+                                        <h3><span class="img-badge badge bg-success">イベント・開催前</span></h3>
+                                    @endif
                             </div>
                         </div>
                     
